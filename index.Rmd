@@ -1,0 +1,139 @@
+---
+title: "LA River"
+author: ""
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(ggplot2)
+
+knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
+
+dat <- read.csv("raw/MM_March04_Typha_Steelhead_Cladophora_SAS_Willow_02_05_2021_updated_KI_MM_KI2.csv",
+                                       encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
+  mutate(Species = factor(Species),
+         Species_Label = gsub(" ", "\n",Species_Label),
+         Species_Label = factor(Species_Label,levels = c("Willow\nGrowth", "Willow\nAdult", 
+                                                         "Typha\nGrowth","Typha\nAdult", 
+                                                         "Cladophora\nAdult", "Current\nFlow", 
+                                                         "SAS\nGrowth","SAS\nAdult","Steelhead\nMigration\n(Prolonged)")),
+         Lower_Limit = as.double(Lower_Limit),
+         Upper_Limit = as.double(Upper_Limit)) %>% 
+  rename(Seasonal_Component= Seasonal.Component)
+
+
+seasons = dat %>% select(Seasonal_Component) %>% unlist()
+names(seasons)=NULL
+
+lookup <- tibble("Species"= levels(dat$Species_Label) %>% as.character(),
+                 "Colors" = c("#fc8d59", "#d73027", "#91bfdb", 
+                              "#4575b4", "#fee090", "white", "black","yellow","purple"))
+```
+
+#  {.tabset}
+
+## Optimal Flow Range {.tabset}
+
+```{r}
+sidebarPanel(
+              radioButtons("location", label = "Select Location:",
+                           choices = c("Reach","Node")),
+              radioButtons("synthesis",label="Species Synthesis:",
+                           choices=c("Yes","No")))
+
+
+location_choice <- reactive({
+  switch(input$location,
+         "Reach" = dat$Reach,
+         "Node"= dat$Node)
+  })
+```
+
+
+```{r}
+flowLayout(
+renderUI({
+if(input$location == "Reach"){
+    selectInput("Reach",label = "Select Reach:",
+                choices = location_choice() %>% unique)
+  }
+  else{
+    selectInput("Node",label = "Select Node:",
+                choices = location_choice() %>% unique)
+  }
+  
+}),
+  selectInput("season", label = "Select Season:",
+              choices = seasons %>% unique(),
+              selected= seasons %>% unique() %>%  .[1]),
+  
+  selectInput("designations", label = "Benefician Usage:",
+              choices = dat$Designation %>% unique %>% .[c(2,3)],
+              selected= dat$Designation %>% unique %>% .[2]),
+  
+  selectInput("probthresh", label = "Probability of Occurrence:",
+              choices = dat$Probability_Threshold %>% unique() %>% .[-1],
+              selected= dat$Probability_Threshold %>% unique() %>% .[2])
+
+)
+```
+
+```{r}
+boxplot_dat <- reactive({
+  
+  if(input$location == "Node"){
+    out <- dat %>% filter(Node == input$Node,
+                          #Seasonal_Component == input$season,
+                          Designation  == input$designations,
+                          Probability_Threshold == input$probthresh) 
+  }
+  if(input$location == "Reach"){
+    out <- dat %>% filter(Reach == input$Reach,
+                          #Seasonal_Component == input$season,
+                          Designation == input$designations,
+                          Probability_Threshold == input$probthresh) 
+  }
+  return(out)
+})
+```
+
+```{r,include=FALSE}
+DT::renderDataTable({boxplot_dat()},extensions = 'Buttons',
+              rownames=FALSE,
+          options = list(
+    dom = 'Brtip',
+    buttons = c('copy', 'csv', 'pdf'))) 
+```
+
+
+
+
+
+```{r}
+box_plot <- reactive({
+  dat <- boxplot_dat()
+  
+ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
+           lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
+           upper = Upper_Limit, ymax = Upper_Limit,
+           fill= Species_Label)) +
+  geom_boxplot(stat = "identity",fatten=NULL) +
+  facet_wrap(~ Seasonal_Component, scales="free") +
+  theme(strip.text = element_text(face="bold", size=12),
+        strip.background = element_rect(fill="white", colour="black",size=1)) +
+    scale_fill_manual(name = "Species - Lifestage", 
+                    labels = lookup$Species, values=lookup$Colors) + 
+  theme(legend.position="bottom") +
+  labs(title="Flow Ranges",x ="", y = "Flow (cfs)") 
+})
+```
+
+```{r}
+renderPlot({box_plot()},height=550,width=1000)
+```
+
+
+
+## Sensitivity Curves
