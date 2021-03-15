@@ -11,25 +11,28 @@ library(ggplot2)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 
-dat <- read.csv("raw/MM_March04_Typha_Steelhead_Cladophora_SAS_Willow_02_05_2021_updated_KI_MM_KI2.csv",
+dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_03142021.csv",
                                        encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
   mutate(Species = factor(Species),
          Species_Label = gsub(" ", "\n",Species_Label),
          Species_Label = factor(Species_Label,levels = c("Willow\nGrowth", "Willow\nAdult", 
                                                          "Typha\nGrowth","Typha\nAdult", 
                                                          "Cladophora\nAdult", "Current\nFlow", 
-                                                         "SAS\nGrowth","SAS\nAdult","Steelhead\nMigration\n(Prolonged)")),
+                                                         "SAS\nGrowth","SAS\nAdult","Steelhead\nMigration\n(Prolonged)",
+                                                         "Steelhead\nMigration\n(Burst)","Steelhead\nMigration\n(Smolts)",
+                                                         "Rec.\nUse\nKayak","Rec.\nUse\nFishing")),
          Lower_Limit = as.double(Lower_Limit),
          Upper_Limit = as.double(Upper_Limit)) %>% 
   rename(Seasonal_Component= Seasonal.Component)
 
 
-seasons = dat %>% select(Seasonal_Component) %>% unlist()
+seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
 
 lookup <- tibble("Species"= levels(dat$Species_Label) %>% as.character(),
-                 "Colors" = c("#fc8d59", "#d73027", "#91bfdb", 
-                              "#4575b4", "#fee090", "white", "black","yellow","purple"))
+                 "Colors" = c("#fc8d59", "#d73027", "#91bfdb","#4575b4", 
+                              "#fee090", "white", "black","yellow",
+                              "purple","#067BC2","#84BCDA","#B97375","#F1E4E8"))
 ```
 
 #  {.tabset}
@@ -39,9 +42,10 @@ lookup <- tibble("Species"= levels(dat$Species_Label) %>% as.character(),
 ```{r}
 sidebarPanel(
               radioButtons("location", label = "Select Location:",
-                           choices = c("Reach","Node")),
+                           choices = c("Reach","Node"),selected="Node"),
               radioButtons("synthesis",label="Species Synthesis:",
-                           choices=c("Yes","No")))
+                           choices=c("Yes","No"),
+              selected="No"))
 
 
 location_choice <- reactive({
@@ -66,8 +70,8 @@ if(input$location == "Reach"){
   
 }),
   selectInput("season", label = "Select Season:",
-              choices = seasons %>% unique(),
-              selected= seasons %>% unique() %>%  .[1]),
+              choices = c("All",seasons),
+              selected= c("All",seasons) %>%  .[1]),
   
   selectInput("designations", label = "Benefician Usage:",
               choices = dat$Designation %>% unique %>% .[c(2,3)],
@@ -82,18 +86,24 @@ if(input$location == "Reach"){
 
 ```{r}
 boxplot_dat <- reactive({
+  if(input$season != "All"){
+    season = input$season
+  }
+  else{
+    season = seasons
+  }
   
   if(input$location == "Node"){
     out <- dat %>% filter(Node == input$Node,
-                          #Seasonal_Component == input$season,
+                          Seasonal_Component %in% season,
                           Designation  == input$designations,
-                          Probability_Threshold == input$probthresh) 
+                          Probability_Threshold == input$probthresh| is.na(Probability_Threshold))
   }
   if(input$location == "Reach"){
     out <- dat %>% filter(Reach == input$Reach,
-                          #Seasonal_Component == input$season,
+                          Seasonal_Component %in% season,
                           Designation == input$designations,
-                          Probability_Threshold == input$probthresh) 
+                          Probability_Threshold == input$probthresh|is.na(Probability_Threshold)) 
   }
   return(out)
 })
@@ -104,7 +114,7 @@ DT::renderDataTable({boxplot_dat()},extensions = 'Buttons',
               rownames=FALSE,
           options = list(
     dom = 'Brtip',
-    buttons = c('copy', 'csv', 'pdf'))) 
+    buttons = c('copy', 'csv'))) 
 ```
 
 
@@ -113,25 +123,45 @@ DT::renderDataTable({boxplot_dat()},extensions = 'Buttons',
 
 ```{r}
 box_plot <- reactive({
+  
   dat <- boxplot_dat()
   
-ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
-           lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
-           upper = Upper_Limit, ymax = Upper_Limit,
-           fill= Species_Label)) +
-  geom_boxplot(stat = "identity",fatten=NULL) +
-  facet_wrap(~ Seasonal_Component, scales="free") +
-  theme(strip.text = element_text(face="bold", size=12),
-        strip.background = element_rect(fill="white", colour="black",size=1)) +
-    scale_fill_manual(name = "Species - Lifestage", 
-                    labels = lookup$Species, values=lookup$Colors) + 
-  theme(legend.position="bottom") +
-  labs(title="Flow Ranges",x ="", y = "Flow (cfs)") 
-})
+  if(input$location=="Node"){  
+    ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
+                   lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
+                   upper = Upper_Limit, ymax = Upper_Limit,
+                   fill= Species_Label)) +
+      geom_boxplot(stat = "identity",fatten=NULL) +
+      facet_wrap(~ Seasonal_Component, scales="free") +
+      theme(strip.text = element_text(face="bold", size=12),
+            strip.background = element_rect(fill="white", colour="black",size=1)) +
+      scale_fill_manual(name = "Species - Lifestage",
+                        labels = lookup$Species, values=lookup$Colors) +
+      theme(legend.position="bottom",
+            panel.grid.minor.y = element_blank()) +
+      labs(title="Flow Ranges",x ="", y = "Flow (cfs)")
+    }
+  else{
+    ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
+                   lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
+                   upper = Upper_Limit, ymax = Upper_Limit,
+                   fill= Species_Label)) +
+      geom_boxplot(stat = "identity",fatten=NULL) +
+      facet_grid(Node~ Seasonal_Component, scales="free") +
+      theme(strip.text = element_text(face="bold", size=12),
+            strip.background = element_rect(fill="white", colour="black",size=1)) +
+      scale_fill_manual(name = "Species - Lifestage",
+                        labels = lookup$Species, values=lookup$Colors) +
+      theme(legend.position="bottom",
+            panel.grid.minor.y = element_blank()) +
+      labs(title="Flow Ranges",x ="", y = "Flow (cfs)")
+    }
+  })
+
 ```
 
 ```{r}
-renderPlot({box_plot()},height=550,width=1000)
+renderPlot({box_plot()},height=575,width=1000)
 ```
 
 
