@@ -28,11 +28,6 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_03142021.csv",
 
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
-
-lookup <- tibble("Species"= levels(dat$Species_Label) %>% as.character(),
-                 "Colors" = c("#fc8d59", "#d73027", "#91bfdb","#4575b4", 
-                              "#fee090", "white", "black","yellow",
-                              "purple","#067BC2","#84BCDA","#B97375","#F1E4E8"))
 ```
 
 #  {.tabset}
@@ -79,8 +74,9 @@ if(input$location == "Reach"){
   
   selectInput("probthresh", label = "Probability of Occurrence:",
               choices = dat$Probability_Threshold %>% unique() %>% .[-1],
-              selected= dat$Probability_Threshold %>% unique() %>% .[2])
-
+              selected= dat$Probability_Threshold %>% unique() %>% .[2]),
+downloadButton('boxfig', 'Download Boxplot'),
+downloadButton('boxdat', 'Download Selected Data')
 )
 ```
 
@@ -109,16 +105,6 @@ boxplot_dat <- reactive({
 })
 ```
 
-```{r,include=FALSE}
-DT::renderDataTable({boxplot_dat()},extensions = 'Buttons',
-              rownames=FALSE,
-          options = list(
-    dom = 'Brtip',
-    buttons = c('copy', 'csv'))) 
-```
-
-
-
 
 
 ```{r}
@@ -135,11 +121,11 @@ box_plot <- reactive({
       facet_wrap(~ Seasonal_Component, scales="free") +
       theme(strip.text = element_text(face="bold", size=12),
             strip.background = element_rect(fill="white", colour="black",size=1)) +
-      scale_fill_manual(name = "Species - Lifestage",
-                        labels = lookup$Species, values=lookup$Colors) +
+      scale_fill_viridis_d(option = "viridis")+
       theme(legend.position="bottom",
             panel.grid.minor.y = element_blank()) +
-      labs(title="Flow Ranges",x ="", y = "Flow (cfs)")
+      labs(title="Flow Ranges",x ="", y = "Flow (cfs)",
+           fill= "Species - Lifestage")
     }
   else{
     ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
@@ -150,18 +136,47 @@ box_plot <- reactive({
       facet_grid(Node~ Seasonal_Component, scales="free") +
       theme(strip.text = element_text(face="bold", size=12),
             strip.background = element_rect(fill="white", colour="black",size=1)) +
-      scale_fill_manual(name = "Species - Lifestage",
-                        labels = lookup$Species, values=lookup$Colors) +
+      scale_fill_viridis_d(option = "viridis")+
       theme(legend.position="bottom",
-            panel.grid.minor.y = element_blank()) +
-      labs(title="Flow Ranges",x ="", y = "Flow (cfs)")
+            panel.grid.minor.y = element_blank(),
+            ) +
+      labs(title="Flow Ranges",x ="", y = "Flow (cfs)",fill="Species - Lifestage")
     }
   })
+
 
 ```
 
 ```{r}
 renderPlot({box_plot()},height=575,width=1000)
+
+output$boxfig <- downloadHandler(
+    filename = function() {
+      if(input$location=="Node"){
+      paste(input$Node, '.png', sep='') 
+      }
+      else{
+      paste(input$Reach, '.png', sep='') 
+      }},
+    content = function(file) {
+        ggsave(file, plot = box_plot(), device = "png",
+               width = 30, height = 20, units = "cm")
+    }
+)
+
+output$boxdat <- downloadHandler(
+    filename = function() {
+      if(input$location=="Node"){
+      paste(input$Node, '.csv', sep='') 
+      }
+      else{
+      paste(input$Reach, '.csv', sep='') 
+      }},
+    content = function(file) {
+      write.csv(boxplot_dat(), file, quote = T, row.names = F)
+    }
+)
+
 ```
 
 
