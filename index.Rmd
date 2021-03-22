@@ -93,14 +93,16 @@ boxplot_dat <- reactive({
   if(input$location == "Node"){
     out <- dat %>% filter(Node == input$Node,
                           Seasonal_Component %in% season,
-                          Designation  == input$designations,
-                          Probability_Threshold == input$probthresh| is.na(Probability_Threshold))
+                          Designation  == input$designations|is.na(Designation),
+                          Probability_Threshold == input$probthresh| is.na(Probability_Threshold),
+                      metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")| is.na(metric))
   }
   if(input$location == "Reporting Reach"){
     out <- dat %>% filter(Reach == input$Reach,
                           Seasonal_Component %in% season,
-                          Designation == input$designations,
-                          Probability_Threshold == input$probthresh|is.na(Probability_Threshold)) 
+                          Designation == input$designations| is.na(Designation),
+                          Probability_Threshold == input$probthresh|is.na(Probability_Threshold),
+                      metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")| is.na(metric)) 
   }
   return(out)
 })

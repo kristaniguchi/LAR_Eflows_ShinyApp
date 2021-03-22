@@ -1,6 +1,6 @@
 library(readr)
 library(tidyverse)
-
+library(ggthemes)
 # DEBUG ------------------------------------------------------
 
 
@@ -31,7 +31,7 @@ lookup <- tibble("Species"= levels(dat$Species_Label) %>% as.character(),
 df2 <- dat %>% filter(Node=="GLEN",
                       Designation=="Existing"|is.na(Designation),
                       Probability_Threshold=="Medium"|is.na(Probability_Threshold),
-                      Seasonal_Component=="Summer Baseflow") %>%
+                      metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")|is.na(metric)) %>%
   mutate(Range = paste0(Lower_Limit,"-",Upper_Limit))
 
 
@@ -40,7 +40,7 @@ ggplot(df2,aes(x=Species_Label, ymin = Lower_Limit,
                upper = Upper_Limit, ymax = Upper_Limit,
                fill= Species_Label)) +
   geom_boxplot(stat = "identity",fatten=NULL) +
-  #facet_grid(~ Seasonal_Component, scales="free") +
+  facet_grid(~ Seasonal_Component, scales="free") +
   theme(strip.text = element_text(face="bold", size=12),
         strip.background = element_rect(fill="white", colour="black",size=1)) +
   scale_fill_colorblind()+
