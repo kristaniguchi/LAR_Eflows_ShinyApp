@@ -8,10 +8,11 @@ runtime: shiny
 ```{r setup, include=FALSE}
 library(dplyr)
 library(ggplot2)
+library(ggthemes)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 
-dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_03142021.csv",
+dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
                                        encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
   mutate(Species = factor(Species),
          Species_Label = gsub(" ", "\n",Species_Label),
@@ -37,7 +38,7 @@ names(seasons)=NULL
 ```{r}
 sidebarPanel(
               radioButtons("location", label = "Select Location:",
-                           choices = c("Reach","Node"),selected="Node"),
+                           choices = c("Reporting Reach","Node"),selected="Node"),
               radioButtons("synthesis",label="Species Synthesis:",
                            choices=c("Yes","No"),
               selected="No"))
@@ -45,7 +46,7 @@ sidebarPanel(
 
 location_choice <- reactive({
   switch(input$location,
-         "Reach" = dat$Reach,
+         "Reporting Reach" = dat$Reach,
          "Node"= dat$Node)
   })
 ```
@@ -54,7 +55,7 @@ location_choice <- reactive({
 ```{r}
 flowLayout(
 renderUI({
-if(input$location == "Reach"){
+if(input$location == "Reporting Reach"){
     selectInput("Reach",label = "Select Reach:",
                 choices = location_choice() %>% unique)
   }
@@ -95,7 +96,7 @@ boxplot_dat <- reactive({
                           Designation  == input$designations,
                           Probability_Threshold == input$probthresh| is.na(Probability_Threshold))
   }
-  if(input$location == "Reach"){
+  if(input$location == "Reporting Reach"){
     out <- dat %>% filter(Reach == input$Reach,
                           Seasonal_Component %in% season,
                           Designation == input$designations,
@@ -121,11 +122,12 @@ box_plot <- reactive({
       facet_wrap(~ Seasonal_Component, scales="free") +
       theme(strip.text = element_text(face="bold", size=12),
             strip.background = element_rect(fill="white", colour="black",size=1)) +
-      scale_fill_viridis_d(option = "viridis")+
+      scale_fill_colorblind()+
       theme(legend.position="bottom",
             panel.grid.minor.y = element_blank()) +
       labs(title="Flow Ranges",x ="", y = "Flow (cfs)",
-           fill= "Species - Lifestage")
+           fill= "Species - Lifestage")+
+  scale_y_log10()
     }
   else{
     ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
@@ -136,11 +138,12 @@ box_plot <- reactive({
       facet_grid(Node~ Seasonal_Component, scales="free") +
       theme(strip.text = element_text(face="bold", size=12),
             strip.background = element_rect(fill="white", colour="black",size=1)) +
-      scale_fill_viridis_d(option = "viridis")+
+      scale_fill_colorblind()+
       theme(legend.position="bottom",
             panel.grid.minor.y = element_blank(),
             ) +
-      labs(title="Flow Ranges",x ="", y = "Flow (cfs)",fill="Species - Lifestage")
+      labs(title="Flow Ranges",x ="", y = "Flow (cfs)",fill="Species - Lifestage")+
+  scale_y_log10()
     }
   })
 

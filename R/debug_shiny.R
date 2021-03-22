@@ -5,7 +5,7 @@ library(tidyverse)
 
 
 
-dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_03142021.csv",
+dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
                 encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
   mutate(Species = factor(Species),
          Species_Label = gsub(" ", "\n",Species_Label),
@@ -28,9 +28,10 @@ lookup <- tibble("Species"= levels(dat$Species_Label) %>% as.character(),
                               "#fee090", "white", "black","yellow",
                               "purple","#067BC2","#84BCDA","#B97375","#F1E4E8"))
 
-df2 <- dat %>% filter(Reach=="LAR 5 - Glendale Narrows",
-                      Designation=="Existing",
-                      Probability_Threshold=="Medium"|is.na(Probability_Threshold)) %>%
+df2 <- dat %>% filter(Node=="GLEN",
+                      Designation=="Existing"|is.na(Designation),
+                      Probability_Threshold=="Medium"|is.na(Probability_Threshold),
+                      Seasonal_Component=="Summer Baseflow") %>%
   mutate(Range = paste0(Lower_Limit,"-",Upper_Limit))
 
 
@@ -39,12 +40,12 @@ ggplot(df2,aes(x=Species_Label, ymin = Lower_Limit,
                upper = Upper_Limit, ymax = Upper_Limit,
                fill= Species_Label)) +
   geom_boxplot(stat = "identity",fatten=NULL) +
-  facet_grid(Node~ Seasonal_Component, scales="free") +
+  #facet_grid(~ Seasonal_Component, scales="free") +
   theme(strip.text = element_text(face="bold", size=12),
         strip.background = element_rect(fill="white", colour="black",size=1)) +
-  scale_fill_manual(name = "Species - Lifestage", 
-                    labels = lookup$Species, values=lookup$Colors) + 
+  scale_fill_colorblind()+
   theme(legend.position="bottom",
         panel.grid.minor.y = element_blank()) +
-  labs(title="Flow Ranges",x ="", y = "Flow (cfs)") 
+  labs(title="Flow Ranges",x ="", y = "Flow (cfs)")+
+  scale_y_log10()
 
