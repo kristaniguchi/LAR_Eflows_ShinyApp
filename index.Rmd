@@ -38,7 +38,7 @@ names(seasons)=NULL
 ```{r}
 sidebarPanel(
               radioButtons("location", label = "Select Location:",
-                           choices = c("Reporting Reach","Node"),selected="Node"),
+                           choices = c("Node","Reporting Reach","Master Plan LA River Reaches"),selected="Node"),
               radioButtons("synthesis",label="Species Synthesis:",
                            choices=c("Yes","No"),
               selected="No"))
@@ -47,7 +47,8 @@ sidebarPanel(
 location_choice <- reactive({
   switch(input$location,
          "Reporting Reach" = dat$Reach,
-         "Node"= dat$Node)
+         "Node"= dat$Node,
+         "Master Plan LA River Reaches" = dat$waterbody)
   })
 ```
 
@@ -59,9 +60,13 @@ if(input$location == "Reporting Reach"){
     selectInput("Reach",label = "Select Reach:",
                 choices = location_choice() %>% unique)
   }
-  else{
+  else if (input$location == "Node"){
     selectInput("Node",label = "Select Node:",
                 choices = location_choice() %>% unique)
+  }
+  else{
+    selectInput("MasterLA",label = "Select Master Plan LA River Reaches:",
+                choices = location_choice() %>% unique %>% sort)
   }
   
 }),
@@ -69,7 +74,7 @@ if(input$location == "Reporting Reach"){
               choices = c("All",seasons),
               selected= c("All",seasons) %>%  .[1]),
   
-  selectInput("designations", label = "Benefician Usage:",
+  selectInput("designations", label = "Beneficial Usage:",
               choices = dat$Designation %>% unique %>% .[c(2,3)],
               selected= dat$Designation %>% unique %>% .[2]),
   
@@ -97,12 +102,19 @@ boxplot_dat <- reactive({
                           Probability_Threshold == input$probthresh| is.na(Probability_Threshold),
                       metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")| is.na(metric))
   }
-  if(input$location == "Reporting Reach"){
+  else if(input$location == "Reporting Reach"){
     out <- dat %>% filter(Reach == input$Reach,
                           Seasonal_Component %in% season,
                           Designation == input$designations| is.na(Designation),
                           Probability_Threshold == input$probthresh|is.na(Probability_Threshold),
                       metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")| is.na(metric)) 
+  }
+  else{
+    out <- dat %>% filter(waterbody == input$MasterLA,
+                          Seasonal_Component %in% season,
+                          Designation == input$designations| is.na(Designation),
+                          Probability_Threshold == input$probthresh|is.na(Probability_Threshold),
+                      metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")| is.na(metric))    
   }
   return(out)
 })
@@ -145,23 +157,26 @@ box_plot <- reactive({
             panel.grid.minor.y = element_blank(),
             ) +
       labs(title="Flow Ranges",x ="", y = "Flow (cfs)",fill="Species - Lifestage")+
-  scale_y_log10()
-    }
+  scale_y_log10()   
+  }
   })
 
 
 ```
 
 ```{r}
-renderPlot({box_plot()},height=575,width=1000)
+renderPlot({box_plot()},height=600,width=1100)
 
 output$boxfig <- downloadHandler(
     filename = function() {
       if(input$location=="Node"){
-      paste(input$Node, '.png', sep='') 
+        paste(input$Node, '.png', sep='') 
+      }
+      else if(input$location == "Reach"){
+        paste(input$Reach, '.png', sep='') 
       }
       else{
-      paste(input$Reach, '.png', sep='') 
+        paste(input$MasterLA, '.png', sep='') 
       }},
     content = function(file) {
         ggsave(file, plot = box_plot(), device = "png",
@@ -172,10 +187,13 @@ output$boxfig <- downloadHandler(
 output$boxdat <- downloadHandler(
     filename = function() {
       if(input$location=="Node"){
-      paste(input$Node, '.csv', sep='') 
+        paste(input$Node, '.csv', sep='') 
+      }
+      else if (input$location == "Reach"){
+        paste(input$Reach, '.csv', sep='') 
       }
       else{
-      paste(input$Reach, '.csv', sep='') 
+        paste(input$MasterLA, '.csv', sep='')         
       }},
     content = function(file) {
       write.csv(boxplot_dat(), file, quote = T, row.names = F)
