@@ -28,7 +28,17 @@ names(seasons)=NULL
 BUNames <- dat$BU_names  %>% strsplit(",") %>% 
   unlist() %>% unique() %>% str_trim()
 
+
 df2 <- dat %>% filter(Node=="GLEN",
+               Designation_BU == "Designated",
+               Designation == "Existing"| is.na(Designation),
+               metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
+                             "Peak_2 as lower, 
+                             Peak_10 as upper")|is.na(metric),
+               Probability_Threshold=="Medium"|is.na(Probability_Threshold)) 
+
+
+df3 <- dat %>% filter(Node=="GLEN",
                       Designation=="Existing"|is.na(Designation),
                       Probability_Threshold=="Medium"|is.na(Probability_Threshold),
                       metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")|is.na(metric)) %>%

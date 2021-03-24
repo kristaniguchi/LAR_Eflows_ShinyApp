@@ -39,13 +39,16 @@ names(seasons)=NULL
 ```{r}
 sidebarPanel(
               radioButtons("location", label = "Select Location:",
-                           choices = c("Node","Reporting Reach","Master Plan LA River Reaches"),selected="Node"),
+                           choices = c("Node","Reporting Reach",
+                                       "Master Plan LA River Reaches"),
+                           selected="Node"),
+              radioButtons("designateBU", label = "Designation:",
+                           choices = dat$Designation_BU %>% unique() %>% .[-1],
+                           selected= dat$Designation_BU %>% unique() %>% .[2]),
               radioButtons("synthesis",label="Species Synthesis:",
                            choices=c("Yes","No"),
-              selected="No"),
-  radioButtons("designateBU", label = "Designation:",
-              choices = dat$Designation_BU %>% unique() %>% .[-1],
-              selected= dat$Designation_BU %>% unique() %>% .[2]))
+                           selected="No"))
+
 
 
 location_choice <- reactive({
@@ -85,14 +88,13 @@ if(input$location == "Reporting Reach"){
   selectInput("probthresh", label = "Probability of Occurrence:",
               choices = dat$Probability_Threshold %>% unique() %>% .[-1],
               selected= dat$Probability_Threshold %>% unique() %>% .[2]),
-
+downloadButton('boxdat', 'Download Data'),
 selectInput("BU_names", label = "BU_Names:",
             choices = dat$BU_names  %>% unique() %>% strsplit(",") %>%
               unlist() %>% unique() %>% str_trim() %>% .[-1],
             selected = dat$BU_names  %>% unique() %>% strsplit(",") %>%
               unlist() %>% unique() %>% str_trim() %>% .[2]),
-downloadButton('boxfig', 'Download Boxplot'),
-downloadButton('boxdat', 'Download Selected Data')
+downloadButton('boxfig', 'Download Boxplot')
 )
 ```
 
@@ -107,6 +109,8 @@ boxplot_dat <- reactive({
   
   if(input$location == "Node"){
     out <- dat %>% filter(Node == input$Node,
+                          Designation_BU == input$designateBU |
+                            is.na(Designation_BU),
                           Seasonal_Component %in% season,
                           Designation  == input$designations|is.na(Designation),
                           Probability_Threshold == input$probthresh| is.na(Probability_Threshold),
@@ -114,6 +118,7 @@ boxplot_dat <- reactive({
   }
   else if(input$location == "Reporting Reach"){
     out <- dat %>% filter(Reach == input$Reach,
+                          Designation_BU == input$designateBU | is.na(Designation_BU),
                           Seasonal_Component %in% season,
                           Designation == input$designations| is.na(Designation),
                           Probability_Threshold == input$probthresh|is.na(Probability_Threshold),
@@ -121,6 +126,7 @@ boxplot_dat <- reactive({
   }
   else{
     out <- dat %>% filter(waterbody == input$MasterLA,
+                          Designation_BU == input$designateBU | is.na(Designation_BU),
                           Seasonal_Component %in% season,
                           Designation == input$designations| is.na(Designation),
                           Probability_Threshold == input$probthresh|is.na(Probability_Threshold),
