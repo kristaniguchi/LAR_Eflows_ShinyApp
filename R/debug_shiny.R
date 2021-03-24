@@ -1,8 +1,8 @@
 library(readr)
 library(tidyverse)
 library(ggthemes)
-# DEBUG ------------------------------------------------------
 
+# DEBUG ------------------------------------------------------
 
 
 dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
@@ -23,10 +23,10 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
 
-lookup <- tibble("Species"= levels(dat$Species_Label) %>% as.character(),
-                 "Colors" = c("#fc8d59", "#d73027", "#91bfdb","#4575b4", 
-                              "#fee090", "white", "black","yellow",
-                              "purple","#067BC2","#84BCDA","#B97375","#F1E4E8"))
+
+
+BUNames <- dat$BU_names  %>% strsplit(",") %>% 
+  unlist() %>% unique() %>% str_trim()
 
 df2 <- dat %>% filter(Node=="GLEN",
                       Designation=="Existing"|is.na(Designation),

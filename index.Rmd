@@ -8,6 +8,7 @@ runtime: shiny
 ```{r setup, include=FALSE}
 library(dplyr)
 library(ggplot2)
+library(stringr)
 library(ggthemes)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
@@ -41,7 +42,10 @@ sidebarPanel(
                            choices = c("Node","Reporting Reach","Master Plan LA River Reaches"),selected="Node"),
               radioButtons("synthesis",label="Species Synthesis:",
                            choices=c("Yes","No"),
-              selected="No"))
+              selected="No"),
+  radioButtons("designateBU", label = "Designation:",
+              choices = dat$Designation_BU %>% unique() %>% .[-1],
+              selected= dat$Designation_BU %>% unique() %>% .[2]))
 
 
 location_choice <- reactive({
@@ -81,6 +85,12 @@ if(input$location == "Reporting Reach"){
   selectInput("probthresh", label = "Probability of Occurrence:",
               choices = dat$Probability_Threshold %>% unique() %>% .[-1],
               selected= dat$Probability_Threshold %>% unique() %>% .[2]),
+
+selectInput("BU_names", label = "BU_Names:",
+            choices = dat$BU_names  %>% unique() %>% strsplit(",") %>%
+              unlist() %>% unique() %>% str_trim() %>% .[-1],
+            selected = dat$BU_names  %>% unique() %>% strsplit(",") %>%
+              unlist() %>% unique() %>% str_trim() %>% .[2]),
 downloadButton('boxfig', 'Download Boxplot'),
 downloadButton('boxdat', 'Download Selected Data')
 )
