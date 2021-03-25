@@ -30,8 +30,9 @@ BUNames <- dat$BU_names  %>% strsplit(",") %>%
 
 
 df2 <- dat %>% filter(Node=="GLEN",
-               Designation_BU == "Designated",
+               Designation_BU == "Designated"| is.na(Designation_BU),
                Designation == "Existing"| is.na(Designation),
+               BU_names == BUNames[2]|is.na(BU_names),
                metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
                              "Peak_2 as lower, 
                              Peak_10 as upper")|is.na(metric),
