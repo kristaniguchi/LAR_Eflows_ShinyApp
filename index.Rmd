@@ -17,12 +17,15 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
                                        encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
   mutate(Species = factor(Species),
          Species_Label = gsub(" ", "\n",Species_Label),
-         Species_Label = factor(Species_Label,levels = c("Willow\nGrowth", "Willow\nAdult", 
-                                                         "Typha\nGrowth","Typha\nAdult", 
-                                                         "Cladophora\nAdult", "Current\nFlow", 
-                                                         "SAS\nGrowth","SAS\nAdult","Steelhead\nMigration\n(Prolonged)",
-                                                         "Steelhead\nMigration\n(Burst)","Steelhead\nMigration\n(Smolts)",
-                                                         "Rec.\nUse\nKayak","Rec.\nUse\nFishing")),
+         Species_Label = factor(Species_Label,
+                                levels = c("Willow\nGrowth", "Willow\nAdult",
+                                           "Typha\nGrowth","Typha\nAdult",
+                                           "Cladophora\nAdult", "Current\nFlow",
+                                           "SAS\nGrowth",
+                                           "SAS\nAdult","Steelhead\nMigration\n(Prolonged)",
+                                           "Steelhead\nMigration\n(Burst)",
+                                           "Steelhead\nMigration\n(Smolts)",
+                                           "Rec.\nUse\nKayak","Rec.\nUse\nFishing")),
          Lower_Limit = as.double(Lower_Limit),
          Upper_Limit = as.double(Upper_Limit)) %>% 
   rename(Seasonal_Component= Seasonal.Component)
@@ -83,14 +86,13 @@ fluidPage(tags$h3("Beneficial Use Designation"),
                        selected= dat$Designation_BU %>% unique() %>% .[2])),
           column(4,
                  selectInput("BU_names", label = "Beneficial Use Name(s):",
-                             choices = dat$BU_names  %>% unique() %>% strsplit(",") %>%
-                               unlist() %>% unique() %>% str_trim() %>% .[-1],
-                             selected = dat$BU_names  %>% unique() %>% strsplit(",") %>%
-                               unlist() %>% unique() %>% str_trim() %>% .[2])),
+                             choices = c("All","WILD","RARE","EST","MIGR",
+                                         "COLD","SPWN"),
+                             selected = "ALL")),
           column(4,
                  selectInput("designations", label = "Designation Type:",
-                             choices = dat$Designation %>% unique %>% .[c(2,3)],
-                             selected= dat$Designation %>% unique %>% .[2]))))
+                       choices = c("All","Existing","Potential","Intermittent"),
+                       selected= "All"))))
 ```
 
 ------------------------------------------------------------------------
