@@ -9,14 +9,21 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
                 encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
   mutate(Species = factor(Species),
          Species_Label = gsub(" ", "\n",Species_Label),
-         Species_Label = factor(Species_Label,levels = c("Willow\nGrowth", "Willow\nAdult", 
-                                                         "Typha\nGrowth","Typha\nAdult", 
-                                                         "Cladophora\nAdult", "Current\nFlow", 
-                                                         "SAS\nGrowth","SAS\nAdult","Steelhead\nMigration\n(Prolonged)",
-                                                         "Steelhead\nMigration\n(Burst)","Steelhead\nMigration\n(Smolts)",
-                                                         "Rec.\nUse\nKayak","Rec.\nUse\nFishing")),
+         Species_Label = factor(Species_Label,
+                                levels = c("Willow\nGrowth", "Willow\nAdult",
+                                           "Typha\nGrowth","Typha\nAdult",
+                                           "Cladophora\nAdult", "Current\nFlow",
+                                           "SAS\nGrowth","SAS\nAdult",
+                                           "Steelhead\nMigration\n(Prolonged)",
+                                           "Steelhead\nMigration\n(Burst)",
+                                           "Steelhead\nMigration\n(Smolts)",
+                                           "Rec.\nUse\nKayak",
+                                           "Rec.\nUse\nFishing")),
          Lower_Limit = as.double(Lower_Limit),
-         Upper_Limit = as.double(Upper_Limit)) %>% 
+         Upper_Limit = as.double(Upper_Limit),
+         Designation_Category = fct_recode(Designation_Category,"Existing"="E",
+                                           "Potential"="P",
+                                           "Intermittent"="I")) %>%
   rename(Seasonal_Component= Seasonal.Component)
          
          
@@ -25,14 +32,17 @@ names(seasons)=NULL
 
 
 
-BUNames <- dat$BU_names  %>% strsplit(",") %>% 
+BU_Names <- dat$BU_names  %>% strsplit(",") %>% 
   unlist() %>% unique() %>% str_trim()
+
+dat$BU_names[grep("WILD",dat$BU_names)]
+
 
 
 df2 <- dat %>% filter(Node=="GLEN",
                Designation_BU == "Designated"| is.na(Designation_BU),
-               Designation == "Existing"| is.na(Designation),
-               BU_names == BUNames[2]|is.na(BU_names),
+               Designation_Category == "Existing"| is.na(Designation_Category),
+               BU_names == BU_Names[2]|is.na(BU_names),
                metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
                              "Peak_2 as lower, 
                              Peak_10 as upper")|is.na(metric),

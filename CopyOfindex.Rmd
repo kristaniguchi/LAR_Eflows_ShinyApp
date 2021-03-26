@@ -9,30 +9,36 @@ runtime: shiny
 library(dplyr)
 library(ggplot2)
 library(stringr)
+library(forcats)
 library(ggthemes)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 
 dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
-                                       encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
+                encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
   mutate(Species = factor(Species),
          Species_Label = gsub(" ", "\n",Species_Label),
          Species_Label = factor(Species_Label,
                                 levels = c("Willow\nGrowth", "Willow\nAdult",
                                            "Typha\nGrowth","Typha\nAdult",
                                            "Cladophora\nAdult", "Current\nFlow",
-                                           "SAS\nGrowth",
-                                           "SAS\nAdult","Steelhead\nMigration\n(Prolonged)",
+                                           "SAS\nGrowth","SAS\nAdult",
+                                           "Steelhead\nMigration\n(Prolonged)",
                                            "Steelhead\nMigration\n(Burst)",
                                            "Steelhead\nMigration\n(Smolts)",
-                                           "Rec.\nUse\nKayak","Rec.\nUse\nFishing")),
+                                           "Rec.\nUse\nKayak",
+                                           "Rec.\nUse\nFishing")),
          Lower_Limit = as.double(Lower_Limit),
-         Upper_Limit = as.double(Upper_Limit)) %>% 
+         Upper_Limit = as.double(Upper_Limit),
+         Designation_Category = fct_recode(Designation_Category,"Existing"="E",
+                                           "Potential"="P",
+                                           "Intermittent"="I")) %>%
   rename(Seasonal_Component= Seasonal.Component)
-
-
+         
+         
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
+
 ```
 
 #  {.tabset}
@@ -80,36 +86,40 @@ location_choice <- reactive({
 
 ```{r}
 fluidPage(tags$h3("Beneficial Use Designation"),
-          fluidRow(column(4,
-          radioButtons("designateBU", label = " Current Designation:",
-                       choices = dat$Designation_BU %>% unique() %>% .[-1],
-                       selected= dat$Designation_BU %>% unique() %>% .[2])),
-          column(4,
-                 selectInput("BU_names", label = "Beneficial Use Name(s):",
-                             choices = c("All","WILD","RARE","EST","MIGR",
-                                         "COLD","SPWN"),
-                             selected = "ALL")),
-          column(4,
-                 selectInput("designations", label = "Designation Type:",
-                       choices = c("All","Existing","Potential","Intermittent"),
-                       selected= "All"))))
+          fluidRow(
+            column(4,
+                   radioButtons("designateBU", label = " Current Designation:",
+                                choices = dat$Designation_BU %>% 
+                                  unique() %>% .[-1],
+                                selected= dat$Designation_BU %>% 
+                                  unique() %>% .[2])),
+            column(4,
+                   selectInput("BU_names", label = "Beneficial Use Name(s):",
+                               choices = c("All","WILD","RARE",
+                                           "EST","MIGR","COLD","SPWN"),
+                               selected = "ALL")),
+            column(4,
+                   selectInput("designations", label = "Designation Type:",
+                               choices = c("All","Existing",
+                                           "Potential","Intermittent"),
+                               selected= "All"))))
 ```
 
 ------------------------------------------------------------------------
 
 ```{r}
 fluidPage(tags$h3("Species"),
-          fluidRow(column(4,selectInput("probthresh", label = "Probability of
-                                        Occurrence:",
-                                        choices = dat$Probability_Threshold %>% unique()
-                                        %>% .[-1],
-                                        selected= dat$Probability_Threshold %>% unique()
-                                        %>% .[2])),
-                          column(4,
-                                 radioButtons("synthesis",label="Species Synthesis:",
-                                              choices=c("Yes","No"),
-                                              selected="No"))
-                          ))
+          fluidRow(
+          column(4,
+          selectInput("probthresh", label = "Probability of Occurrence:",
+                      choices = dat$Probability_Threshold %>% unique() %>% .[-1],
+                      selected= dat$Probability_Threshold %>% unique()
+                      %>% .[2])),
+          column(4,
+                 radioButtons("synthesis",label="Species Synthesis:",
+                              choices=c("Yes","No"),
+                              selected="No"))
+          ))
 ```
 
 
@@ -129,30 +139,53 @@ boxplot_dat <- reactive({
     season = seasons
   }
   
+  if(input$designations != "All"){
+    designate_category = input$designations
+  }
+  else{
+    designate_category = dat$Designation_Category %>% unique %>% .[-1]
+  }
+  
+  if(input$BU_names != "All"){
+    beneficial_use_names = input$BU_names
+  }
+  else{
+    beneficial_use_names = dat$BU_names  %>% strsplit(",") %>%
+      unlist() %>% unique() %>% str_trim()
+  }
+  
   if(input$location == "Node"){
     out <- dat %>% filter(Node == input$Node,
-                          Designation_BU == input$designateBU |
-                            is.na(Designation_BU),
+                          Designation_BU == input$designateBU |is.na(Designation_BU),
                           Seasonal_Component %in% season,
-                          Designation  == input$designations|is.na(Designation),
-                          Probability_Threshold == input$probthresh| is.na(Probability_Threshold),
-                      metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")| is.na(metric))
+                          Designation_Category %in% designate_category |
+                            is.na(Designation_Category),
+                          Probability_Threshold == input$probthresh|
+                            is.na(Probability_Threshold),
+                          metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
+                          "Peak_2 as lower,Peak_10 as upper")| is.na(metric))
   }
   else if(input$location == "Reporting Reach"){
     out <- dat %>% filter(Reach == input$Reach,
-                          Designation_BU == input$designateBU | is.na(Designation_BU),
+                          Designation_BU == input$designateBU |is.na(Designation_BU),
                           Seasonal_Component %in% season,
-                          Designation == input$designations| is.na(Designation),
-                          Probability_Threshold == input$probthresh|is.na(Probability_Threshold),
-                      metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")| is.na(metric)) 
+                          Designation_Category %in% designate_category |
+                            is.na(Designation_Category),
+                          Probability_Threshold == input$probthresh|
+                            is.na(Probability_Threshold),
+                          metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
+                          "Peak_2 as lower,Peak_10 as upper")| is.na(metric)) 
   }
   else{
     out <- dat %>% filter(waterbody == input$MasterLA,
-                          Designation_BU == input$designateBU | is.na(Designation_BU),
+                          Designation_BU == input$designateBU |is.na(Designation_BU),
                           Seasonal_Component %in% season,
-                          Designation == input$designations| is.na(Designation),
-                          Probability_Threshold == input$probthresh|is.na(Probability_Threshold),
-                      metric %in% c("DS_Mag_50","Wet_BFL_Mag_10","Peak_2 as lower, Peak_10 as upper")| is.na(metric))    
+                          Designation_Category %in% designate_category |
+                            is.na(Designation_Category),
+                          Probability_Threshold == input$probthresh|
+                            is.na(Probability_Threshold),
+                          metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
+                          "Peak_2 as lower,Peak_10 as upper")| is.na(metric))   
   }
   return(out)
 })
