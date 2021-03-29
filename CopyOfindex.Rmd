@@ -39,6 +39,7 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
 
+autoInvalidate <- reactiveTimer(2000)
 ```
 
 #  {.tabset}
@@ -153,8 +154,9 @@ boxplot_dat <- reactive({
     beneficial_use_names = dat$BU_names  %>% strsplit(",") %>%
       unlist() %>% unique() %>% str_trim()
   }
-  
+
   if(input$location == "Node"){
+  validate(need(input$Node != ""," "))
     out <- dat %>% filter(Node == input$Node,
                           Designation_BU == input$designateBU |is.na(Designation_BU),
                           Seasonal_Component %in% season,
@@ -167,6 +169,7 @@ boxplot_dat <- reactive({
                           "Peak_2 as lower,Peak_10 as upper")| is.na(metric))
   }
   else if(input$location == "Reporting Reach"){
+    validate(need(input$Reach != ""," "))
     out <- dat %>% filter(Reach == input$Reach,
                           Designation_BU == input$designateBU |is.na(Designation_BU),
                           Seasonal_Component %in% season,
@@ -178,6 +181,7 @@ boxplot_dat <- reactive({
                           "Peak_2 as lower,Peak_10 as upper")| is.na(metric)) 
   }
   else{
+    validate(need(input$MasterLA != ""," "))
     out <- dat %>% filter(waterbody == input$MasterLA,
                           Designation_BU == input$designateBU |is.na(Designation_BU),
                           Seasonal_Component %in% season,
@@ -194,9 +198,9 @@ boxplot_dat <- reactive({
 
 ```{r}
 box_plot <- reactive({
-  
+
   dat <- boxplot_dat()
-  
+
   if(input$location=="Node"){  
     ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
                    lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
