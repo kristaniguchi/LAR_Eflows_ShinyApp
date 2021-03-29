@@ -42,7 +42,7 @@ dat$BU_names[grep("WILD",dat$BU_names)]
 df2 <- dat %>% filter(Node=="GLEN",
                Designation_BU == "Designated"| is.na(Designation_BU),
                Designation_Category == "Existing"| is.na(Designation_Category),
-               BU_names == BU_Names[2]|is.na(BU_names),
+               BU_names %in% dat$BU_names[grep("WILD",dat$BU_names)],
                metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
                              "Peak_2 as lower, 
                              Peak_10 as upper")|is.na(metric),
