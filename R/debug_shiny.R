@@ -23,7 +23,15 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
          Upper_Limit = as.double(Upper_Limit),
          Designation_Category = fct_recode(Designation_Category,"Existing"="E",
                                            "Potential"="P",
-                                           "Intermittent"="I")) %>%
+                                           "Intermittent"="I"),
+         Species_Synthesis = fct_recode(Species,"Current Flow"="Current Flow",
+                                        "Willow" = "Willow - Growth",
+                                        "Willow" = "Willow - Adult",
+                                        "Typha" = "Typha - Growth",
+                                        "Typha" = "Typha - Adult",
+                                        "Cladophora" = "Cladophora - Adult",
+                                        "Rec. Use - Kayak" = "Rec. Use - Kayak",
+                                        "Rec. Use - Fishing" = "Rec. Use - Fishing")) %>%
   rename(Seasonal_Component= Seasonal.Component)
          
          
@@ -42,7 +50,7 @@ dat$BU_names[grep("WILD",dat$BU_names)]
 df2 <- dat %>% filter(Node=="GLEN",
                Designation_BU == "Designated"| is.na(Designation_BU),
                Designation_Category == "Existing"| is.na(Designation_Category),
-               BU_names %in% dat$BU_names[grep("WILD",dat$BU_names)],
+               BU_names %in% dat$BU_names[grep("WILD",dat$BU_names)]|is.na(BU_names),
                metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
                              "Peak_2 as lower, 
                              Peak_10 as upper")|is.na(metric),
@@ -69,4 +77,43 @@ ggplot(df2,aes(x=Species_Label, ymin = Lower_Limit,
         panel.grid.minor.y = element_blank()) +
   labs(title="Flow Ranges",x ="", y = "Flow (cfs)")+
   scale_y_log10()
+
+
+
+
+
+
+
+
+
+# Synthesis Rule Set ------------------------------------------------------
+
+
+# individual species
+
+df2 %>% filter(Species != "Current Flow") %>%
+  group_by(Seasonal_Component,Species_Synthesis) %>%
+  select(Species_Synthesis,Lower_Limit,Upper_Limit)  %>%
+  summarise(a=min(Lower_Limit),b=min(Upper_Limit))
+
+
+
+
+# multiple species
+
+
+df2 %>% filter(Species != "Current Flow") %>%
+  group_by(Seasonal_Component) %>%
+  select(Species_Synthesis,Lower_Limit,Upper_Limit)  %>%
+  summarise(a=min(Lower_Limit),b=min(Upper_Limit))
+
+
+
+
+
+
+
+
+
+
 

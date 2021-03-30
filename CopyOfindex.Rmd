@@ -162,7 +162,7 @@ boxplot_dat <- reactive({
                           Seasonal_Component %in% season,
                           Designation_Category %in% designate_category |
                             is.na(Designation_Category),
-                          BU_names %in% beneficial_use_names,
+                          BU_names %in% beneficial_use_names|is.na(BU_names),
                           Probability_Threshold == input$probthresh|
                             is.na(Probability_Threshold),
                           metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
@@ -175,6 +175,7 @@ boxplot_dat <- reactive({
                           Seasonal_Component %in% season,
                           Designation_Category %in% designate_category |
                             is.na(Designation_Category),
+                          BU_names %in% beneficial_use_names|is.na(BU_names),
                           Probability_Threshold == input$probthresh|
                             is.na(Probability_Threshold),
                           metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
@@ -187,6 +188,7 @@ boxplot_dat <- reactive({
                           Seasonal_Component %in% season,
                           Designation_Category %in% designate_category |
                             is.na(Designation_Category),
+                          BU_names %in% beneficial_use_names|is.na(BU_names),
                           Probability_Threshold == input$probthresh|
                             is.na(Probability_Threshold),
                           metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
