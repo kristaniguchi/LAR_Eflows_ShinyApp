@@ -39,7 +39,6 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
 
-autoInvalidate <- reactiveTimer(2000)
 ```
 
 #  {.tabset}
@@ -144,7 +143,7 @@ boxplot_dat <- reactive({
     designate_category = input$designations
   }
   else{
-    designate_category = dat$Designation_Category %>% unique %>% .[-1]
+    designate_category = c("Existing","Intermittent", "Potential")
   }
   
   if(input$BU_names != "All"){
@@ -166,7 +165,7 @@ boxplot_dat <- reactive({
                           Probability_Threshold == input$probthresh|
                             is.na(Probability_Threshold),
                           metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
-                          "Peak_2 as lower,Peak_10 as upper")| is.na(metric))
+                          "Peak_2 as lower, Peak_10 as upper")| is.na(metric))
   }
   else if(input$location == "Reporting Reach"){
     validate(need(input$Reach != ""," "))
@@ -179,7 +178,7 @@ boxplot_dat <- reactive({
                           Probability_Threshold == input$probthresh|
                             is.na(Probability_Threshold),
                           metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
-                          "Peak_2 as lower,Peak_10 as upper")| is.na(metric)) 
+                          "Peak_2 as lower, Peak_10 as upper")| is.na(metric)) 
   }
   else{
     validate(need(input$MasterLA != ""," "))
@@ -192,7 +191,7 @@ boxplot_dat <- reactive({
                           Probability_Threshold == input$probthresh|
                             is.na(Probability_Threshold),
                           metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
-                          "Peak_2 as lower,Peak_10 as upper")| is.na(metric))   
+                          "Peak_2 as lower, Peak_10 as upper")| is.na(metric))   
   }
   return(out)
 })
