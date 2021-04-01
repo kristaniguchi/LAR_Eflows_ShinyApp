@@ -80,6 +80,41 @@ location_choice <- reactive({
          "Node"= dat$Node,
          "LA River Reach-Master Plan" = dat$waterbody)
   })
+
+
+BUnames <- reactive({
+  if(input$location=="Node"){
+    validate(need(input$Node != ""," "))
+    out <- c("All",dat %>% filter(Node == input$Node,
+                            Designation_BU=="Not Designated") %>%
+               pull(BU_names) %>% strsplit(",") %>% unlist() %>%
+               unique() %>%
+               str_trim())
+    return(out)    
+  }
+  else if(input$location == "Reporting Reach"){
+    validate(need(input$Reach != ""," "))
+    out <- c("All",dat %>% filter(Reach == input$Reach,
+                            Designation_BU=="Not Designated") %>%
+               pull(BU_names) %>% strsplit(",") %>% unlist() %>%
+               unique() %>%
+               str_trim())
+    return(out)      
+  }
+  else{
+    validate(need(input$MasterLA != ""," "))
+    out <- c("All",dat %>% filter(waterbody == input$MasterLA,
+                            Designation_BU=="Not Designated") %>%
+               pull(BU_names) %>% strsplit(",") %>% unlist() %>%
+               unique() %>%
+               str_trim())
+    return(out)       
+  }
+
+})
+
+
+
 ```
 
 ------------------------------------------------------------------------
@@ -89,20 +124,23 @@ fluidPage(tags$h3("Beneficial Use Designation"),
           fluidRow(
             column(4,
                    radioButtons("designateBU", label = " Current Designation:",
-                                choices = dat$Designation_BU %>% 
-                                  unique() %>% .[-1],
-                                selected= dat$Designation_BU %>% 
-                                  unique() %>% .[2])),
+                                choices = c("Designated","Not Designated"),
+                                selected= "Designated")),
+            renderUI({
             column(4,
                    selectInput("BU_names", label = "Beneficial Use Name(s):",
-                               choices = c("All","WILD","RARE",
-                                           "EST","MIGR","COLD","SPWN"),
-                               selected = "ALL")),
-            column(4,
-                   selectInput("designations", label = "Designation Type:",
+                               choices = BUnames(),
+                               selected = "ALL")) }),
+            renderUI({
+              column(4,
+                     if(input$designateBU == "Designated"){
+                    selectInput("designations", label = "Designation Type:",
                                choices = c("All","Existing",
                                            "Potential","Intermittent"),
-                               selected= "All"))))
+                               selected= "All")                      
+                     }
+                    )
+              }) ))
 ```
 
 ------------------------------------------------------------------------
@@ -112,9 +150,8 @@ fluidPage(tags$h3("Species"),
           fluidRow(
           column(4,
           selectInput("probthresh", label = "Probability of Occurrence:",
-                      choices = dat$Probability_Threshold %>% unique() %>% .[-1],
-                      selected= dat$Probability_Threshold %>% unique()
-                      %>% .[2])),
+                      choices = c("Medium","High"),
+                      selected= "Medium")),
           column(4,
                  radioButtons("synthesis",label="Species Synthesis:",
                               choices=c("Yes","No"),
@@ -132,6 +169,8 @@ Otherwise, flow recommendations by individual life stages
 
 ```{r}
 boxplot_dat <- reactive({
+  validate(need(input$designations != ""," "))
+
   if(input$season != "All"){
     season = input$season
   }
@@ -139,19 +178,18 @@ boxplot_dat <- reactive({
     season = seasons
   }
   
-  if(input$designations != "All"){
-    designate_category = input$designations
+  if(input$designations == "All"){
+    designate_category = c("Existing","Intermittent", "Potential")
   }
   else{
-    designate_category = c("Existing","Intermittent", "Potential")
+    designate_category = input$designations
   }
   
   if(input$BU_names != "All"){
     beneficial_use_names = dat$BU_names[grep(input$BU_names,dat$BU_names)]
   }
   else{
-    beneficial_use_names = dat$BU_names  %>% strsplit(",") %>%
-      unlist() %>% unique() %>% str_trim()
+    beneficial_use_names = BUnames()
   }
 
   if(input$location == "Node"){
