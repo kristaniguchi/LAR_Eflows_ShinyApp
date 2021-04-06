@@ -92,10 +92,13 @@ ggplot(df2,aes(x=Species_Label, ymin = Lower_Limit,
 
 # multiple species by season
 
-synthesis <- df2  %>%
+synthesis <- df2  %>% filter(!Species %in% c("Rec. Use - Kayak",
+                                             "Rec. Use - Fishing",
+                                             "Current Flow")) %>%
   group_by(Seasonal_Component,Species) %>%
   select(Species,Lower_Limit,Upper_Limit)  %>%
-  summarise(a=min(Lower_Limit),b=min(Upper_Limit)) %>% 
+  summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
+  #summarise(a=min(Lower_Limit),b=min(Upper_Limit)) %>% 
   group_split()
 
 synthesis_a = lapply(synthesis, function(x) x %>% select(a))
@@ -122,6 +125,61 @@ for(i in 1:length(synthesis_a_seq)){
 }
 
 
+
+
+
+
+# Glen-summer-synthesis ---------------------------------------------------
+
+willow_growth = c(23:595)
+willow_adult = c(23:40590)
+
+typha_adult = c(77:568)
+typha_growth = c(23:166)
+
+cladophora_adult = c(538:4759)
+
+Reduce(intersect, 
+       list(willow_growth,willow_adult,
+            typha_adult,typha_growth)) %>% 
+  range()
+
+# check if is integer(0) 
+is_integer0 <- function(x)
+{
+  is.integer(x) && length(x) == 0L
+}
+
+
+
+
+Reduce(intersect,
+       synthesis %>% pluck(1,"ranges") %>% .[-1] ) %>%
+  range() # ranges for summer baseflow exluding cladophora
+
+
+Reduce(intersect,synthesis %>% pluck(1,"ranges")) %>%
+  range() # ranges for summer baseflow all species
+
+
+
+seasonal_ranges = list()
+for(i in 1:length(synthesis)){
+  seasonal_ranges[[i]] = synthesis %>%
+    pluck(i) %>%
+    group_by(Species) %>%
+    pluck("ranges")
+}
+names(seasonal_ranges) = seasons
+
+
+
+
+# ranges for specific season
+
+seasonal_ranges[["Summer Baseflow"]]
+seasonal_ranges[["Winter Baseflow"]]
+seasonal_ranges[["Winter Peak Flows"]]
 
 
 
