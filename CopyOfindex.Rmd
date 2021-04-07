@@ -10,6 +10,7 @@ library(dplyr)
 library(ggplot2)
 library(stringr)
 library(forcats)
+library(purrr)
 library(ggthemes)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
@@ -321,6 +322,100 @@ downloadButton('boxdat', 'Download Data'),
 downloadButton('boxfig', 'Download Boxplot')
 )
 ```
+
+
+
+
+```{r}
+synthesis <- reactive({
+
+  dat <- boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
+                                                  "Rec. Use - Fishing",
+                                                  "Current Flow")) %>%
+    group_by(Seasonal_Component,Species) %>%
+    select(Species,Lower_Limit,Upper_Limit)  %>%
+    summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>%
+    group_split()
+  
+  seasonal_ranges = list()
+  
+  for(i in 1:length(dat)){
+    seasonal_ranges[[i]] = dat %>%
+      pluck(i) %>%
+      group_by(Species) %>%
+      pluck("ranges")
+  }
+
+  return(seasonal_ranges)
+})
+
+
+synthesis_current_flows <- reactive({
+  
+  dat <- boxplot_dat() %>% filter(Species=="Current Flow") %>%
+    group_by(Seasonal_Component) %>%
+    select(Species,Lower_Limit,Upper_Limit) %>%
+    summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>%
+    pull(ranges)
+  
+  return(dat)
+})
+
+
+
+select_species <- reactive({
+  out <- boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
+                                                  "Rec. Use - Fishing",
+                                                  "Current Flow")) %>%
+    select(species) %>% unique()
+  
+  return(out)
+})
+
+
+ranges_print <- function(x)
+{
+  paste(x[1],"-",x[2])
+}
+
+
+
+synthesis_table <- reactive({
+  out <- tibble("Season" = "Summer Baseflow",
+                "Species" = c("Willow","Typha"),
+                "current-flow ranges" = c(ranges_print(round(
+                  synthesis_current_flows()[[1]])),
+                ranges_print(round(
+                  synthesis_current_flows()[[1]]))),
+                "Magnitude" = c(Reduce(intersect,
+                                     synthesis()[[1]][grep("Willow",
+                                                        c("Cladophora - Adult",
+                                                          "Typha - Adult",
+                                                          "Typha - Growth",
+                                                          "Willow - Adult",
+                                                          "Willow - Growth"))]) %>%
+                  range() %>% ranges_print(),
+                Reduce(intersect,
+                                     synthesis()[[1]][grep("Typha",
+                                                        c("Cladophora - Adult",
+                                                          "Typha - Adult",
+                                                          "Typha - Growth",
+                                                          "Willow - Adult",
+                                                          "Willow - Growth"))]) %>%
+                  range() %>% ranges_print()))
+  return(out)
+})
+```
+
+
+
+```{r}
+DT::renderDataTable({synthesis_table()},options = list(dom = 't'))
+```
+
+
+
+
 
 
 

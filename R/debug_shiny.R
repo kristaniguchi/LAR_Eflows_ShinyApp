@@ -101,30 +101,25 @@ synthesis <- df2  %>% filter(!Species %in% c("Rec. Use - Kayak",
   #summarise(a=min(Lower_Limit),b=min(Upper_Limit)) %>% 
   group_split()
 
-synthesis_a = lapply(synthesis, function(x) x %>% select(a))
-synthesis_b = lapply(synthesis, function(x) x %>% select(b))
 
 
-synthesis_a_range = lapply(synthesis_a, range)
-synthesis_b_range = lapply(synthesis_b, range)
+
+synthesis_current_flows <- df2 %>% filter(Species=="Current Flow") %>% 
+  group_by(Seasonal_Component) %>% 
+  select(Species,Lower_Limit,Upper_Limit) %>% 
+  summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
+  pull(ranges)
+
+names(synthesis_current_flows) = seasons
 
 
-seq_funcion <- function(x){
-  c(range(x)[1]:range(x)[2])
-}
-
-synthesis_a_seq <- lapply(synthesis_a,seq_funcion)
-synthesis_b_seq <- lapply(synthesis_b,seq_funcion)
-
-synthesis_multiple_species = list()
-for(i in 1:length(synthesis_a_seq)){
-  synthesis_multiple_species[[i]] = Reduce(intersect,
-                                           list(synthesis_a_seq[[i]],
-                                                synthesis_b_seq[[i]]))
-
-}
 
 
+
+select_species <- df2 %>% filter(!Species %in% c("Rec. Use - Kayak",
+                                                 "Rec. Use - Fishing",
+                                                 "Current Flow")) %>% 
+  select(species) %>% unique
 
 
 
@@ -144,6 +139,13 @@ Reduce(intersect,
             typha_adult,typha_growth)) %>% 
   range()
 
+
+
+
+# functions needed for synthesis ------------------------------------------
+
+
+
 # check if is integer(0) 
 is_integer0 <- function(x)
 {
@@ -152,39 +154,83 @@ is_integer0 <- function(x)
 
 
 
+ranges_print <- function(x)
+{
+  paste(x[1],"-",x[2])
+}
 
-Reduce(intersect,
-       synthesis %>% pluck(1,"ranges") %>% .[-1] ) %>%
-  range() # ranges for summer baseflow exluding cladophora
 
 
-Reduce(intersect,synthesis %>% pluck(1,"ranges")) %>%
-  range() # ranges for summer baseflow all species
 
+# Find ranges of intersections ---------------------------------------------
 
 
 seasonal_ranges = list()
+seasonal_species = list()
+
 for(i in 1:length(synthesis)){
   seasonal_ranges[[i]] = synthesis %>%
     pluck(i) %>%
     group_by(Species) %>%
     pluck("ranges")
 }
-names(seasonal_ranges) = seasons
 
+
+for(i in 1:length(synthesis)){
+  seasonal_species[[i]] = synthesis %>%
+    pluck(i,"Species")
+}
+
+names(seasonal_ranges) = seasons
+names(seasonal_species) = seasons
 
 
 
 # ranges for specific season
 
-seasonal_ranges[["Summer Baseflow"]]
-seasonal_ranges[["Winter Baseflow"]]
-seasonal_ranges[["Winter Peak Flows"]]
+summer_ranges <- seasonal_ranges[["Summer Baseflow"]]
+names(summer_ranges) = seasonal_species %>% pluck("Summer Baseflow")
+
+winter_ranges <- seasonal_ranges[["Winter Baseflow"]]
+names(winter_ranges) = seasonal_species %>% pluck("Winter Baseflow")
+
+peak_ranges <- seasonal_ranges[["Winter Peak Flows"]]
+names(peak_ranges) = seasonal_species %>% pluck("Winter Peak Flows")
+
+
+# intersection of "Willow" species for the summer only
+Reduce(intersect,
+       summer_ranges[grep("Willow",names(summer_ranges))]) %>% 
+  range() %>% ranges_print()
+
+
+
+tibble("Season" = "Summer Baseflow",
+       "Species" = "Willow",
+       "current-flow ranges" = ranges_print(round(
+         synthesis_current_flows[["Summer Baseflow"]])),
+       "Magnitude" = Reduce(intersect,
+                            summer_ranges[grep("Willow",
+                                               names(summer_ranges))]) %>%
+         range() %>% ranges_print())
+
+
+
+# intersection of "typha" species for the sumer only
+
+
+Reduce(intersect,
+       summer_ranges[grep("Typha",names(summer_ranges))]) %>% 
+  range()
 
 
 
 
-
-
+tibble("Season" = "Summer Baseflow",
+       "Species" = "Typha",
+       "current-flow ranges" = ranges_print(round(synthesis_current_flows$`Summer Baseflow`)),
+       "Magnitude" = Reduce(intersect,
+                            summer_ranges[grep("Typha",names(summer_ranges))]) %>%
+         range() %>% ranges_print())
 
 
