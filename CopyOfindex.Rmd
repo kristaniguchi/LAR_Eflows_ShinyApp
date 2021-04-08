@@ -144,15 +144,24 @@ fluidPage(tags$h3("Beneficial Use Designation"),
 ```{r}
 fluidPage(tags$h3("Species"),
           fluidRow(
-          column(4,
-          selectInput("probthresh", label = "Probability of Occurrence:",
-                      choices = c("Medium","High"),
-                      selected= "Medium")),
-          column(4,
-                 radioButtons("synthesis",label="Species Synthesis:",
-                              choices=c("Yes","No"),
-                              selected="No"))
-          ))
+            column(4,
+                   selectInput("probthresh", label = "Probability of Occurrence:",
+                               choices = c("Medium","High"),
+                               selected= "Medium")),
+            column(4,
+                   radioButtons("synthesis",label="Species Synthesis:",
+                                choices=c("Yes","No"),
+                                selected="No")),
+            renderUI({
+              column(4,
+                     if(input$synthesis == "Yes"){
+                       radioButtons("synthesis_type",label="Species Synthesis:",
+                                    choices=c("Single","Multiple"),
+                                    selected="Single")
+                       }
+                     )
+              })
+            ))
 ```
 
 
@@ -327,6 +336,13 @@ downloadButton('boxfig', 'Download Boxplot')
 
 
 ```{r}
+
+ranges_print <- function(x)
+{
+  ranges = round(range(x),2)
+  paste(ranges[1],"-",ranges[2])
+}
+
 synthesis <- reactive({
 
   dat <- boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
@@ -352,13 +368,25 @@ synthesis <- reactive({
 
 synthesis_current_flows <- reactive({
   
-  dat <- boxplot_dat() %>% filter(Species=="Current Flow") %>%
+  flows <- boxplot_dat() %>% filter(Species=="Current Flow") %>%
     group_by(Seasonal_Component) %>%
     select(Species,Lower_Limit,Upper_Limit) %>%
     summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>%
-    pull(ranges)
+    pull(ranges)  
   
-  return(dat)
+  if(input$season != "All"){
+    season = input$season
+    names(flows) = season
+    
+    out <- flows %>% pluck(season) %>% ranges_print
+    }
+  else{
+    season = seasons
+    names(flows) = season
+    out <- lapply(flows,ranges_print)
+    }
+  
+  return(out)
 })
 
 
@@ -373,21 +401,15 @@ select_species <- reactive({
 })
 
 
-ranges_print <- function(x)
-{
-  paste(x[1],"-",x[2])
-}
 
 
 
 synthesis_table <- reactive({
-  out <- tibble("Season" = "Summer Baseflow",
-                "Species" = c("Willow","Typha"),
-                "current-flow ranges" = c(ranges_print(round(
-                  synthesis_current_flows()[[1]])),
-                ranges_print(round(
-                  synthesis_current_flows()[[1]]))),
-                "Magnitude" = c(Reduce(intersect,
+  out <- tibble("Node" = input$Node,
+                "Season" = input$season,
+                "Species" = select_species(),
+                "Current Flow Ranges (cfs)" = synthesis_current_flows(),
+                "Optimal Flow Ranges (cfs)" = c(Reduce(intersect,
                                      synthesis()[[1]][grep("Willow",
                                                         c("Cladophora - Adult",
                                                           "Typha - Adult",
@@ -402,7 +424,16 @@ synthesis_table <- reactive({
                                                           "Typha - Growth",
                                                           "Willow - Adult",
                                                           "Willow - Growth"))]) %>%
-                  range() %>% ranges_print()))
+                  range() %>% ranges_print(),
+                Reduce(intersect,
+                                     synthesis()[[1]][grep("Willow",
+                                                        c("Cladophora - Adult",
+                                                          "Typha - Adult",
+                                                          "Typha - Growth",
+                                                          "Willow - Adult",
+                                                          "Willow - Growth"))]) %>%
+                  range() %>% ranges_print())
+                )
   return(out)
 })
 ```
@@ -411,8 +442,9 @@ synthesis_table <- reactive({
 
 ```{r}
 DT::renderDataTable({synthesis_table()},options = list(dom = 't'))
-```
 
+#renderPrint({synthesis_current_flows()})
+```
 
 
 
