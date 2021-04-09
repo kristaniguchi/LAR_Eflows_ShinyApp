@@ -225,7 +225,6 @@ Reduce(intersect,
 
 
 
-
 tibble("Season" = "Summer Baseflow",
        "Species" = "Typha",
        "current-flow ranges" = ranges_print(round(synthesis_current_flows$`Summer Baseflow`)),
