@@ -220,8 +220,18 @@ tibble("Season" = "Summer Baseflow",
 
 
 Reduce(intersect,
-       summer_ranges[grep("Typha",names(summer_ranges))]) %>% 
+       summer_ranges[grep("Typha",synthesis_table() %>% 
+                            pull(Species) %>% unique()   )]) %>% 
   range()
+
+
+
+
+Reduce(intersect,
+       synthesis()[[2]][['Summer Baseflow']]
+       [grep("Typha",synthesis_table() %>% pull(Species))]) %>% 
+  range()
+
 
 
 

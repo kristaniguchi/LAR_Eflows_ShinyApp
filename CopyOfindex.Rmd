@@ -375,13 +375,14 @@ synthesis <- reactive({
     names(seasonal_ranges) = season
     names(seasonal_species) = NULL
     
+    names(seasonal_ranges[[season]]) =unlist(seasonal_species) %>% as.character() 
     ranges = lapply(seasonal_ranges[[season]],ranges_print)
     
     out <- tibble("Season" = season,
                   "Species" = unlist(seasonal_species) %>% as.character(),
                   "Ranges (cfs)" = unlist(ranges))
     
-    return(out)
+    return(list(out,seasonal_ranges))
     }
   else{
     
@@ -429,7 +430,7 @@ select_species <- reactive({
 
 synthesis_table <- reactive({
   
-  out <- bind_cols(synthesis(),
+  out <- bind_cols(synthesis()[[1]],
                    "Current Flow (cfs)" = synthesis_current_flows())
   return(out)
 })
@@ -440,7 +441,20 @@ synthesis_table <- reactive({
 
 
 ```{r}
-#renderPrint({intersections()})
+
+renderPrint({  synthesis_table() %>% pull(Species) })
+is_integer0 <- function(x)
+{
+  is.integer(x) && length(x) == 0L
+}
+
+renderPrint({   Reduce(intersect,
+                      synthesis()[[2]][['Summer Baseflow']]
+                       [grep('Willow - Growth',
+                             synthesis_table() %>% pull(Species))] 
+                      %>% ranges_print)
+  }) 
+
 DT::renderDataTable({synthesis_table()},options = list(dom = 't'))
 ```
 
