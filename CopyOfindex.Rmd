@@ -442,18 +442,33 @@ synthesis_table <- reactive({
 
 ```{r}
 
-renderPrint({  synthesis_table() %>% pull(Species) })
+
 is_integer0 <- function(x)
 {
   is.integer(x) && length(x) == 0L
 }
 
+renderUI({
+selectInput("species_selection", label = "Select Intersection of Species:",
+            choices = synthesis_table() %>% pull(Species) %>% strsplit(" - ") %>%
+              unlist() %>%
+              unique() %>%
+              str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"] )
+              
+})
+  
+
+renderPrint({paste0(input$species_selection," - ","Adult")})
+
 renderPrint({   Reduce(intersect,
                       synthesis()[[2]][['Summer Baseflow']]
-                       [grep('Willow - Growth',
+                       [grep(paste0(input$species_selection," - ","Adult"),
                              synthesis_table() %>% pull(Species))] 
                       %>% ranges_print)
+
   }) 
+
+
 
 DT::renderDataTable({synthesis_table()},options = list(dom = 't'))
 ```
