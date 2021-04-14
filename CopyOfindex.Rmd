@@ -287,8 +287,6 @@ box_plot <- reactive({
 ```
 
 ```{r}
-renderPlot({box_plot()},height=600,width=1100)
-
 output$boxfig <- downloadHandler(
     filename = function() {
       if(input$location=="Node"){
@@ -330,6 +328,7 @@ fluidPage(
 downloadButton('boxdat', 'Download Data'),
 downloadButton('boxfig', 'Download Boxplot')
 )
+renderPlot({box_plot()},height=600,width=1100)
 ```
 
 
@@ -449,24 +448,26 @@ is_integer0 <- function(x)
 }
 
 renderUI({
-selectInput("species_selection", label = "Select Intersection of Species:",
-            choices = synthesis_table() %>% pull(Species) %>% strsplit(" - ") %>%
+  
+  choices <- synthesis_table() %>% pull(Species) %>% strsplit(" - ") %>%
               unlist() %>%
               unique() %>%
-              str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"] )
-              
-})
+              str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"]
   
+  selectInput("species_selection", label = "Select Intersection of Species:",
+              choices = choices,
+              multiple = TRUE,
+              selected = choices[1])
+  })
 
-renderPrint({paste0(input$species_selection," - ","Adult")})
-
-renderPrint({   Reduce(intersect,
-                      synthesis()[[2]][['Summer Baseflow']]
-                       [grep(paste0(input$species_selection," - ","Adult"),
-                             synthesis_table() %>% pull(Species))] 
-                      %>% ranges_print)
-
-  }) 
+renderPrint({
+  Reduce(intersect,
+         synthesis()[[2]][[input$season]][grep(str_c(input$species_selection,
+                                                     collapse="|"),
+                                               synthesis_table() %>%
+                                                 pull(Species))]) %>%
+    ranges_print()
+  })
 
 
 

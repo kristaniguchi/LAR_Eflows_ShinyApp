@@ -200,8 +200,20 @@ names(peak_ranges) = seasonal_species %>% pluck("Winter Peak Flows")
 
 # intersection of "Willow" species for the summer only
 Reduce(intersect,
-       summer_ranges[grep("Willow",names(summer_ranges))]) %>% 
+       c(summer_ranges[grep("Willow",names(summer_ranges))],
+            summer_ranges[grep("Typha",names(summer_ranges))] )) %>% 
   range() %>% ranges_print()
+
+
+
+
+
+
+Reduce(intersect,
+       summer_ranges[grep(str_c(c("Willow","Typha"),collapse = "|"),names(summer_ranges))]) %>% 
+  range() %>% ranges_print()
+
+
 
 
 
@@ -216,7 +228,7 @@ tibble("Season" = "Summer Baseflow",
 
 
 
-# intersection of "typha" species for the sumer only
+# intersection of "typha" species for the summer only
 
 
 Reduce(intersect,
