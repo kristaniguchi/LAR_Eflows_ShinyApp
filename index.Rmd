@@ -354,6 +354,7 @@ synthesis <- reactive({
     group_split()
   
   if(input$season != "All"){
+    
     season = input$season
     names(dat) = season
     
@@ -371,6 +372,7 @@ synthesis <- reactive({
       seasonal_species[[i]] = dat %>%
         pluck(i,"Species")
     }
+    
     names(seasonal_ranges) = season
     names(seasonal_species) = NULL
     
@@ -399,12 +401,14 @@ synthesis_current_flows <- reactive({
     pull(ranges)  
   
   if(input$season != "All"){
+    
     season = input$season
     names(flows) = season
     
     out <- flows %>% pluck(season) %>% ranges_print
     }
   else{
+    
     season = seasons
     names(flows) = season
     out <- lapply(flows,ranges_print)
@@ -414,64 +418,66 @@ synthesis_current_flows <- reactive({
 })
 
 
-
-select_species <- reactive({
-  out <- boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
-                                                  "Rec. Use - Fishing",
-                                                  "Current Flow")) %>%
-    select(species) %>% unique()
-  
-  return(out)
-})
-
-
-
-
-synthesis_table <- reactive({
-  
-  out <- bind_cols(synthesis()[[1]],
-                   "Current Flow (cfs)" = synthesis_current_flows())
-  return(out)
-})
-
-
 ```
 
 
 
 ```{r}
-
 is_integer0 <- function(x)
 {
   is.integer(x) && length(x) == 0L
 }
 
-renderUI({
-  
-  choices <- synthesis_table() %>% pull(Species) %>% strsplit(" - ") %>%
+#renderUI({
+#  
+#  choices <- synthesis_table() %>% pull(Species) %>% strsplit(" - ") %>%
+#              unlist() %>%
+#              unique() %>%
+#              str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"]
+#  
+#  selectInput("species_selection", label = "Select Intersection of Species:",
+#             choices = choices,
+#              multiple = TRUE,
+#              selected = choices[1])
+#  })
+
+#renderPrint({
+#  Reduce(intersect,
+#         synthesis()[[2]][[input$season]][grep(str_c(input$species_selection,
+#                                                     collapse="|"),
+#                                               synthesis_table() %>%
+#                                                 pull(Species))]) %>%
+#    ranges_print()
+#  })
+```
+
+
+```{r}
+DT::renderDataTable({ 
+  choices <- synthesis()[[1]] %>% pull(Species) %>% strsplit(" - ") %>%
               unlist() %>%
               unique() %>%
               str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"]
+
+  choices_ranges = c()
   
-  selectInput("species_selection", label = "Select Intersection of Species:",
-              choices = choices,
-              multiple = TRUE,
-              selected = choices[1])
-  })
-
-renderPrint({
-  Reduce(intersect,
-         synthesis()[[2]][[input$season]][grep(str_c(input$species_selection,
-                                                     collapse="|"),
-                                               synthesis_table() %>%
-                                                 pull(Species))]) %>%
-    ranges_print()
-  })
-
-
-
-DT::renderDataTable({synthesis_table()},options = list(dom = 't'))
+  for(i in 1:length(choices)){
+    choices_ranges[i] = Reduce(intersect,
+                               synthesis()[[2]][[input$season]][grep(choices[i],
+                                                                     synthesis()[[1]] %>%
+                                                                       pull(Species))]) %>%
+      ranges_print()
+    }
+  
+  out <- tibble(Season = input$season,
+                   Species = choices,
+                   Ranges = choices_ranges ,
+                   "Current Flow (cfs)" = synthesis_current_flows())
+  return(out) 
+  
+  },options = list(dom = 't'))
 ```
+
 
 
 
