@@ -335,7 +335,6 @@ renderPlot({box_plot()},height=600,width=1100)
 
 
 ```{r}
-
 ranges_print <- function(x)
 {
   ranges = round(range(x),2)
@@ -343,33 +342,39 @@ ranges_print <- function(x)
 }
 
 
+is_integer0 <- function(x)
+{
+  is.integer(x) && length(x) == 0L
+}
+```
+
+
+```{r}
 synthesis <- reactive({
 
   filter_check <- boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
                                                   "Rec. Use - Fishing",
                                                   "Current Flow"))
-  if(nrow(filter_check)==0){
-    
-    dat <-  boxplot_dat() %>% filter(Species %in% c("Rec. Use - Kayak",
-                                                  "Rec. Use - Fishing",
-                                                  "Current Flow")) %>%
-      group_by(Seasonal_Component,Species) %>%
-      select(Species,Lower_Limit,Upper_Limit)  %>%
-      summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
-      group_split()
-  }
-  else{
-    
-    dat <-  boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
-                                                  "Rec. Use - Fishing",
-                                                  "Current Flow")) %>%
-      group_by(Seasonal_Component,Species) %>%
-      select(Species,Lower_Limit,Upper_Limit)  %>%
-      summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
-      group_split()
-  }
   if(input$season != "All"){
     
+    if(nrow(filter_check)==0){
+      dat <-  boxplot_dat() %>% filter(Species %in% c("Rec. Use - Kayak",
+                                                  "Rec. Use - Fishing",
+                                                  "Current Flow")) %>%
+        group_by(Seasonal_Component,Species) %>%
+        select(Species,Lower_Limit,Upper_Limit)  %>%
+        summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
+        group_split()
+      }
+    else{
+      dat <-  boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
+                                                  "Rec. Use - Fishing",
+                                                  "Current Flow")) %>%
+        group_by(Seasonal_Component,Species) %>%
+        select(Species,Lower_Limit,Upper_Limit)  %>%
+        summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
+        group_split()
+      }
     season = input$season
     names(dat) = season
     
@@ -381,12 +386,11 @@ synthesis <- reactive({
         pluck(i) %>%
         group_by(Species) %>%
         pluck("ranges")
-    }
-    
+      }
     for(i in 1:length(dat)){
       seasonal_species[[i]] = dat %>%
         pluck(i,"Species")
-    }
+      }
     
     names(seasonal_ranges) = season
     names(seasonal_species) = NULL
@@ -397,13 +401,17 @@ synthesis <- reactive({
     out <- tibble("Season" = season,
                   "Species" = unlist(seasonal_species) %>% as.character(),
                   "Ranges (cfs)" = unlist(ranges))
-    
-    return(list(out,seasonal_ranges))
+    return(list("Table"=out,seasonal_ranges))
     }
   else{
-    
-  return(dat)
-  }
+    out <- boxplot_dat() %>% select(Seasonal_Component,Species,
+                             Lower_Limit,Upper_Limit) %>%
+      rename(Season = Seasonal_Component) %>%
+      group_by(Season,Species) %>%
+      summarise(Ranges = list(seq(from = Lower_Limit,to = Upper_Limit) %>%
+                                ranges_print))
+    return(out)
+    }
   })
 
 
@@ -421,15 +429,12 @@ synthesis_current_flows <- reactive({
     names(flows) = season
     
     out <- flows %>% pluck(season) %>% ranges_print
+    
+    return(out)
     }
   else{
-    
-    season = seasons
-    names(flows) = season
-    out <- lapply(flows,ranges_print)
+    return(NULL)
     }
-  
-  return(out)
 })
 
 
@@ -438,24 +443,6 @@ synthesis_current_flows <- reactive({
 
 
 ```{r}
-is_integer0 <- function(x)
-{
-  is.integer(x) && length(x) == 0L
-}
-
-#renderUI({
-#  
-#  choices <- synthesis_table() %>% pull(Species) %>% strsplit(" - ") %>%
-#              unlist() %>%
-#              unique() %>%
-#              str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"]
-#  
-#  selectInput("species_selection", label = "Select Intersection of Species:",
-#             choices = choices,
-#              multiple = TRUE,
-#              selected = choices[1])
-#  })
-
 #renderPrint({
 #  Reduce(intersect,
 #         synthesis()[[2]][[input$season]][grep(str_c(input$species_selection,
@@ -468,29 +455,37 @@ is_integer0 <- function(x)
 
 
 ```{r}
-DT::renderDataTable({ 
-  choices <- synthesis()[[1]] %>% pull(Species) %>% strsplit(" - ") %>%
-              unlist() %>%
-              unique() %>%
-              str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"]
+DT::renderDataTable({
+  
+  if(input$season != "All"){
+    
+    choices <- synthesis()[["Table"]] %>% pull(Species) %>%
+      strsplit(" - ") %>%
+      unlist() %>%
+      unique() %>%
+      str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"]
+    
+    choices_ranges = c()
+    
+    for(i in 1:length(choices)){
+      choices_ranges[i] = Reduce(intersect,
+                                 synthesis()[[2]][[input$season]][grep(choices[i],
+                                                                       synthesis()[[1]] %>%
+                                                                         pull(Species))]) %>%
+        ranges_print()
+      }
+    out <- tibble(Season = input$season,
+                  Species = choices,
+                  Ranges = choices_ranges ,
+                  "Current Flow (cfs)" = synthesis_current_flows())
+    return(out)
+  }
+  else{
+    synthesis()
+  }
 
-  choices_ranges = c()
-  
-  for(i in 1:length(choices)){
-    choices_ranges[i] = Reduce(intersect,
-                               synthesis()[[2]][[input$season]][grep(choices[i],
-                                                                     synthesis()[[1]] %>%
-                                                                       pull(Species))]) %>%
-      ranges_print()
     }
-  
-  out <- tibble(Season = input$season,
-                   Species = choices,
-                   Ranges = choices_ranges ,
-                   "Current Flow (cfs)" = synthesis_current_flows())
-  return(out) 
-  
-  },options = list(dom = 't'))
+,options = list(dom = 't'))
 ```
 
 
