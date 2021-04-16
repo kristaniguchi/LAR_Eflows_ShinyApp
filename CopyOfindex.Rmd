@@ -345,14 +345,29 @@ ranges_print <- function(x)
 
 synthesis <- reactive({
 
-  dat <- boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
+  filter_check <- boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
+                                                  "Rec. Use - Fishing",
+                                                  "Current Flow"))
+  if(nrow(filter_check)==0){
+    
+    dat <-  boxplot_dat() %>% filter(Species %in% c("Rec. Use - Kayak",
                                                   "Rec. Use - Fishing",
                                                   "Current Flow")) %>%
-    group_by(Seasonal_Component,Species) %>%
-    select(Species,Lower_Limit,Upper_Limit)  %>%
-    summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
-    group_split()
-  
+      group_by(Seasonal_Component,Species) %>%
+      select(Species,Lower_Limit,Upper_Limit)  %>%
+      summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
+      group_split()
+  }
+  else{
+    
+    dat <-  boxplot_dat() %>% filter(!Species %in% c("Rec. Use - Kayak",
+                                                  "Rec. Use - Fishing",
+                                                  "Current Flow")) %>%
+      group_by(Seasonal_Component,Species) %>%
+      select(Species,Lower_Limit,Upper_Limit)  %>%
+      summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
+      group_split()
+  }
   if(input$season != "All"){
     
     season = input$season
