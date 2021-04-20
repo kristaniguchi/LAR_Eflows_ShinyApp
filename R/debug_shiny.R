@@ -239,19 +239,40 @@ Reduce(intersect,
 
 
 
-Reduce(intersect,
-       synthesis()[[2]][['Summer Baseflow']]
-       [grep("Typha",synthesis_table() %>% pull(Species))]) %>% 
-  range()
-
-
-
-
 tibble("Season" = "Summer Baseflow",
        "Species" = "Typha",
        "current-flow ranges" = ranges_print(round(synthesis_current_flows$`Summer Baseflow`)),
        "Magnitude" = Reduce(intersect,
                             summer_ranges[grep("Typha",names(summer_ranges))]) %>%
          range() %>% ranges_print())
+
+
+
+
+
+# Multiple Species Sythesis Option -----------------------------------------------
+
+
+summer_ranges <- seasonal_ranges[["Summer Baseflow"]]
+names(summer_ranges) = seasonal_species %>% pluck("Summer Baseflow")
+
+
+species_list = list()
+for(i in rev(1:length(names(summer_ranges)))){
+  
+  species_list[[i]] = suppressWarnings(
+    as_tibble(names(summer_ranges) %>% combn(i) %>% t()) %>%
+      rowwise() %>% mutate(x= Reduce(intersect,
+                                     summer_ranges[grep(str_c(c_across(),collapse = "|"),
+                                                        names(summer_ranges))])
+                           %>% range() %>% diff()) %>%
+      filter(x != "-Inf") %>% 
+      ungroup() %>%
+      top_n(x,n=1))
+}
+discard(species_list, function(x) nrow(x) == 0)
+
+
+
 
 

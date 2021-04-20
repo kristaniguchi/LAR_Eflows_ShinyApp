@@ -443,20 +443,7 @@ synthesis_current_flows <- reactive({
 
 
 ```{r}
-#renderPrint({
-#  Reduce(intersect,
-#         synthesis()[[2]][[input$season]][grep(str_c(input$species_selection,
-#                                                     collapse="|"),
-#                                               synthesis_table() %>%
-#                                                 pull(Species))]) %>%
-#    ranges_print()
-#  })
-```
-
-
-```{r}
 DT::renderDataTable({
-  
   if(input$season != "All"){
     
     choices <- synthesis()[["Table"]] %>% pull(Species) %>%
