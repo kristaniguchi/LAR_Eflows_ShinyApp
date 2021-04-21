@@ -98,7 +98,6 @@ synthesis <- df2  %>% filter(!Species %in% c("Rec. Use - Kayak",
   group_by(Seasonal_Component,Species) %>%
   select(Species,Lower_Limit,Upper_Limit)  %>%
   summarise(ranges = list(seq(from = Lower_Limit,to = Upper_Limit))) %>% 
-  #summarise(a=min(Lower_Limit),b=min(Upper_Limit)) %>% 
   group_split()
 
 
@@ -250,7 +249,7 @@ tibble("Season" = "Summer Baseflow",
 
 
 
-# Multiple Species Sythesis Option -----------------------------------------------
+# Multiple Species Sythesis Option (SUMMER) -----------------------------------------------
 
 
 summer_ranges <- seasonal_ranges[["Summer Baseflow"]]
@@ -258,19 +257,31 @@ names(summer_ranges) = seasonal_species %>% pluck("Summer Baseflow")
 
 
 species_list = list()
-for(i in rev(1:length(names(summer_ranges)))){
+for(i in 1:length(names(summer_ranges))){
   
   species_list[[i]] = suppressWarnings(
     as_tibble(names(summer_ranges) %>% combn(i) %>% t()) %>%
-      rowwise() %>% mutate(x= Reduce(intersect,
-                                     summer_ranges[grep(str_c(c_across(),collapse = "|"),
-                                                        names(summer_ranges))])
-                           %>% range() %>% diff()) %>%
-      filter(x != "-Inf") %>% 
+      rowwise() %>%
+      mutate(Ranges = Reduce(intersect,
+                        summer_ranges[grep(str_c(c_across(),collapse = "|"),
+                                           names(summer_ranges))]) %>% 
+             range() %>% ranges_print()) %>% 
+      mutate(Range_Diff = Reduce(intersect,
+                       summer_ranges[grep(str_c(c_across(),collapse = "|"),
+                                          names(summer_ranges))])
+             %>% range() %>% diff()) %>%
+      filter(Range_Diff != "-Inf") %>%
       ungroup() %>%
-      top_n(x,n=1))
+      top_n(Range_Diff,n=1))
 }
-discard(species_list, function(x) nrow(x) == 0)
+
+summer_multiple_synthesis <- discard(species_list, function(x) nrow(x) == 0) %>%
+  last()
+
+
+summer_multiple_synthesis %>% select(-c("Ranges","Range_Diff")) %>% 
+  unlist(use.names = FALSE)
+
 
 
 
