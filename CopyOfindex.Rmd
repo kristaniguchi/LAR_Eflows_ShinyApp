@@ -444,35 +444,34 @@ synthesis_current_flows <- reactive({
 
 ```{r}
 DT::renderDataTable({
-  if(input$season != "All"){
+  if(input$synthesis == "Yes" & input$location == "Node"){
+    if(input$season != "All"){
+      
+      choices <- synthesis()[["Table"]] %>% pull(Species) %>%
+        strsplit(" - ") %>%
+        unlist() %>%
+        unique() %>%
+        str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"]
     
-    choices <- synthesis()[["Table"]] %>% pull(Species) %>%
-      strsplit(" - ") %>%
-      unlist() %>%
-      unique() %>%
-      str_trim() %>% .[.!="Adult"] %>%  .[.!="Growth"]
-    
-    choices_ranges = c()
-    
-    for(i in 1:length(choices)){
-      choices_ranges[i] = Reduce(intersect,
-                                 synthesis()[[2]][[input$season]][grep(choices[i],
-                                                                       synthesis()[[1]] %>%
-                                                                         pull(Species))]) %>%
-        ranges_print()
+      choices_ranges = c()
+      
+      for(i in 1:length(choices)){
+        choices_ranges[i] = Reduce(intersect,
+                                   synthesis()[[2]][[input$season]][grep(choices[i],
+                                                                         synthesis()[[1]] %>%
+                                                                           pull(Species))]) %>%
+          ranges_print()
+        }
+      out <- tibble(Season = input$season,
+                    Species = choices,
+                    Ranges = choices_ranges ,
+                    "Current Flow (cfs)" = synthesis_current_flows())
+      return(out)
       }
-    out <- tibble(Season = input$season,
-                  Species = choices,
-                  Ranges = choices_ranges ,
-                  "Current Flow (cfs)" = synthesis_current_flows())
-    return(out)
-  }
-  else{
-    synthesis()
-  }
-
-    }
-,options = list(dom = 't'))
+    else{
+      synthesis()
+    }}
+  },options = list(dom = 't'))
 ```
 
 
