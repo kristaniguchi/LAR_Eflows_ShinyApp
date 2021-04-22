@@ -502,7 +502,10 @@ DT::renderDataTable({
         
         
         multiple_synthesis <- discard(species_list, function(x) nrow(x) == 0) %>%
-          last()
+          last() %>% select(-c("Range_Diff"))
+        
+        names(multiple_synthesis)[-length(multiple_synthesis)] <- paste0("Species ",
+                                                                         seq_along(multiple_synthesis[-length(multiple_synthesis)]))
         return(multiple_synthesis)
       }
       else{
@@ -515,7 +518,7 @@ DT::renderDataTable({
 
 
 ```{r, eval=FALSE}
-renderPrint({ 
+renderDataTable({ 
   species_season <- synthesis()[["Table"]] %>% pull(Species) %>%
     unlist() %>%
     unique()
@@ -546,10 +549,8 @@ renderPrint({
   multiple_synthesis <- discard(species_list, function(x) nrow(x) == 0) %>%
     last()
   
-  multiple_synthesis
-  
-  #multiple_synthesis %>% select(-c("Ranges","Range_Diff")) %>% 
-  #  unlist(use.names = FALSE)
+  multiple_synthesis %>% select(-c("Range_Diff")) %>%
+    unlist(use.names = FALSE)
 })
 ```
 
