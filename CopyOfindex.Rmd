@@ -90,23 +90,20 @@ location_choice <- reactive({
 BUnames <- reactive({
   if(input$location=="Node"){
     validate(need(input$Node != ""," "))
-    out <- c("All",dat %>% filter(Node == input$Node) %>%
-               pull(BU_names) %>% strsplit(",") %>% unlist() %>%
-               unique() %>% str_trim() %>% .[-1])
+    out <- c("All", dat %>% filter(Node == input$Node) %>% pull(BU_names) %>%
+               str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
     return(out)    
   }
   else if(input$location == "Reporting Reach"){
     validate(need(input$Reach != ""," "))
-    out <- c("All",dat %>% filter(Reach == input$Reach) %>%
-               pull(BU_names) %>% strsplit(",") %>% unlist() %>%
-               unique() %>% str_trim() %>% .[-1])
+    out <- c("All", dat %>% filter(Reach == input$Reach) %>% pull(BU_names) %>%
+               str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
     return(out)      
   }
   else{
     validate(need(input$MasterLA != ""," "))
-    out <- c("All",dat %>% filter(waterbody == input$MasterLA) %>%
-               pull(BU_names) %>% strsplit(",") %>% unlist() %>%
-               unique() %>% str_trim() %>% .[-1])
+    out <- c("All", dat %>% filter(waterbody == input$MasterLA) %>% pull(BU_names) %>%
+               str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
     return(out)       
   }
   
