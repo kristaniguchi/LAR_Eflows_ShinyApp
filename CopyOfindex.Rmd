@@ -197,7 +197,7 @@ boxplot_dat <- reactive({
     beneficial_use_names = dat$BU_names[grep(input$BU_names,dat$BU_names)]
   }
   else{
-    beneficial_use_names = BUnames()
+    beneficial_use_names = unique(dat$BU_names)
   }
   
   if(input$location == "Node"){
