@@ -1,370 +1,370 @@
-Species,Species_Label,Node,Reach,Critial_XS_Position,Seasonal.Component,Current_Suitability,Lower_Limit,Upper_Limit,Probability_Threshold,Designation,Duration_Days,Timing_Start_WYDay,Timing_End_WYDay,metric,notes
-Current Flow,Current Flow,GLEN,LAR 5 - Glendale Narrows,NA,Dry Season Baseflow,NA,72.56235,89.414075,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,GLEN,LAR 5 - Glendale Narrows,NA,Dry Season Baseflow,NA,80.29855,95.77261,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,GLEN,LAR 5 - Glendale Narrows,NA,Wet Season Baseflow,NA,73.788265,104.284365,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,GLEN,LAR 5 - Glendale Narrows,NA,Wet Season Baseflow,NA,83.45125,131.22035,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,GLEN,LAR 5 - Glendale Narrows,NA,Wet Season Peak Flows,NA,3674.5249,9249.15782,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Willow - Growth,Willow Growth,LA20_2,LAR 10 - Upstream Reach,Overbank,Dry Season Baseflow,suitable,1,1646,Medium,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,LA14,LAR 7 - Below Burbank,Overbank,Dry Season Baseflow,suitable,8,841,Medium,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,GLEN,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,23,595,Medium,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,LA11,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,25,844,Medium,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,F57C,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,26,91,Medium,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,11101250,Rio Hondo 2 - Above Spreading Grounds,Overbank,Dry Season Baseflow,suitable,1,114,Medium,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,F37B Low,Compton Creek,Overbank,Dry Season Baseflow,unsuitable,10,301,Medium,Existing,182,183,365,DS_Mag_50,
-Willow - Adult,Willow Adult,LA20_2,LAR 10 - Upstream Reach,Overbank,Dry Season Baseflow,suitable,1,1131,Medium,Existing,365,1,365,DS_Mag_50,
-Willow - Adult,Willow Adult,LA14,LAR 7 - Below Burbank,Overbank,Dry Season Baseflow,suitable,8,521,Medium,Existing,365,1,365,DS_Mag_50,
-Willow - Adult,Willow Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,23,355,Medium,Existing,365,1,365,DS_Mag_50,
-Willow - Adult,Willow Adult,LA11,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,25,376,Medium,Existing,365,1,365,DS_Mag_50,
-Willow - Adult,Willow Adult,F57C,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,26,1532,Medium,Existing,365,1,365,DS_Mag_50,
-Willow - Adult,Willow Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Overbank,Dry Season Baseflow,suitable,1,284,Medium,Existing,365,1,365,DS_Mag_50,
-Willow - Adult,Willow Adult,F37B Low,Compton Creek,Overbank,Dry Season Baseflow,unsuitable,8,117,Medium,Existing,365,1,365,DS_Mag_50,
-Willow - Growth,Willow Growth,LA20_2,LAR 10 - Upstream Reach,Overbank,Dry Season Baseflow,suitable,1,1502,High,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,LA14,LAR 7 - Below Burbank,Overbank,Dry Season Baseflow,suitable,8,655,High,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,GLEN,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,23,256,High,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,LA11,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,25,666,High,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,F57C,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,unsuitable,26,42,High,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,11101250,Rio Hondo 2 - Above Spreading Grounds,Overbank,Dry Season Baseflow,suitable,1,86,High,Existing,182,183,365,DS_Mag_50,
-Willow - Growth,Willow Growth,F37B Low,Compton Creek,Overbank,Dry Season Baseflow,unsuitable,10,298,High,Existing,182,183,365,DS_Mag_50,
-Willow - Adult,Willow Adult,LA20_2,LAR 10 - Upstream Reach,Overbank,Wet Season Baseflow,suitable,1,1131,NA,Existing,365,1,365,Wet_BFL_Mag_10,
-Willow - Adult,Willow Adult,LA14,LAR 7 - Below Burbank,Overbank,Wet Season Baseflow,suitable,8,521,NA,Existing,365,1,365,Wet_BFL_Mag_10,
-Willow - Adult,Willow Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Wet Season Baseflow,suitable,23,355,NA,Existing,365,1,365,Wet_BFL_Mag_10,
-Willow - Adult,Willow Adult,LA11,LAR 5 - Glendale Narrows,Overbank,Wet Season Baseflow,suitable,25,376,NA,Existing,365,1,365,Wet_BFL_Mag_10,
-Willow - Adult,Willow Adult,F57C,LAR 5 - Glendale Narrows,Overbank,Wet Season Baseflow,suitable,26,1532,NA,Existing,365,1,365,Wet_BFL_Mag_10,
-Willow - Adult,Willow Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Overbank,Wet Season Baseflow,unsuitable,1,284,NA,Existing,365,1,365,Wet_BFL_Mag_10,
-Willow - Adult,Willow Adult,F37B Low,Compton Creek,Overbank,Wet Season Baseflow,unsuitable,8,117,NA,Existing,365,1,365,Wet_BFL_Mag_10,
-Willow - Adult,Willow Adult,LA20_2,LAR 10 - Upstream Reach,Overbank,Wet Season Peak Flows,,0,NA,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Willow - Adult,Willow Adult,LA14,LAR 7 - Below Burbank,Overbank,Wet Season Peak Flows,,0,NA,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Willow - Adult,Willow Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Wet Season Peak Flows,,0,NA,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Willow - Adult,Willow Adult,LA11,LAR 5 - Glendale Narrows,Overbank,Wet Season Peak Flows,,0,NA,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Willow - Adult,Willow Adult,F57C,LAR 5 - Glendale Narrows,Overbank,Wet Season Peak Flows,,0,NA,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Willow - Adult,Willow Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Overbank,Wet Season Peak Flows,,0,NA,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Willow - Adult,Willow Adult,F37B Low,Compton Creek,Overbank,Wet Season Peak Flows,,0,NA,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA20,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,unsuitable,16,3091,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,suitable,1,28466,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),F300,LAR 8 - Above Burbank,Main Channel,Dry Season Baseflow,suitable,25,215,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA14,LAR 7 - Below Burbank,Main Channel,Dry Season Baseflow,suitable,43,17070,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA13,LAR 6 - Above Glendale WRP,Main Channel,Dry Season Baseflow,unsuitable,998,5276,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,23,23399,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,57,25087,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,26,3828,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA8,LAR 4 - Above Rio Hondo,Main Channel,Dry Season Baseflow,suitable,63,689,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),F34D,LAR 4 - Above Rio Hondo,Main Channel,Dry Season Baseflow,suitable,60,2587,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA3,LAR 3 - Below Rio Hondo,Main Channel,Dry Season Baseflow,suitable,62,2698,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),F319,LAR 2 - Below Compton Creek,Main Channel,Dry Season Baseflow,suitable,63,7145,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA2,LAR 1 - Tidal Reach,Main Channel,Dry Season Baseflow,TBD,TBD,,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA1,LAR 1 - Tidal Reach,Main Channel,Dry Season Baseflow,TBD,TBD,,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA20,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,unsuitable,16,3091,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,suitable,1,28466,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),F300,LAR 8 - Above Burbank,Main Channel,Wet Season Baseflow,suitable,25,215,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA14,LAR 7 - Below Burbank,Main Channel,Wet Season Baseflow,suitable,43,17070,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA13,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Baseflow,unsuitable,998,5276,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,23,23399,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,57,25087,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,26,3828,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA8,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Baseflow,suitable,63,689,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),F34D,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Baseflow,suitable,60,2587,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA3,LAR 3 - Below Rio Hondo,Main Channel,Wet Season Baseflow,suitable,62,2698,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),F319,LAR 2 - Below Compton Creek,Main Channel,Wet Season Baseflow,suitable,63,7145,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA2,LAR 1 - Tidal Reach,Main Channel,Wet Season Baseflow,TBD,TBD,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA1,LAR 1 - Tidal Reach,Main Channel,Wet Season Baseflow,TBD,TBD,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Typha - Growth,Typha Growth,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,suitable,1,1432,Medium,Existing,182,183,365,DS_Mag_50,
-Typha - Growth,Typha Growth,LA14,LAR 7 - Below Burbank,Overbank,Dry Season Baseflow,suitable,23,197,Medium,Existing,182,183,365,DS_Mag_50,
-Typha - Growth,Typha Growth,GLEN,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,23,166,Medium,Existing,182,183,365,DS_Mag_50,
-Typha - Growth,Typha Growth,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,24,48,Medium,Existing,182,183,365,DS_Mag_50,
-Typha - Growth,Typha Growth,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,26,55,Medium,Existing,182,183,365,DS_Mag_50,
-Typha - Growth,Typha Growth,11101250,Rio Hondo 2 - Above Spreading Grounds,Main Channel,Dry Season Baseflow,suitable,0.0025,0.1,Medium,Existing,182,183,365,DS_Mag_50,
-Typha - Growth,Typha Growth,F37B Low,Compton Creek,Overbank,Dry Season Baseflow,unsuitable,4,299,Medium,Existing,182,183,365,DS_Mag_50,
-Typha - Adult,Typha Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,suitable,1,1172,Medium,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,LA14,LAR 7 - Below Burbank,Overbank,Dry Season Baseflow,unsuitable,84,1968,Medium,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,suitable,77,568,Medium,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,24,65,Medium,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,26,586,Medium,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Main Channel,Dry Season Baseflow,suitable,1,14,Medium,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,F37B Low,Compton Creek,Overbank,Dry Season Baseflow,unsuitable,1,182,Medium,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,suitable,1,1160,High,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,LA14,LAR 7 - Below Burbank,Overbank,Dry Season Baseflow,unsuitable,294,1419,High,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Dry Season Baseflow,unsuitable,270,1238,High,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,93,824,High,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,104,1000,High,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Main Channel,Dry Season Baseflow,suitable,1,5,High,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,F37B Low,Compton Creek,Overbank,Dry Season Baseflow,unsuitable,10,162,High,Existing,365,1,365,DS_Mag_50,
-Typha - Adult,Typha Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,suitable,1,1172,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,LA14,LAR 7 - Below Burbank,Overbank,Wet Season Baseflow,unsuitable,84,1968,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Wet Season Baseflow,suitable,77,568,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,unsuitable,24,65,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,26,586,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Main Channel,Wet Season Baseflow,suitable,1,14,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,F37B Low,Compton Creek,Overbank,Wet Season Baseflow,unsuitable,1,182,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,suitable,1,1160,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,LA14,LAR 7 - Below Burbank,Overbank,Wet Season Baseflow,unsuitable,294,1419,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Wet Season Baseflow,unsuitable,270,1238,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,unsuitable,93,824,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,104,1000,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Main Channel,Wet Season Baseflow,suitable,1,5,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Typha - Adult,Typha Adult,F37B Low,Compton Creek,Overbank,Wet Season Baseflow,unsuitable,10,162,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,LA3,LAR 3 - Below Rio Hondo,Overbank,Dry Season Baseflow,unsuitable,348,20232,Medium,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,F319,LAR 2 - Below Compton Creek,Main Channel,Dry Season Baseflow,unsuitable,266,12447,Medium,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,LA2,LAR 1 - Tidal Reach,,Dry Season Baseflow,TBD,TBD,TBD,Medium,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,LA1,LAR 1 - Tidal Reach,,Dry Season Baseflow,TBD,TBD,TBD,Medium,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,F37B High,Compton Creek,Main Channel,Dry Season Baseflow,unsuitable,407,2700,Medium,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,F37B Low,Compton Creek,Overbank,Dry Season Baseflow,,46,212,Medium,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,LA3,LAR 3 - Below Rio Hondo,Overbank,Dry Season Baseflow,unsuitable,557,5453,High,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,F319,LAR 2 - Below Compton Creek,Main Channel,Dry Season Baseflow,unsuitable,486,2151,High,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,LA2,LAR 1 - Tidal Reach,,Dry Season Baseflow,TBD,TBD,TBD,High,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,LA1,LAR 1 - Tidal Reach,,Dry Season Baseflow,TBD,TBD,TBD,High,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,F37B High,Compton Creek,Main Channel,Dry Season Baseflow, ,701,,High,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,F37B Low,Compton Creek,Overbank,Dry Season Baseflow,unsuitable,158,184,High,Existing,365,1,365,DS_Mag_50,
-Cladophora - Adult,Cladophora Adult,LA3,LAR 3 - Below Rio Hondo,Overbank,Wet Season Baseflow,unsuitable,348,20232,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,F319,LAR 2 - Below Compton Creek,Main Channel,Wet Season Baseflow,unsuitable,266,12447,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,LA2,LAR 1 - Tidal Reach,,Wet Season Baseflow,TBD,TBD,TBD,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,LA1,LAR 1 - Tidal Reach,,Wet Season Baseflow,TBD,TBD,TBD,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,F37B High,Compton Creek,Main Channel,Wet Season Baseflow,unsuitable,407,2700,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,F37B Low,Compton Creek,Overbank,Wet Season Baseflow,,46,212,Medium,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,LA3,LAR 3 - Below Rio Hondo,Overbank,Wet Season Baseflow,unsuitable,557,5453,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,F319,LAR 2 - Below Compton Creek,Main Channel,Wet Season Baseflow,unsuitable,486,2151,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,LA2,LAR 1 - Tidal Reach,,Wet Season Baseflow,TBD,TBD,TBD,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,LA1,LAR 1 - Tidal Reach,,Wet Season Baseflow,TBD,TBD,TBD,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,F37B High,Compton Creek,Main Channel,Wet Season Baseflow,,701,,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,F37B Low,Compton Creek,Overbank,Wet Season Baseflow,unsuitable,158,184,High,Existing,365,1,365,Wet_BFL_Mag_10,
-Cladophora - Adult,Cladophora Adult,LA3,LAR 3 - Below Rio Hondo,Overbank,Wet Season Peak Flows,suitable,0,50000,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Cladophora - Adult,Cladophora Adult,F319,LAR 2 - Below Compton Creek,Main Channel,Wet Season Peak Flows,suitable,0,46000,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Cladophora - Adult,Cladophora Adult,LA2,LAR 1 - Tidal Reach,,Wet Season Peak Flows,TBD,TBD,TBD,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Cladophora - Adult,Cladophora Adult,LA1,LAR 1 - Tidal Reach,,Wet Season Peak Flows,TBD,TBD,TBD,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Cladophora - Adult,Cladophora Adult,F37B High,Compton Creek,Main Channel,Wet Season Peak Flows,suitable,0,15000,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Cladophora - Adult,Cladophora Adult,F37B Low,Compton Creek,Overbank,Wet Season Peak Flows,,0,NA,NA,Existing,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-SAS - Growth,SAS Growth,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,unsuitable,278,5169,Medium,Future,152,152,304,DS_Mag_50,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-SAS - Growth,SAS Growth,LA14,LAR 6 - Above Glendale WRP,Main Channel,Dry Season Baseflow,suitable,24,415,Medium,Future,152,152,304,DS_Mag_50,
-SAS - Growth,SAS Growth,GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,34,349,Medium,Future,152,152,304,DS_Mag_50,
-SAS - Growth,SAS Growth,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,873,2091,Medium,Future,152,152,304,DS_Mag_50,
-SAS - Growth,SAS Growth,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,188,193,Medium,Future,152,152,304,DS_Mag_50,
-SAS - Adult,SAS Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,unsuitable,278,5169,Medium,Future,365,1,365,DS_Mag_50,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-SAS - Adult,SAS Adult,LA14,LAR 6 - Above Glendale WRP,Main Channel,Dry Season Baseflow,suitable,44,615,Medium,Future,365,1,365,DS_Mag_50,
-SAS - Adult,SAS Adult,GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,34,517,Medium,Future,365,1,365,DS_Mag_50,
-SAS - Adult,SAS Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,873,2091,Medium,Future,365,1,365,DS_Mag_50,
-SAS - Adult,SAS Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,188,356,Medium,Future,365,1,365,DS_Mag_50,
-SAS - Growth,SAS Growth,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,unsuitable,530,2724,High,Future,152,152,304,DS_Mag_50,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-SAS - Growth,SAS Growth,LA14,LAR 6 - Above Glendale WRP,Main Channel,Dry Season Baseflow,suitable,64,326,High,Future,152,152,304,DS_Mag_50,
-SAS - Growth,SAS Growth,GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,149,274,High,Future,152,152,304,DS_Mag_50,
-SAS - Growth,SAS Growth,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,466,1103,High,Future,152,152,304,DS_Mag_50,
-SAS - Growth,SAS Growth,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,105,133,High,Future,152,152,304,DS_Mag_50,
-SAS - Adult,SAS Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,unsuitable,530,2724,High,Future,365,1,365,DS_Mag_50,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-SAS - Adult,SAS Adult,LA14,LAR 6 - Above Glendale WRP,Main Channel,Dry Season Baseflow,unsuitable,136,482,High,Future,365,1,365,DS_Mag_50,
-SAS - Adult,SAS Adult,GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,149,405,High,Future,365,1,365,DS_Mag_50,
-SAS - Adult,SAS Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,466,1103,High,Future,365,1,365,DS_Mag_50,
-SAS - Adult,SAS Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,unsuitable,105,244,High,Future,365,1,365,DS_Mag_50,
-SAS - Adult,SAS Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,unsuitable,278,5169,Medium,Future,365,1,365,Wet_BFL_Mag_10,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-SAS - Adult,SAS Adult,LA14,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Baseflow,suitable,44,615,Medium,Future,365,1,365,Wet_BFL_Mag_10,
-SAS - Adult,SAS Adult,GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,34,517,Medium,Future,365,1,365,Wet_BFL_Mag_10,
-SAS - Adult,SAS Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,unsuitable,873,2091,Medium,Future,365,1,365,Wet_BFL_Mag_10,
-SAS - Adult,SAS Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,unsuitable,188,356,Medium,Future,365,1,365,Wet_BFL_Mag_10,
-SAS - Adult,SAS Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,unsuitable,530,2724,High,Future,365,1,365,Wet_BFL_Mag_10,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-SAS - Adult,SAS Adult,LA14,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Baseflow,unsuitable,136,482,High,Future,365,1,365,Wet_BFL_Mag_10,
-SAS - Adult,SAS Adult,GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,unsuitable,149,405,High,Future,365,1,365,Wet_BFL_Mag_10,
-SAS - Adult,SAS Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,unsuitable,466,1103,High,Future,365,1,365,Wet_BFL_Mag_10,
-SAS - Adult,SAS Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,unsuitable,105,244,High,Future,365,1,365,Wet_BFL_Mag_10,
-Current Flow,Current Flow,11101250,Rio Hondo 2 - Above Spreading Grounds,NA,Dry Season Baseflow,NA,0.406,1.1689,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,11101250,Rio Hondo 2 - Above Spreading Grounds,NA,Dry Season Baseflow,NA,0.98235,2.6832,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,11101250,Rio Hondo 2 - Above Spreading Grounds,NA,Wet Season Baseflow,NA,0.26814,0.84444,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,11101250,Rio Hondo 2 - Above Spreading Grounds,NA,Wet Season Baseflow,NA,0.7022,34.7125,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,11101250,Rio Hondo 2 - Above Spreading Grounds,NA,Wet Season Peak Flows,NA,1247.1206,2745.79486,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,F300,LAR 8 - Above Burbank,NA,Dry Season Baseflow,NA,51.177925,61.861925,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,F300,LAR 8 - Above Burbank,NA,Dry Season Baseflow,NA,55.39518,71.85803,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,F300,LAR 8 - Above Burbank,NA,Wet Season Baseflow,NA,50.62612,65.13644,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,F300,LAR 8 - Above Burbank,NA,Wet Season Baseflow,NA,58.65435,81.444475,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,F319,LAR 2 - Below Compton Creek,NA,Dry Season Baseflow,NA,117.9982,141.417525,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,F319,LAR 2 - Below Compton Creek,NA,Dry Season Baseflow,NA,134.624405,184.98486,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,F319,LAR 2 - Below Compton Creek,NA,Wet Season Baseflow,NA,117.585375,157.674265,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,F319,LAR 2 - Below Compton Creek,NA,Wet Season Baseflow,NA,132.277475,206.901275,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,F319,LAR 2 - Below Compton Creek,NA,Wet Season Peak Flows,NA,7132.2474,20364.29922,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,F34D,LAR 4 - Above Rio Hondo,NA,Dry Season Baseflow,NA,116.690525,137.987,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,F34D,LAR 4 - Above Rio Hondo,NA,Dry Season Baseflow,NA,133.69452,183.53768,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,F34D,LAR 4 - Above Rio Hondo,NA,Wet Season Baseflow,NA,116.141005,143.303055,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,F34D,LAR 4 - Above Rio Hondo,NA,Wet Season Baseflow,NA,131.111825,169.28755,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,F34D,LAR 4 - Above Rio Hondo,NA,Wet Season Peak Flows,NA,5621.1507,11555.76716,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,F37B High,Compton Creek,NA,Dry Season Baseflow,NA,0,0,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,F37B High,Compton Creek,NA,Dry Season Baseflow,NA,0.000807,0.132529,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,F37B High,Compton Creek,NA,Wet Season Baseflow,NA,0,0.008346,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,F37B High,Compton Creek,NA,Wet Season Baseflow,NA,0.000440009,1.97876,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,F37B High,Compton Creek,NA,Wet Season Peak Flows,NA,216.1075,891.56022,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,F37B Low,Compton Creek,NA,Dry Season Baseflow,NA,0,0,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,F37B Low,Compton Creek,NA,Dry Season Baseflow,NA,0.000807,0.132529,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,F37B Low,Compton Creek,NA,Wet Season Baseflow,NA,0,0.008346,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,F37B Low,Compton Creek,NA,Wet Season Baseflow,NA,0.000440009,1.97876,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,F37B Low,Compton Creek,NA,Wet Season Peak Flows,NA,216.1075,891.56022,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,F57C,LAR 5 - Glendale Narrows,NA,Dry Season Baseflow,NA,74.666975,92.46485,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,F57C,LAR 5 - Glendale Narrows,NA,Dry Season Baseflow,NA,81.523675,98.855155,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,F57C,LAR 5 - Glendale Narrows,NA,Wet Season Baseflow,NA,76.945815,107.474865,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,F57C,LAR 5 - Glendale Narrows,NA,Wet Season Baseflow,NA,86.665625,134.4746,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,F57C,LAR 5 - Glendale Narrows,NA,Wet Season Peak Flows,NA,4058.0969,9769.91326,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA1,LAR 1 - Tidal Reach,NA,Dry Season Baseflow,NA,117.9982,141.36575,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA1,LAR 1 - Tidal Reach,NA,Dry Season Baseflow,NA,134.624405,184.98486,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA1,LAR 1 - Tidal Reach,NA,Wet Season Baseflow,NA,117.585375,157.675075,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA1,LAR 1 - Tidal Reach,NA,Wet Season Baseflow,NA,132.282475,207.2376,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA1,LAR 1 - Tidal Reach,NA,Wet Season Peak Flows,NA,7263.6584,20773.42774,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA11,LAR 5 - Glendale Narrows,NA,Dry Season Baseflow,NA,73.617225,90.8244,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA11,LAR 5 - Glendale Narrows,NA,Dry Season Baseflow,NA,80.685855,97.19736,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA11,LAR 5 - Glendale Narrows,NA,Wet Season Baseflow,NA,75.234215,105.772045,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA11,LAR 5 - Glendale Narrows,NA,Wet Season Baseflow,NA,84.929175,132.722825,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA11,LAR 5 - Glendale Narrows,NA,Wet Season Peak Flows,NA,3766.0829,9415.75554,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA13,LAR 6 - Above Glendale WRP,NA,Dry Season Baseflow,NA,60.312825,73.83135,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA13,LAR 6 - Above Glendale WRP,NA,Dry Season Baseflow,NA,65.32799,78.31601,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA13,LAR 6 - Above Glendale WRP,NA,Wet Season Baseflow,NA,59.187355,82.31199,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA13,LAR 6 - Above Glendale WRP,NA,Wet Season Baseflow,NA,67.644375,111.771775,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA13,LAR 6 - Above Glendale WRP,NA,Wet Season Peak Flows,NA,3632.2664,9189.38316,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA14,NA,NA,Dry Season Baseflow,NA,58.804525,73.30985,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA14,NA,NA,Dry Season Baseflow,NA,63.530725,77.43348,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA14,NA,NA,Wet Season Baseflow,NA,60.54198,79.11555,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA14,NA,NA,Wet Season Baseflow,NA,68.3204,105.249575,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA14,NA,NA,Wet Season Peak Flows,NA,3369.5559,8756.48324,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA2,LAR 1 - Tidal Reach,NA,Dry Season Baseflow,NA,117.9982,141.36575,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA2,LAR 1 - Tidal Reach,NA,Dry Season Baseflow,NA,134.624405,184.98486,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA2,LAR 1 - Tidal Reach,NA,Wet Season Baseflow,NA,117.585375,157.674265,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA2,LAR 1 - Tidal Reach,NA,Wet Season Baseflow,NA,132.277475,207.069525,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA2,LAR 1 - Tidal Reach,NA,Wet Season Peak Flows,NA,7172.8921,20465.10708,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA20,LAR 10 - Upstream Reach,NA,Dry Season Baseflow,NA,1.784375,7.3362,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA20,LAR 10 - Upstream Reach,NA,Dry Season Baseflow,NA,4.497505,10.995895,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA20,LAR 10 - Upstream Reach,NA,Wet Season Baseflow,NA,0.716095,10.61225,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA20,LAR 10 - Upstream Reach,NA,Wet Season Baseflow,NA,9.295025,25.799625,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA20,LAR 10 - Upstream Reach,NA,Wet Season Peak Flows,NA,1282.6836,3631.55216,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Dry Season Baseflow,NA,25.456325,34.448275,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Dry Season Baseflow,NA,28.997535,37.723895,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Wet Season Baseflow,NA,19.15052,35.30741,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Wet Season Baseflow,NA,32.8135,52.52465,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Wet Season Peak Flows,NA,1971.0187,5429.49208,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Dry Season Baseflow,NA,25.456325,34.448275,NA,NA,NA,NA,NA,DS_Mag_50,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Dry Season Baseflow,NA,28.997535,37.723895,NA,NA,NA,NA,NA,DS_Mag_90,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Wet Season Baseflow,NA,19.15052,35.30741,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Wet Season Baseflow,NA,32.8135,52.52465,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,"*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Dry Season Baseflow,NA,25.456325,34.448275,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Dry Season Baseflow,NA,28.997535,37.723895,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Wet Season Baseflow,NA,19.15052,35.30741,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Wet Season Baseflow,NA,32.8135,52.52465,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA20_2,LAR 10 - Upstream Reach,NA,Wet Season Peak Flows,NA,1971.0187,5429.49208,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA3,LAR 3 - Below Rio Hondo,NA,Dry Season Baseflow,NA,117.187875,140.26255,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA3,LAR 3 - Below Rio Hondo,NA,Dry Season Baseflow,NA,134.3722,183.51188,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA3,LAR 3 - Below Rio Hondo,NA,Wet Season Baseflow,NA,117.316965,152.881525,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA3,LAR 3 - Below Rio Hondo,NA,Wet Season Baseflow,NA,131.827125,187.594325,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA3,LAR 3 - Below Rio Hondo,NA,Wet Season Peak Flows,NA,6291.9491,18241.10646,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Current Flow,Current Flow,LA8,LAR 4 - Above Rio Hondo,NA,Dry Season Baseflow,NA,94.1605,102.40095,NA,NA,NA,NA,NA,DS_Mag_50,
-Current Flow,Current Flow,LA8,LAR 4 - Above Rio Hondo,NA,Dry Season Baseflow,NA,105.219325,117.519735,NA,NA,NA,NA,NA,DS_Mag_90,
-Current Flow,Current Flow,LA8,LAR 4 - Above Rio Hondo,NA,Wet Season Baseflow,NA,92.48157,119.7226,NA,NA,NA,NA,NA,Wet_BFL_Mag_10,
-Current Flow,Current Flow,LA8,LAR 4 - Above Rio Hondo,NA,Wet Season Baseflow,NA,101.19365,144.381275,NA,NA,NA,NA,NA,Wet_BFL_Mag_50,
-Current Flow,Current Flow,LA8,LAR 4 - Above Rio Hondo,NA,Wet Season Peak Flows,NA,4517.7136,10237.24192,NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,suitable,1,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,suitable,1,NA,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,suitable,1,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,unsuitable,1,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),F300,LAR 8 - Above Burbank,Main Channel,Dry Season Baseflow,suitable,18,2134,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),F300,LAR 8 - Above Burbank,Main Channel,Wet Season Baseflow,suitable,18,2134,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),F300,LAR 8 - Above Burbank,Main Channel,Dry Season Baseflow,suitable,11,,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),F300,LAR 8 - Above Burbank,Main Channel,Wet Season Baseflow,suitable,11,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),LA14,LAR 7 - Below Burbank,Main Channel,Dry Season Baseflow,suitable,20,52000,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA14,LAR 7 - Below Burbank,Main Channel,Wet Season Baseflow,suitable,20,52000,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA14,LAR 7 - Below Burbank,Main Channel,Dry Season Baseflow,suitable,8,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA14,LAR 7 - Below Burbank,Main Channel,Wet Season Baseflow,suitable,8,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),LA13,LAR 6 - Above Glendale WRP,Main Channel,Dry Season Baseflow,unsuitable,710,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA13,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Baseflow,unsuitable,710,NA,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA13,LAR 6 - Above Glendale WRP,Main Channel,Dry Season Baseflow,unsuitable,336,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA13,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Baseflow,unsuitable,336,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,23,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,23,NA,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,23,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,23,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),LA8,LAR 4 - Above Rio Hondo,Main Channel,Dry Season Baseflow,suitable,47,3356,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA8,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Baseflow,suitable,47,3356,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA8,LAR 4 - Above Rio Hondo,Main Channel,Dry Season Baseflow,suitable,47,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA8,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Baseflow,suitable,47,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,35,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,35,NA,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,25,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,25,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,26,10556,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,26,10556,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,suitable,26,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Baseflow,suitable,26,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),F34D,LAR 4 - Above Rio Hondo,Main Channel,Dry Season Baseflow,suitable,60,9839,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),F34D,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Baseflow,suitable,60,9839,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),F34D,LAR 4 - Above Rio Hondo,Main Channel,Dry Season Baseflow,suitable,60,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),F34D,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Baseflow,suitable,60,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),F319,LAR 2 - Below Compton Creek,Main Channel,Dry Season Baseflow,suitable,63,24042,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),F319,LAR 2 - Below Compton Creek,Main Channel,Wet Season Baseflow,suitable,63,24042,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),F319,LAR 2 - Below Compton Creek,Main Channel,Dry Season Baseflow,suitable,63,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),F319,LAR 2 - Below Compton Creek,Main Channel,Wet Season Baseflow,suitable,63,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),LA3,LAR 3 - Below Rio Hondo,Main Channel,Dry Season Baseflow,suitable,62,13951,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA3,LAR 3 - Below Rio Hondo,Main Channel,Wet Season Baseflow,suitable,62,13951,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA3,LAR 3 - Below Rio Hondo,Main Channel,Dry Season Baseflow,suitable,62,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA3,LAR 3 - Below Rio Hondo,Main Channel,Wet Season Baseflow,suitable,62,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),LA20,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,unsuitable,10,26000,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA20,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,suitable,10,26000,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA20,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,suitable,6,NA,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA20,LAR 10 - Upstream Reach,Main Channel,Wet Season Baseflow,suitable,6,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),LA2,LAR 1 - Tidal Reach,Main Channel,Dry Season Baseflow,TBD,TBD,,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA1,LAR 1 - Tidal Reach,Main Channel,Dry Season Baseflow,TBD,TBD,,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Burst),LA2,LAR 1 - Tidal Reach,Main Channel,Wet Season Baseflow,TBD,TBD,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Burst),LA1,LAR 1 - Tidal Reach,Main Channel,Wet Season Baseflow,TBD,TBD,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA2,LAR 1 - Tidal Reach,Main Channel,Dry Season Baseflow,TBD,TBD,,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA1,LAR 1 - Tidal Reach,Main Channel,Dry Season Baseflow,TBD,TBD,,NA,Future,90,183,273,DS_Mag_50,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA2,LAR 1 - Tidal Reach,Main Channel,Wet Season Baseflow,TBD,TBD,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Steelhead - Migration ,Steelhead Migration (Smolts),LA1,LAR 1 - Tidal Reach,Main Channel,Wet Season Baseflow,TBD,TBD,,NA,Future,120,62,182,Wet_BFL_Mag_10,
-Rec. Use - Kayak,Rec. Use Kayak,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,NA,NA,NA,NA,NA,-91,183,92,NA,NA
-Rec. Use - Fishing,Rec. Use Fishing,LA20_2,LAR 10 - Upstream Reach,Main Channel,Dry Season Baseflow,NA,NA,NA,NA,NA,-91,183,92,NA,NA
-Rec. Use - Kayak,Rec. Use Kayak,LA14,LAR 7 - Below Burbank,Main Channel,Dry Season Baseflow,NA,116.2149221,300.514703,NA,NA,-91,183,92,NA,NA
-Rec. Use - Fishing,Rec. Use Fishing,LA14,LAR 7 - Below Burbank,Main Channel,Dry Season Baseflow,NA,134.2682376,531.4722986,NA,NA,-91,183,92,NA,NA
-Rec. Use - Kayak,Rec. Use Kayak,GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,NA,64.92927731,252.8629107,NA,NA,-91,183,92,NA,NA
-Rec. Use - Fishing,Rec. Use Fishing,GLEN,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,NA,96.02036384,446.5419596,NA,NA,-91,183,92,NA,NA
-Rec. Use - Kayak,Rec. Use Kayak,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,NA,87.19897219,231.2032409,NA,NA,-91,183,92,NA,NA
-Rec. Use - Fishing,Rec. Use Fishing,LA11,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,NA,101.0530237,418.1121665,NA,NA,-91,183,92,NA,NA
-Rec. Use - Kayak,Rec. Use Kayak,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,NA,26.62001914,116.9595436,NA,NA,-91,183,92,NA,NA
-Rec. Use - Fishing,Rec. Use Fishing,F57C,LAR 5 - Glendale Narrows,Main Channel,Dry Season Baseflow,NA,33.35238444,283.4770193,NA,NA,-91,183,92,NA,NA
-SAS - Adult,SAS Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Peak Flows,suitable,,5169,Medium,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-SAS - Adult,SAS Adult,LA14,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Peak Flows,unsuitable,,615,Medium,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-SAS - Adult,SAS Adult,GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,517,Medium,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-SAS - Adult,SAS Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,2091,Medium,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-SAS - Adult,SAS Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,356,Medium,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-SAS - Adult,SAS Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Peak Flows,unsuitable,,2724,High,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)"
-SAS - Adult,SAS Adult,LA14,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Peak Flows,unsuitable,,482,High,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-SAS - Adult,SAS Adult,GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,405,High,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-SAS - Adult,SAS Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,1103,High,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-SAS - Adult,SAS Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,244,High,Future,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Peak Flows,unsuitable,,1172,Medium,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,LA14,LAR 7 - Below Burbank,Overbank,Wet Season Peak Flows,unsuitable,,1968,Medium,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Wet Season Peak Flows,unsuitable,,568,Medium,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,,,NA,Medium,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,586,Medium,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Main Channel,Wet Season Peak Flows,,,NA,Medium,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,F37B Low,Compton Creek,Overbank,Wet Season Peak Flows,unsuitable,,182,Medium,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Peak Flows,unsuitable,,1160,High,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,LA14,LAR 7 - Below Burbank,Overbank,Wet Season Peak Flows,unsuitable,,1419,High,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,GLEN,LAR 5 - Glendale Narrows,Overbank,Wet Season Peak Flows,unsuitable,,1238,High,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,824,High,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,1000,High,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,11101250,Rio Hondo 2 - Above Spreading Grounds,Main Channel,Wet Season Peak Flows,,,NA,High,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Typha - Adult,Typha Adult,F37B Low,Compton Creek,Overbank,Wet Season Peak Flows,unsuitable,,162,High,Existing,365,1,365,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA20,LAR 10 - Upstream Reach,Main Channel,Wet Season Peak Flows,suitable,,3091,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Peak Flows,suitable,,28466,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),F300,LAR 8 - Above Burbank,Main Channel,Wet Season Peak Flows,unsuitable,,215,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA14,LAR 7 - Below Burbank,Main Channel,Wet Season Peak Flows,suitable,,17070,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA13,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Peak Flows,unsuitable,,5276,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,suitable,,23399,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,suitable,,25087,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,unsuitable,,3828,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA8,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Peak Flows,unsuitable,,689,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),F34D,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Peak Flows,unsuitable,,2587,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA3,LAR 3 - Below Rio Hondo,Main Channel,Wet Season Peak Flows,unsuitable,,2698,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),F319,LAR 2 - Below Compton Creek,Main Channel,Wet Season Peak Flows,unsuitable,,7145,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA2,LAR 1 - Tidal Reach,Main Channel,Wet Season Peak Flows,TBD,TBD,,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Prolonged),LA1,LAR 1 - Tidal Reach,Main Channel,Wet Season Peak Flows,TBD,TBD,,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA20_2,LAR 10 - Upstream Reach,Main Channel,Wet Season Peak Flows,,,NA,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),F300,LAR 8 - Above Burbank,Main Channel,Wet Season Peak Flows,unsuitable,,2134,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA14,LAR 7 - Below Burbank,Main Channel,Wet Season Peak Flows,suitable,,52000,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA13,LAR 6 - Above Glendale WRP,Main Channel,Wet Season Peak Flows,,,NA,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),GLEN,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,,,NA,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA8,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Peak Flows,unsuitable,,3356,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA11,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,,,NA,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),F57C,LAR 5 - Glendale Narrows,Main Channel,Wet Season Peak Flows,suitable,,10556,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),F34D,LAR 4 - Above Rio Hondo,Main Channel,Wet Season Peak Flows,unsuitable,,9839,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),F319,LAR 2 - Below Compton Creek,Main Channel,Wet Season Peak Flows,suitable,,24042,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA3,LAR 3 - Below Rio Hondo,Main Channel,Wet Season Peak Flows,suitable,,13951,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA20,LAR 10 - Upstream Reach,Main Channel,Wet Season Peak Flows,suitable,,26000,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA2,LAR 1 - Tidal Reach,Main Channel,Wet Season Peak Flows,TBD,TBD,,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
-Steelhead - Migration ,Steelhead Migration (Burst),LA1,LAR 1 - Tidal Reach,Main Channel,Wet Season Peak Flows,TBD,TBD,,NA,Future,120,62,182,"Peak_2 as lower, Peak_10 as upper",
+"Species","Species_Label","Node","Reach","Critial_XS_Position","Seasonal.Component","Current_Suitability","Lower_Limit","Upper_Limit","Probability_Threshold","Designation","Duration_Days","Timing_Start_WYDay","Timing_End_WYDay","metric","notes","species","BU_names","Designation_BU","Designation_Category","waterbody"
+"Current Flow","Current Flow","GLEN","LAR 5 - Glendale Narrows",NA,"Dry Season Baseflow",NA,"72.56235","89.414075",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","GLEN","LAR 5 - Glendale Narrows",NA,"Dry Season Baseflow",NA,"80.29855","95.77261",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","GLEN","LAR 5 - Glendale Narrows",NA,"Wet Season Baseflow",NA,"73.788265","104.284365",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","GLEN","LAR 5 - Glendale Narrows",NA,"Wet Season Baseflow",NA,"83.45125","131.22035",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","GLEN","LAR 5 - Glendale Narrows",NA,"Wet Season Peak Flows",NA,"3674.5249","9249.15782",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","LA20_2","LAR 10 - Upstream Reach","Overbank","Dry Season Baseflow","suitable","1","1646","Medium","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 5"
+"Willow - Growth","Willow Growth","LA14","LAR 7 - Below Burbank","Overbank","Dry Season Baseflow","suitable","8","841","Medium","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","GLEN","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","23","595","Medium","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","LA11","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","25","844","Medium","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","F57C","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","26","91","Medium","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","11101250","Rio Hondo 2 - Above Spreading Grounds","Overbank","Dry Season Baseflow","suitable","1","114","Medium","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","I","Rio Hondo Reach 2"
+"Willow - Growth","Willow Growth","F37B Low","Compton Creek","Overbank","Dry Season Baseflow","unsuitable","10","301","Medium","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Compton"
+"Willow - Adult","Willow Adult","LA20_2","LAR 10 - Upstream Reach","Overbank","Dry Season Baseflow","suitable","1","1131","Medium","Existing",365,1,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 5"
+"Willow - Adult","Willow Adult","LA14","LAR 7 - Below Burbank","Overbank","Dry Season Baseflow","suitable","8","521","Medium","Existing",365,1,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","23","355","Medium","Existing",365,1,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","LA11","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","25","376","Medium","Existing",365,1,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","F57C","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","26","1532","Medium","Existing",365,1,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Overbank","Dry Season Baseflow","suitable","1","284","Medium","Existing",365,1,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","I","Rio Hondo Reach 2"
+"Willow - Adult","Willow Adult","F37B Low","Compton Creek","Overbank","Dry Season Baseflow","unsuitable","8","117","Medium","Existing",365,1,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Compton"
+"Willow - Growth","Willow Growth","LA20_2","LAR 10 - Upstream Reach","Overbank","Dry Season Baseflow","suitable","1","1502","High","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 5"
+"Willow - Growth","Willow Growth","LA14","LAR 7 - Below Burbank","Overbank","Dry Season Baseflow","suitable","8","655","High","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","GLEN","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","23","256","High","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","LA11","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","25","666","High","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","F57C","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","unsuitable","26","42","High","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Growth","Willow Growth","11101250","Rio Hondo 2 - Above Spreading Grounds","Overbank","Dry Season Baseflow","suitable","1","86","High","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","I","Rio Hondo Reach 2"
+"Willow - Growth","Willow Growth","F37B Low","Compton Creek","Overbank","Dry Season Baseflow","unsuitable","10","298","High","Existing",182,183,365,"DS_Mag_50","","Willow","WILD, RARE","Designated","E","Compton"
+"Willow - Adult","Willow Adult","LA20_2","LAR 10 - Upstream Reach","Overbank","Wet Season Baseflow","suitable","1","1131",NA,"Existing",365,1,365,"Wet_BFL_Mag_10","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 5"
+"Willow - Adult","Willow Adult","LA14","LAR 7 - Below Burbank","Overbank","Wet Season Baseflow","suitable","8","521",NA,"Existing",365,1,365,"Wet_BFL_Mag_10","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Wet Season Baseflow","suitable","23","355",NA,"Existing",365,1,365,"Wet_BFL_Mag_10","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","LA11","LAR 5 - Glendale Narrows","Overbank","Wet Season Baseflow","suitable","25","376",NA,"Existing",365,1,365,"Wet_BFL_Mag_10","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","F57C","LAR 5 - Glendale Narrows","Overbank","Wet Season Baseflow","suitable","26","1532",NA,"Existing",365,1,365,"Wet_BFL_Mag_10","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Overbank","Wet Season Baseflow","unsuitable","1","284",NA,"Existing",365,1,365,"Wet_BFL_Mag_10","","Willow","WILD, RARE","Designated","I","Rio Hondo Reach 2"
+"Willow - Adult","Willow Adult","F37B Low","Compton Creek","Overbank","Wet Season Baseflow","unsuitable","8","117",NA,"Existing",365,1,365,"Wet_BFL_Mag_10","","Willow","WILD, RARE","Designated","E","Compton"
+"Willow - Adult","Willow Adult","LA20_2","LAR 10 - Upstream Reach","Overbank","Wet Season Peak Flows","","0",NA,NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 5"
+"Willow - Adult","Willow Adult","LA14","LAR 7 - Below Burbank","Overbank","Wet Season Peak Flows","","0",NA,NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Wet Season Peak Flows","","0",NA,NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","LA11","LAR 5 - Glendale Narrows","Overbank","Wet Season Peak Flows","","0",NA,NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","F57C","LAR 5 - Glendale Narrows","Overbank","Wet Season Peak Flows","","0",NA,NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Willow","WILD, RARE","Designated","E","Los Angeles River Reach 3"
+"Willow - Adult","Willow Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Overbank","Wet Season Peak Flows","","0",NA,NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Willow","WILD, RARE","Designated","I","Rio Hondo Reach 2"
+"Willow - Adult","Willow Adult","F37B Low","Compton Creek","Overbank","Wet Season Peak Flows","","0",NA,NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Willow","WILD, RARE","Designated","E","Compton"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA20","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","unsuitable","16","3091",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","suitable","1","28466",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F300","LAR 8 - Above Burbank","Main Channel","Dry Season Baseflow","suitable","25","215",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 4"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA14","LAR 7 - Below Burbank","Main Channel","Dry Season Baseflow","suitable","43","17070",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA13","LAR 6 - Above Glendale WRP","Main Channel","Dry Season Baseflow","unsuitable","998","5276",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","23","23399",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","57","25087",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","26","3828",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA8","LAR 4 - Above Rio Hondo","Main Channel","Dry Season Baseflow","suitable","63","689",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F34D","LAR 4 - Above Rio Hondo","Main Channel","Dry Season Baseflow","suitable","60","2587",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA3","LAR 3 - Below Rio Hondo","Main Channel","Dry Season Baseflow","suitable","62","2698",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F319","LAR 2 - Below Compton Creek","Main Channel","Dry Season Baseflow","suitable","63","7145",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Los Angeles River Reach 1"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA2","LAR 1 - Tidal Reach","Main Channel","Dry Season Baseflow","TBD","TBD","",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA1","LAR 1 - Tidal Reach","Main Channel","Dry Season Baseflow","TBD","TBD","",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA20","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","unsuitable","16","3091",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","suitable","1","28466",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F300","LAR 8 - Above Burbank","Main Channel","Wet Season Baseflow","suitable","25","215",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 4"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA14","LAR 7 - Below Burbank","Main Channel","Wet Season Baseflow","suitable","43","17070",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA13","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Baseflow","unsuitable","998","5276",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","23","23399",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","57","25087",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","26","3828",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA8","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Baseflow","suitable","63","689",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F34D","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Baseflow","suitable","60","2587",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA3","LAR 3 - Below Rio Hondo","Main Channel","Wet Season Baseflow","suitable","62","2698",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F319","LAR 2 - Below Compton Creek","Main Channel","Wet Season Baseflow","suitable","63","7145",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Los Angeles River Reach 1"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA2","LAR 1 - Tidal Reach","Main Channel","Wet Season Baseflow","TBD","TBD","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA1","LAR 1 - Tidal Reach","Main Channel","Wet Season Baseflow","TBD","TBD","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Typha - Growth","Typha Growth","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","suitable","1","1432","Medium","Existing",182,183,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 5"
+"Typha - Growth","Typha Growth","LA14","LAR 7 - Below Burbank","Overbank","Dry Season Baseflow","suitable","23","197","Medium","Existing",182,183,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Growth","Typha Growth","GLEN","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","23","166","Medium","Existing",182,183,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Growth","Typha Growth","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","24","48","Medium","Existing",182,183,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Growth","Typha Growth","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","26","55","Medium","Existing",182,183,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Growth","Typha Growth","11101250","Rio Hondo 2 - Above Spreading Grounds","Main Channel","Dry Season Baseflow","suitable","0.0025","0.1","Medium","Existing",182,183,365,"DS_Mag_50","","Typha","WILD","Designated","I","Rio Hondo Reach 2"
+"Typha - Growth","Typha Growth","F37B Low","Compton Creek","Overbank","Dry Season Baseflow","unsuitable","4","299","Medium","Existing",182,183,365,"DS_Mag_50","","Typha","WILD","Designated","E","Compton"
+"Typha - Adult","Typha Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","suitable","1","1172","Medium","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 5"
+"Typha - Adult","Typha Adult","LA14","LAR 7 - Below Burbank","Overbank","Dry Season Baseflow","unsuitable","84","1968","Medium","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","suitable","77","568","Medium","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","24","65","Medium","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","26","586","Medium","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Main Channel","Dry Season Baseflow","suitable","1","14","Medium","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","I","Rio Hondo Reach 2"
+"Typha - Adult","Typha Adult","F37B Low","Compton Creek","Overbank","Dry Season Baseflow","unsuitable","1","182","Medium","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Compton"
+"Typha - Adult","Typha Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","suitable","1","1160","High","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 5"
+"Typha - Adult","Typha Adult","LA14","LAR 7 - Below Burbank","Overbank","Dry Season Baseflow","unsuitable","294","1419","High","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Dry Season Baseflow","unsuitable","270","1238","High","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","93","824","High","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","104","1000","High","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Main Channel","Dry Season Baseflow","suitable","1","5","High","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","I","Rio Hondo Reach 2"
+"Typha - Adult","Typha Adult","F37B Low","Compton Creek","Overbank","Dry Season Baseflow","unsuitable","10","162","High","Existing",365,1,365,"DS_Mag_50","","Typha","WILD","Designated","E","Compton"
+"Typha - Adult","Typha Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","suitable","1","1172","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 5"
+"Typha - Adult","Typha Adult","LA14","LAR 7 - Below Burbank","Overbank","Wet Season Baseflow","unsuitable","84","1968","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Wet Season Baseflow","suitable","77","568","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","unsuitable","24","65","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","26","586","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Main Channel","Wet Season Baseflow","suitable","1","14","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","I","Rio Hondo Reach 2"
+"Typha - Adult","Typha Adult","F37B Low","Compton Creek","Overbank","Wet Season Baseflow","unsuitable","1","182","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Compton"
+"Typha - Adult","Typha Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","suitable","1","1160","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 5"
+"Typha - Adult","Typha Adult","LA14","LAR 7 - Below Burbank","Overbank","Wet Season Baseflow","unsuitable","294","1419","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Wet Season Baseflow","unsuitable","270","1238","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","unsuitable","93","824","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","104","1000","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Main Channel","Wet Season Baseflow","suitable","1","5","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","I","Rio Hondo Reach 2"
+"Typha - Adult","Typha Adult","F37B Low","Compton Creek","Overbank","Wet Season Baseflow","unsuitable","10","162","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Typha","WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","LA3","LAR 3 - Below Rio Hondo","Overbank","Dry Season Baseflow","unsuitable","348","20232","Medium","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","P","Los Angeles River Reach 2"
+"Cladophora - Adult","Cladophora Adult","F319","LAR 2 - Below Compton Creek","Main Channel","Dry Season Baseflow","unsuitable","266","12447","Medium","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Los Angeles River Reach 1"
+"Cladophora - Adult","Cladophora Adult","LA2","LAR 1 - Tidal Reach","","Dry Season Baseflow","TBD","TBD","TBD","Medium","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","LA1","LAR 1 - Tidal Reach","","Dry Season Baseflow","TBD","TBD","TBD","Medium","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","F37B High","Compton Creek","Main Channel","Dry Season Baseflow","unsuitable","407","2700","Medium","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","F37B Low","Compton Creek","Overbank","Dry Season Baseflow","","46","212","Medium","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","LA3","LAR 3 - Below Rio Hondo","Overbank","Dry Season Baseflow","unsuitable","557","5453","High","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","P","Los Angeles River Reach 2"
+"Cladophora - Adult","Cladophora Adult","F319","LAR 2 - Below Compton Creek","Main Channel","Dry Season Baseflow","unsuitable","486","2151","High","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Los Angeles River Reach 1"
+"Cladophora - Adult","Cladophora Adult","LA2","LAR 1 - Tidal Reach","","Dry Season Baseflow","TBD","TBD","TBD","High","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","LA1","LAR 1 - Tidal Reach","","Dry Season Baseflow","TBD","TBD","TBD","High","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","F37B High","Compton Creek","Main Channel","Dry Season Baseflow"," ","701","","High","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","F37B Low","Compton Creek","Overbank","Dry Season Baseflow","unsuitable","158","184","High","Existing",365,1,365,"DS_Mag_50","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","LA3","LAR 3 - Below Rio Hondo","Overbank","Wet Season Baseflow","unsuitable","348","20232","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","P","Los Angeles River Reach 2"
+"Cladophora - Adult","Cladophora Adult","F319","LAR 2 - Below Compton Creek","Main Channel","Wet Season Baseflow","unsuitable","266","12447","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Los Angeles River Reach 1"
+"Cladophora - Adult","Cladophora Adult","LA2","LAR 1 - Tidal Reach","","Wet Season Baseflow","TBD","TBD","TBD","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","LA1","LAR 1 - Tidal Reach","","Wet Season Baseflow","TBD","TBD","TBD","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","F37B High","Compton Creek","Main Channel","Wet Season Baseflow","unsuitable","407","2700","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","F37B Low","Compton Creek","Overbank","Wet Season Baseflow","","46","212","Medium","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","LA3","LAR 3 - Below Rio Hondo","Overbank","Wet Season Baseflow","unsuitable","557","5453","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","P","Los Angeles River Reach 2"
+"Cladophora - Adult","Cladophora Adult","F319","LAR 2 - Below Compton Creek","Main Channel","Wet Season Baseflow","unsuitable","486","2151","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Los Angeles River Reach 1"
+"Cladophora - Adult","Cladophora Adult","LA2","LAR 1 - Tidal Reach","","Wet Season Baseflow","TBD","TBD","TBD","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","LA1","LAR 1 - Tidal Reach","","Wet Season Baseflow","TBD","TBD","TBD","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","F37B High","Compton Creek","Main Channel","Wet Season Baseflow","","701","","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","F37B Low","Compton Creek","Overbank","Wet Season Baseflow","unsuitable","158","184","High","Existing",365,1,365,"Wet_BFL_Mag_10","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","LA3","LAR 3 - Below Rio Hondo","Overbank","Wet Season Peak Flows","suitable","0","50000",NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Cladophora","EST, WILD","Designated","P","Los Angeles River Reach 2"
+"Cladophora - Adult","Cladophora Adult","F319","LAR 2 - Below Compton Creek","Main Channel","Wet Season Peak Flows","suitable","0","46000",NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Cladophora","EST, WILD","Designated","E","Los Angeles River Reach 1"
+"Cladophora - Adult","Cladophora Adult","LA2","LAR 1 - Tidal Reach","","Wet Season Peak Flows","TBD","TBD","TBD",NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","LA1","LAR 1 - Tidal Reach","","Wet Season Peak Flows","TBD","TBD","TBD",NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Cladophora","EST, WILD","Designated","E","Estuary"
+"Cladophora - Adult","Cladophora Adult","F37B High","Compton Creek","Main Channel","Wet Season Peak Flows","suitable","0","15000",NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Cladophora","EST, WILD","Designated","E","Compton"
+"Cladophora - Adult","Cladophora Adult","F37B Low","Compton Creek","Overbank","Wet Season Peak Flows","","0",NA,NA,"Existing",NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Cladophora","EST, WILD","Designated","E","Compton"
+"SAS - Growth","SAS Growth","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","unsuitable","278","5169","Medium","Future",152,152,304,"DS_Mag_50","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"SAS - Growth","SAS Growth","LA14","LAR 6 - Above Glendale WRP","Main Channel","Dry Season Baseflow","suitable","24","415","Medium","Future",152,152,304,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Growth","SAS Growth","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","34","349","Medium","Future",152,152,304,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Growth","SAS Growth","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","873","2091","Medium","Future",152,152,304,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Growth","SAS Growth","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","188","193","Medium","Future",152,152,304,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","unsuitable","278","5169","Medium","Future",365,1,365,"DS_Mag_50","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"SAS - Adult","SAS Adult","LA14","LAR 6 - Above Glendale WRP","Main Channel","Dry Season Baseflow","suitable","44","615","Medium","Future",365,1,365,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","34","517","Medium","Future",365,1,365,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","873","2091","Medium","Future",365,1,365,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","188","356","Medium","Future",365,1,365,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Growth","SAS Growth","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","unsuitable","530","2724","High","Future",152,152,304,"DS_Mag_50","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"SAS - Growth","SAS Growth","LA14","LAR 6 - Above Glendale WRP","Main Channel","Dry Season Baseflow","suitable","64","326","High","Future",152,152,304,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Growth","SAS Growth","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","149","274","High","Future",152,152,304,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Growth","SAS Growth","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","466","1103","High","Future",152,152,304,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Growth","SAS Growth","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","105","133","High","Future",152,152,304,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","unsuitable","530","2724","High","Future",365,1,365,"DS_Mag_50","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"SAS - Adult","SAS Adult","LA14","LAR 6 - Above Glendale WRP","Main Channel","Dry Season Baseflow","unsuitable","136","482","High","Future",365,1,365,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","149","405","High","Future",365,1,365,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","466","1103","High","Future",365,1,365,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","unsuitable","105","244","High","Future",365,1,365,"DS_Mag_50","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","unsuitable","278","5169","Medium","Future",365,1,365,"Wet_BFL_Mag_10","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"SAS - Adult","SAS Adult","LA14","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Baseflow","suitable","44","615","Medium","Future",365,1,365,"Wet_BFL_Mag_10","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","34","517","Medium","Future",365,1,365,"Wet_BFL_Mag_10","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","unsuitable","873","2091","Medium","Future",365,1,365,"Wet_BFL_Mag_10","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","unsuitable","188","356","Medium","Future",365,1,365,"Wet_BFL_Mag_10","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","unsuitable","530","2724","High","Future",365,1,365,"Wet_BFL_Mag_10","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"SAS - Adult","SAS Adult","LA14","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Baseflow","unsuitable","136","482","High","Future",365,1,365,"Wet_BFL_Mag_10","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","unsuitable","149","405","High","Future",365,1,365,"Wet_BFL_Mag_10","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","unsuitable","466","1103","High","Future",365,1,365,"Wet_BFL_Mag_10","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","unsuitable","105","244","High","Future",365,1,365,"Wet_BFL_Mag_10","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","11101250","Rio Hondo 2 - Above Spreading Grounds",NA,"Dry Season Baseflow",NA,"0.406","1.1689",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Rio Hondo Reach 2"
+"Current Flow","Current Flow","11101250","Rio Hondo 2 - Above Spreading Grounds",NA,"Dry Season Baseflow",NA,"0.98235","2.6832",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Rio Hondo Reach 2"
+"Current Flow","Current Flow","11101250","Rio Hondo 2 - Above Spreading Grounds",NA,"Wet Season Baseflow",NA,"0.26814","0.84444",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Rio Hondo Reach 2"
+"Current Flow","Current Flow","11101250","Rio Hondo 2 - Above Spreading Grounds",NA,"Wet Season Baseflow",NA,"0.7022","34.7125",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Rio Hondo Reach 2"
+"Current Flow","Current Flow","11101250","Rio Hondo 2 - Above Spreading Grounds",NA,"Wet Season Peak Flows",NA,"1247.1206","2745.79486",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Rio Hondo Reach 2"
+"Current Flow","Current Flow","F300","LAR 8 - Above Burbank",NA,"Dry Season Baseflow",NA,"51.177925","61.861925",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 4"
+"Current Flow","Current Flow","F300","LAR 8 - Above Burbank",NA,"Dry Season Baseflow",NA,"55.39518","71.85803",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 4"
+"Current Flow","Current Flow","F300","LAR 8 - Above Burbank",NA,"Wet Season Baseflow",NA,"50.62612","65.13644",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 4"
+"Current Flow","Current Flow","F300","LAR 8 - Above Burbank",NA,"Wet Season Baseflow",NA,"58.65435","81.444475",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 4"
+"Current Flow","Current Flow","F319","LAR 2 - Below Compton Creek",NA,"Dry Season Baseflow",NA,"117.9982","141.417525",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 1"
+"Current Flow","Current Flow","F319","LAR 2 - Below Compton Creek",NA,"Dry Season Baseflow",NA,"134.624405","184.98486",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 1"
+"Current Flow","Current Flow","F319","LAR 2 - Below Compton Creek",NA,"Wet Season Baseflow",NA,"117.585375","157.674265",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 1"
+"Current Flow","Current Flow","F319","LAR 2 - Below Compton Creek",NA,"Wet Season Baseflow",NA,"132.277475","206.901275",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 1"
+"Current Flow","Current Flow","F319","LAR 2 - Below Compton Creek",NA,"Wet Season Peak Flows",NA,"7132.2474","20364.29922",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 1"
+"Current Flow","Current Flow","F34D","LAR 4 - Above Rio Hondo",NA,"Dry Season Baseflow",NA,"116.690525","137.987",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","F34D","LAR 4 - Above Rio Hondo",NA,"Dry Season Baseflow",NA,"133.69452","183.53768",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","F34D","LAR 4 - Above Rio Hondo",NA,"Wet Season Baseflow",NA,"116.141005","143.303055",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","F34D","LAR 4 - Above Rio Hondo",NA,"Wet Season Baseflow",NA,"131.111825","169.28755",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","F34D","LAR 4 - Above Rio Hondo",NA,"Wet Season Peak Flows",NA,"5621.1507","11555.76716",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","F37B High","Compton Creek",NA,"Dry Season Baseflow",NA,"0","0",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B High","Compton Creek",NA,"Dry Season Baseflow",NA,"0.000807","0.132529",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B High","Compton Creek",NA,"Wet Season Baseflow",NA,"0","0.008346",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B High","Compton Creek",NA,"Wet Season Baseflow",NA,"0.000440009","1.97876",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B High","Compton Creek",NA,"Wet Season Peak Flows",NA,"216.1075","891.56022",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B Low","Compton Creek",NA,"Dry Season Baseflow",NA,"0","0",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B Low","Compton Creek",NA,"Dry Season Baseflow",NA,"0.000807","0.132529",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B Low","Compton Creek",NA,"Wet Season Baseflow",NA,"0","0.008346",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B Low","Compton Creek",NA,"Wet Season Baseflow",NA,"0.000440009","1.97876",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F37B Low","Compton Creek",NA,"Wet Season Peak Flows",NA,"216.1075","891.56022",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Compton"
+"Current Flow","Current Flow","F57C","LAR 5 - Glendale Narrows",NA,"Dry Season Baseflow",NA,"74.666975","92.46485",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","F57C","LAR 5 - Glendale Narrows",NA,"Dry Season Baseflow",NA,"81.523675","98.855155",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","F57C","LAR 5 - Glendale Narrows",NA,"Wet Season Baseflow",NA,"76.945815","107.474865",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","F57C","LAR 5 - Glendale Narrows",NA,"Wet Season Baseflow",NA,"86.665625","134.4746",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","F57C","LAR 5 - Glendale Narrows",NA,"Wet Season Peak Flows",NA,"4058.0969","9769.91326",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA1","LAR 1 - Tidal Reach",NA,"Dry Season Baseflow",NA,"117.9982","141.36575",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA1","LAR 1 - Tidal Reach",NA,"Dry Season Baseflow",NA,"134.624405","184.98486",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA1","LAR 1 - Tidal Reach",NA,"Wet Season Baseflow",NA,"117.585375","157.675075",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA1","LAR 1 - Tidal Reach",NA,"Wet Season Baseflow",NA,"132.282475","207.2376",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA1","LAR 1 - Tidal Reach",NA,"Wet Season Peak Flows",NA,"7263.6584","20773.42774",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA11","LAR 5 - Glendale Narrows",NA,"Dry Season Baseflow",NA,"73.617225","90.8244",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA11","LAR 5 - Glendale Narrows",NA,"Dry Season Baseflow",NA,"80.685855","97.19736",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA11","LAR 5 - Glendale Narrows",NA,"Wet Season Baseflow",NA,"75.234215","105.772045",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA11","LAR 5 - Glendale Narrows",NA,"Wet Season Baseflow",NA,"84.929175","132.722825",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA11","LAR 5 - Glendale Narrows",NA,"Wet Season Peak Flows",NA,"3766.0829","9415.75554",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA13","LAR 6 - Above Glendale WRP",NA,"Dry Season Baseflow",NA,"60.312825","73.83135",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA13","LAR 6 - Above Glendale WRP",NA,"Dry Season Baseflow",NA,"65.32799","78.31601",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA13","LAR 6 - Above Glendale WRP",NA,"Wet Season Baseflow",NA,"59.187355","82.31199",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA13","LAR 6 - Above Glendale WRP",NA,"Wet Season Baseflow",NA,"67.644375","111.771775",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA13","LAR 6 - Above Glendale WRP",NA,"Wet Season Peak Flows",NA,"3632.2664","9189.38316",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 3"
+"Current Flow","Current Flow","LA14",NA,NA,"Dry Season Baseflow",NA,"58.804525","73.30985",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,NA
+"Current Flow","Current Flow","LA14",NA,NA,"Dry Season Baseflow",NA,"63.530725","77.43348",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,NA
+"Current Flow","Current Flow","LA14",NA,NA,"Wet Season Baseflow",NA,"60.54198","79.11555",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,NA
+"Current Flow","Current Flow","LA14",NA,NA,"Wet Season Baseflow",NA,"68.3204","105.249575",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,NA
+"Current Flow","Current Flow","LA14",NA,NA,"Wet Season Peak Flows",NA,"3369.5559","8756.48324",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,NA
+"Current Flow","Current Flow","LA2","LAR 1 - Tidal Reach",NA,"Dry Season Baseflow",NA,"117.9982","141.36575",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA2","LAR 1 - Tidal Reach",NA,"Dry Season Baseflow",NA,"134.624405","184.98486",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA2","LAR 1 - Tidal Reach",NA,"Wet Season Baseflow",NA,"117.585375","157.674265",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA2","LAR 1 - Tidal Reach",NA,"Wet Season Baseflow",NA,"132.277475","207.069525",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA2","LAR 1 - Tidal Reach",NA,"Wet Season Peak Flows",NA,"7172.8921","20465.10708",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Estuary"
+"Current Flow","Current Flow","LA20","LAR 10 - Upstream Reach",NA,"Dry Season Baseflow",NA,"1.784375","7.3362",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20","LAR 10 - Upstream Reach",NA,"Dry Season Baseflow",NA,"4.497505","10.995895",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20","LAR 10 - Upstream Reach",NA,"Wet Season Baseflow",NA,"0.716095","10.61225",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20","LAR 10 - Upstream Reach",NA,"Wet Season Baseflow",NA,"9.295025","25.799625",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20","LAR 10 - Upstream Reach",NA,"Wet Season Peak Flows",NA,"1282.6836","3631.55216",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Dry Season Baseflow",NA,"25.456325","34.448275",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Dry Season Baseflow",NA,"28.997535","37.723895",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Wet Season Baseflow",NA,"19.15052","35.30741",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Wet Season Baseflow",NA,"32.8135","52.52465",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Wet Season Peak Flows",NA,"1971.0187","5429.49208",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Dry Season Baseflow",NA,"25.456325","34.448275",NA,NA,NA,NA,NA,"DS_Mag_50","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Dry Season Baseflow",NA,"28.997535","37.723895",NA,NA,NA,NA,NA,"DS_Mag_90","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Wet Season Baseflow",NA,"19.15052","35.30741",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Wet Season Baseflow",NA,"32.8135","52.52465",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Dry Season Baseflow",NA,"25.456325","34.448275",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Dry Season Baseflow",NA,"28.997535","37.723895",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Wet Season Baseflow",NA,"19.15052","35.30741",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Wet Season Baseflow",NA,"32.8135","52.52465",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA20_2","LAR 10 - Upstream Reach",NA,"Wet Season Peak Flows",NA,"1971.0187","5429.49208",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 5"
+"Current Flow","Current Flow","LA3","LAR 3 - Below Rio Hondo",NA,"Dry Season Baseflow",NA,"117.187875","140.26255",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA3","LAR 3 - Below Rio Hondo",NA,"Dry Season Baseflow",NA,"134.3722","183.51188",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA3","LAR 3 - Below Rio Hondo",NA,"Wet Season Baseflow",NA,"117.316965","152.881525",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA3","LAR 3 - Below Rio Hondo",NA,"Wet Season Baseflow",NA,"131.827125","187.594325",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA3","LAR 3 - Below Rio Hondo",NA,"Wet Season Peak Flows",NA,"6291.9491","18241.10646",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA8","LAR 4 - Above Rio Hondo",NA,"Dry Season Baseflow",NA,"94.1605","102.40095",NA,NA,NA,NA,NA,"DS_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA8","LAR 4 - Above Rio Hondo",NA,"Dry Season Baseflow",NA,"105.219325","117.519735",NA,NA,NA,NA,NA,"DS_Mag_90","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA8","LAR 4 - Above Rio Hondo",NA,"Wet Season Baseflow",NA,"92.48157","119.7226",NA,NA,NA,NA,NA,"Wet_BFL_Mag_10","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA8","LAR 4 - Above Rio Hondo",NA,"Wet Season Baseflow",NA,"101.19365","144.381275",NA,NA,NA,NA,NA,"Wet_BFL_Mag_50","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Current Flow","Current Flow","LA8","LAR 4 - Above Rio Hondo",NA,"Wet Season Peak Flows",NA,"4517.7136","10237.24192",NA,NA,NA,NA,NA,"Peak_2 as lower, Peak_10 as upper","","Current",NA,NA,NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","suitable","1",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","suitable","1",NA,NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","suitable","1",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","unsuitable","1","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F300","LAR 8 - Above Burbank","Main Channel","Dry Season Baseflow","suitable","18","2134",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 4"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F300","LAR 8 - Above Burbank","Main Channel","Wet Season Baseflow","suitable","18","2134",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 4"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","F300","LAR 8 - Above Burbank","Main Channel","Dry Season Baseflow","suitable","11","",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 4"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","F300","LAR 8 - Above Burbank","Main Channel","Wet Season Baseflow","suitable","11","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 4"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA14","LAR 7 - Below Burbank","Main Channel","Dry Season Baseflow","suitable","20","52000",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA14","LAR 7 - Below Burbank","Main Channel","Wet Season Baseflow","suitable","20","52000",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA14","LAR 7 - Below Burbank","Main Channel","Dry Season Baseflow","suitable","8",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA14","LAR 7 - Below Burbank","Main Channel","Wet Season Baseflow","suitable","8","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA13","LAR 6 - Above Glendale WRP","Main Channel","Dry Season Baseflow","unsuitable","710",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA13","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Baseflow","unsuitable","710",NA,NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA13","LAR 6 - Above Glendale WRP","Main Channel","Dry Season Baseflow","unsuitable","336",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA13","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Baseflow","unsuitable","336","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","23",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","23",NA,NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","23",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","23","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA8","LAR 4 - Above Rio Hondo","Main Channel","Dry Season Baseflow","suitable","47","3356",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA8","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Baseflow","suitable","47","3356",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA8","LAR 4 - Above Rio Hondo","Main Channel","Dry Season Baseflow","suitable","47",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA8","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Baseflow","suitable","47","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","35",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","35",NA,NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","25",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","25","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","26","10556",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","26","10556",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow","suitable","26",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Baseflow","suitable","26","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F34D","LAR 4 - Above Rio Hondo","Main Channel","Dry Season Baseflow","suitable","60","9839",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F34D","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Baseflow","suitable","60","9839",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","F34D","LAR 4 - Above Rio Hondo","Main Channel","Dry Season Baseflow","suitable","60",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","F34D","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Baseflow","suitable","60","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F319","LAR 2 - Below Compton Creek","Main Channel","Dry Season Baseflow","suitable","63","24042",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Los Angeles River Reach 1"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F319","LAR 2 - Below Compton Creek","Main Channel","Wet Season Baseflow","suitable","63","24042",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Los Angeles River Reach 1"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","F319","LAR 2 - Below Compton Creek","Main Channel","Dry Season Baseflow","suitable","63",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Los Angeles River Reach 1"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","F319","LAR 2 - Below Compton Creek","Main Channel","Wet Season Baseflow","suitable","63","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Los Angeles River Reach 1"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA3","LAR 3 - Below Rio Hondo","Main Channel","Dry Season Baseflow","suitable","62","13951",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA3","LAR 3 - Below Rio Hondo","Main Channel","Wet Season Baseflow","suitable","62","13951",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA3","LAR 3 - Below Rio Hondo","Main Channel","Dry Season Baseflow","suitable","62",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA3","LAR 3 - Below Rio Hondo","Main Channel","Wet Season Baseflow","suitable","62","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA20","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","unsuitable","10","26000",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA20","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","suitable","10","26000",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA20","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow","suitable","6",NA,NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA20","LAR 10 - Upstream Reach","Main Channel","Wet Season Baseflow","suitable","6","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA2","LAR 1 - Tidal Reach","Main Channel","Dry Season Baseflow","TBD","TBD","",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA1","LAR 1 - Tidal Reach","Main Channel","Dry Season Baseflow","TBD","TBD","",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA2","LAR 1 - Tidal Reach","Main Channel","Wet Season Baseflow","TBD","TBD","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA1","LAR 1 - Tidal Reach","Main Channel","Wet Season Baseflow","TBD","TBD","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA2","LAR 1 - Tidal Reach","Main Channel","Dry Season Baseflow","TBD","TBD","",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA1","LAR 1 - Tidal Reach","Main Channel","Dry Season Baseflow","TBD","TBD","",NA,"Future",90,183,273,"DS_Mag_50","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA2","LAR 1 - Tidal Reach","Main Channel","Wet Season Baseflow","TBD","TBD","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Smolts)","LA1","LAR 1 - Tidal Reach","Main Channel","Wet Season Baseflow","TBD","TBD","",NA,"Future",120,62,182,"Wet_BFL_Mag_10","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Rec. Use - Kayak","Rec. Use Kayak","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow",NA,NA,NA,NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 5"
+"Rec. Use - Fishing","Rec. Use Fishing","LA20_2","LAR 10 - Upstream Reach","Main Channel","Dry Season Baseflow",NA,NA,NA,NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 5"
+"Rec. Use - Kayak","Rec. Use Kayak","LA14","LAR 7 - Below Burbank","Main Channel","Dry Season Baseflow",NA,"116.2149221","300.514703",NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 3"
+"Rec. Use - Fishing","Rec. Use Fishing","LA14","LAR 7 - Below Burbank","Main Channel","Dry Season Baseflow",NA,"134.2682376","531.4722986",NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 3"
+"Rec. Use - Kayak","Rec. Use Kayak","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow",NA,"64.92927731","252.8629107",NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 3"
+"Rec. Use - Fishing","Rec. Use Fishing","GLEN","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow",NA,"96.02036384","446.5419596",NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 3"
+"Rec. Use - Kayak","Rec. Use Kayak","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow",NA,"87.19897219","231.2032409",NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 3"
+"Rec. Use - Fishing","Rec. Use Fishing","LA11","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow",NA,"101.0530237","418.1121665",NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 3"
+"Rec. Use - Kayak","Rec. Use Kayak","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow",NA,"26.62001914","116.9595436",NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 3"
+"Rec. Use - Fishing","Rec. Use Fishing","F57C","LAR 5 - Glendale Narrows","Main Channel","Dry Season Baseflow",NA,"33.35238444","283.4770193",NA,NA,-91,183,92,NA,NA,"Rec.",NA,NA,NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Peak Flows","suitable","","5169","Medium","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"SAS - Adult","SAS Adult","LA14","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Peak Flows","unsuitable","","615","Medium","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","517","Medium","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","2091","Medium","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","356","Medium","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Peak Flows","unsuitable","","2724","High","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","*(for SAS) Future support of these species/habitats would required additional considerations beyond flow (e.g. channel structure, substrate, shading, pools)","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"SAS - Adult","SAS Adult","LA14","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Peak Flows","unsuitable","","482","High","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","405","High","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","1103","High","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"SAS - Adult","SAS Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","244","High","Future",365,1,365,"Peak_2 as lower, Peak_10 as upper","","SAS","RARE, SPWN, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Peak Flows","unsuitable","","1172","Medium","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 5"
+"Typha - Adult","Typha Adult","LA14","LAR 7 - Below Burbank","Overbank","Wet Season Peak Flows","unsuitable","","1968","Medium","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Wet Season Peak Flows","unsuitable","","568","Medium","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","","",NA,"Medium","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","586","Medium","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Main Channel","Wet Season Peak Flows","","",NA,"Medium","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","I","Rio Hondo Reach 2"
+"Typha - Adult","Typha Adult","F37B Low","Compton Creek","Overbank","Wet Season Peak Flows","unsuitable","","182","Medium","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Compton"
+"Typha - Adult","Typha Adult","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Peak Flows","unsuitable","","1160","High","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 5"
+"Typha - Adult","Typha Adult","LA14","LAR 7 - Below Burbank","Overbank","Wet Season Peak Flows","unsuitable","","1419","High","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","GLEN","LAR 5 - Glendale Narrows","Overbank","Wet Season Peak Flows","unsuitable","","1238","High","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","824","High","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","1000","High","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Los Angeles River Reach 3"
+"Typha - Adult","Typha Adult","11101250","Rio Hondo 2 - Above Spreading Grounds","Main Channel","Wet Season Peak Flows","","",NA,"High","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","I","Rio Hondo Reach 2"
+"Typha - Adult","Typha Adult","F37B Low","Compton Creek","Overbank","Wet Season Peak Flows","unsuitable","","162","High","Existing",365,1,365,"Peak_2 as lower, Peak_10 as upper","","Typha","WILD","Designated","E","Compton"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA20","LAR 10 - Upstream Reach","Main Channel","Wet Season Peak Flows","suitable","","3091",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Peak Flows","suitable","","28466",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F300","LAR 8 - Above Burbank","Main Channel","Wet Season Peak Flows","unsuitable","","215",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 4"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA14","LAR 7 - Below Burbank","Main Channel","Wet Season Peak Flows","suitable","","17070",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA13","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Peak Flows","unsuitable","","5276",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","suitable","","23399",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","suitable","","25087",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","unsuitable","","3828",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA8","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Peak Flows","unsuitable","","689",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F34D","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Peak Flows","unsuitable","","2587",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA3","LAR 3 - Below Rio Hondo","Main Channel","Wet Season Peak Flows","unsuitable","","2698",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","F319","LAR 2 - Below Compton Creek","Main Channel","Wet Season Peak Flows","unsuitable","","7145",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Los Angeles River Reach 1"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA2","LAR 1 - Tidal Reach","Main Channel","Wet Season Peak Flows","TBD","TBD","",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Prolonged)","LA1","LAR 1 - Tidal Reach","Main Channel","Wet Season Peak Flows","TBD","TBD","",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA20_2","LAR 10 - Upstream Reach","Main Channel","Wet Season Peak Flows","","",NA,NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F300","LAR 8 - Above Burbank","Main Channel","Wet Season Peak Flows","unsuitable","","2134",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 4"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA14","LAR 7 - Below Burbank","Main Channel","Wet Season Peak Flows","suitable","","52000",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA13","LAR 6 - Above Glendale WRP","Main Channel","Wet Season Peak Flows","","",NA,NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","GLEN","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","","",NA,NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA8","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Peak Flows","unsuitable","","3356",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA11","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","","",NA,NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F57C","LAR 5 - Glendale Narrows","Main Channel","Wet Season Peak Flows","suitable","","10556",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 3"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F34D","LAR 4 - Above Rio Hondo","Main Channel","Wet Season Peak Flows","unsuitable","","9839",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","F319","LAR 2 - Below Compton Creek","Main Channel","Wet Season Peak Flows","suitable","","24042",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Los Angeles River Reach 1"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA3","LAR 3 - Below Rio Hondo","Main Channel","Wet Season Peak Flows","suitable","","13951",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 2"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA20","LAR 10 - Upstream Reach","Main Channel","Wet Season Peak Flows","suitable","","26000",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Not Designated",NA,"Los Angeles River Reach 5"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA2","LAR 1 - Tidal Reach","Main Channel","Wet Season Peak Flows","TBD","TBD","",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
+"Steelhead - Migration ","Steelhead Migration (Burst)","LA1","LAR 1 - Tidal Reach","Main Channel","Wet Season Peak Flows","TBD","TBD","",NA,"Future",120,62,182,"Peak_2 as lower, Peak_10 as upper","","Steelhead","EST, RARE, MIGR, COLD","Designated","E","Estuary"
