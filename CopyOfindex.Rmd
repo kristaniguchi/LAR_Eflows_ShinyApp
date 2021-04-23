@@ -42,6 +42,9 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
 
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
+hex <- tableau_color_pal("Tableau 20")(13)
+hex[c(6, 13)] <- c("#999999", "#B07AA1")
+species_colors <- setNames(hex, levels(dat$Species_Label))
 
 ```
 
@@ -125,7 +128,7 @@ fluidPage(tags$h3("Beneficial Use Designation"),
               column(4,
                      selectInput("BU_names", label = "Beneficial Use Name(s):",
                                  choices = BUnames(),
-                                 selected = "ALL")) }),
+                                 selected = "All")) }),
             renderUI({
               column(4,
                      if(input$designateBU == "Designated"){
@@ -209,7 +212,8 @@ boxplot_dat <- reactive({
                             is.na(Probability_Threshold),
                           metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
                                         "Peak_2 as lower, Peak_10 as upper")|
-                            is.na(metric))
+                            is.na(metric)) %>% 
+      mutate(Species_Label = fct_drop(Species_Label))
   }
   else if(input$location == "Reporting Reach"){
     validate(need(input$Reach != ""," "))
@@ -249,8 +253,7 @@ box_plot <- reactive({
   if(input$location=="Node"){
     dat <- dat %>% 
       filter(!is.na(Lower_Limit), !is.na(Upper_Limit)) %>% 
-      mutate(flow_range = str_c(floor(Lower_Limit), ceiling(Upper_Limit), sep = '-'),
-         Species_Label = fct_drop(Species_Label))
+      mutate(flow_range = str_c(floor(Lower_Limit), ceiling(Upper_Limit), sep = '-'))
     dat2 <- dat %>% 
       distinct(Seasonal_Component, species, Species_Label, Lower_Limit, Upper_Limit) %>% 
       group_by(Seasonal_Component, species) %>% 
@@ -292,29 +295,11 @@ box_plot <- reactive({
       theme(strip.text = element_text(face = "bold", size = 12),
             strip.background = element_rect(fill = "white", 
                                             colour = "black",size = 1)) +
-      scale_fill_colorblind(name = "Species") +
+      scale_fill_manual(name = "Species", values = species_colors) +
       theme(legend.position = "bottom",
             panel.grid.minor.y = element_blank()) +
       labs(title="Flow Ranges", x = "", y = "Flow (cfs)") +
       scale_y_log10()
-    
-    
-    
-    # ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
-    #                lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
-    #                upper = Upper_Limit, ymax = Upper_Limit,
-    #                fill= Species_Label)) +
-    #   geom_boxplot(stat = "identity",fatten=NULL) +
-    #   facet_wrap(~ Seasonal_Component, scales="free") +
-    #   theme(strip.text = element_text(face="bold", size=12),
-    #         strip.background = element_rect(fill="white", 
-    #                                         colour="black",size=1)) +
-    #   scale_fill_colorblind()+
-    #   theme(legend.position="bottom",
-    #         panel.grid.minor.y = element_blank()) +
-    #   labs(title="Flow Ranges",x ="", y = "Flow (cfs)",
-    #        fill= "Species - Lifestage")+
-    #   scale_y_log10()
   }
   else{
     ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
@@ -326,7 +311,8 @@ box_plot <- reactive({
       theme(strip.text = element_text(face="bold", size=12),
             strip.background = element_rect(fill="white", 
                                             colour="black",size=1)) +
-      scale_fill_colorblind()+
+      # scale_fill_colorblind()+
+      scale_fill_manual(values = species_colors) +
       theme(legend.position="bottom",
             panel.grid.minor.y = element_blank(),
       ) +
