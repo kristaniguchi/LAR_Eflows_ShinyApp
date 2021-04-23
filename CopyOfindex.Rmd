@@ -12,6 +12,9 @@ library(stringr)
 library(forcats)
 library(purrr)
 library(ggthemes)
+library(tidyr)
+library(glue)
+library(ggfittext)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 
@@ -247,21 +250,75 @@ box_plot <- reactive({
   dat <- boxplot_dat()
   
   if(input$location=="Node"){
-    ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
-                   lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
-                   upper = Upper_Limit, ymax = Upper_Limit,
-                   fill= Species_Label)) +
-      geom_boxplot(stat = "identity",fatten=NULL) +
-      facet_wrap(~ Seasonal_Component, scales="free") +
-      theme(strip.text = element_text(face="bold", size=12),
-            strip.background = element_rect(fill="white", 
-                                            colour="black",size=1)) +
-      scale_fill_colorblind()+
-      theme(legend.position="bottom",
+    dat <- dat %>% 
+      filter(!is.na(Lower_Limit), !is.na(Upper_Limit)) %>% 
+      mutate(flow_range = str_c(floor(Lower_Limit), ceiling(Upper_Limit), sep = '-'),
+         Species_Label = fct_drop(Species_Label))
+    dat2 <- dat %>% 
+      distinct(Seasonal_Component, species, Species_Label, Lower_Limit, Upper_Limit) %>% 
+      group_by(Seasonal_Component, species) %>% 
+      mutate(count = n()) %>% filter(count > 1)
+    ADDBOX <- FALSE
+    if(nrow(dat2) > 0) {
+      ADDBOX <- TRUE
+      dat2 <- dat2 %>% 
+        mutate(Lower_Limit = max(Lower_Limit, na.rm = T), Upper_Limit = min(Upper_Limit, na.rm = T)) %>% 
+        mutate(species_type = ifelse(str_detect(Species_Label, 'Growth'), 'Min',
+                                     ifelse(str_detect(Species_Label, 'Adult'), 'Max', NA))) %>% 
+        ungroup() %>% 
+        filter(!is.na(species_type)) %>%
+        pivot_wider(names_from = species_type, values_from = Species_Label) %>% 
+        mutate(label_range = glue("{species}:\n{range} cfs", species = species, 
+                                        range = str_c(Lower_Limit, Upper_Limit, sep = '-')),
+               yloc = (Lower_Limit + Upper_Limit)/2,
+               xloc = (as.numeric(Min) + as.numeric(Max))/2)
+    } 
+    
+    ggplot() + 
+      geom_rect(aes(xmin = as.factor(as.numeric(Species_Label) - 0.4), 
+                    xmax = as.factor(as.numeric(Species_Label) + 0.4),
+                    ymin = Lower_Limit,
+                    ymax = Upper_Limit, fill = Species_Label), color = 'black', data = dat) +
+      geom_text(aes(x = as.factor(as.numeric(Species_Label)), y = Upper_Limit, 
+                    label = flow_range, vjust = -0.5), data = dat, size = 4) +
+      {if(ADDBOX) list(geom_rect(aes(xmin = as.factor(as.numeric(Min) - 0.4), 
+                                xmax = as.factor(as.numeric(Max) + 0.4), 
+                                ymin = Lower_Limit, ymax = Upper_Limit),
+                            data = dat2, fill = 'black', alpha = 0.4, color = 'black', size = 1),
+          ggfittext::geom_fit_text(aes(xmin = as.factor(as.numeric(Min) - 0.4),
+                                       xmax = as.factor(as.numeric(Max) + 0.4),
+                                       ymin = Lower_Limit,
+                                       ymax = Upper_Limit, label = label_range, fontface = 'bold'),
+                                   data = dat2, contrast = T, reflow = T,
+                                   na.rm = T, size = 12))} +
+      scale_x_discrete(breaks = 1:nlevels(dat$Species_Label), labels = levels(dat$Species_Label)) +
+      facet_wrap(~ Seasonal_Component, scales="free", drop = F) +
+      theme(strip.text = element_text(face = "bold", size = 12),
+            strip.background = element_rect(fill = "white", 
+                                            colour = "black",size = 1)) +
+      scale_fill_colorblind(name = "Species") +
+      theme(legend.position = "bottom",
             panel.grid.minor.y = element_blank()) +
-      labs(title="Flow Ranges",x ="", y = "Flow (cfs)",
-           fill= "Species - Lifestage")+
+      labs(title="Flow Ranges", x = "", y = "Flow (cfs)") +
       scale_y_log10()
+    
+    
+    
+    # ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
+    #                lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
+    #                upper = Upper_Limit, ymax = Upper_Limit,
+    #                fill= Species_Label)) +
+    #   geom_boxplot(stat = "identity",fatten=NULL) +
+    #   facet_wrap(~ Seasonal_Component, scales="free") +
+    #   theme(strip.text = element_text(face="bold", size=12),
+    #         strip.background = element_rect(fill="white", 
+    #                                         colour="black",size=1)) +
+    #   scale_fill_colorblind()+
+    #   theme(legend.position="bottom",
+    #         panel.grid.minor.y = element_blank()) +
+    #   labs(title="Flow Ranges",x ="", y = "Flow (cfs)",
+    #        fill= "Species - Lifestage")+
+    #   scale_y_log10()
   }
   else{
     ggplot(dat,aes(x=Species_Label, ymin = Lower_Limit,
