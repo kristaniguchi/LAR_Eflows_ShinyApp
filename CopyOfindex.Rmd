@@ -21,23 +21,29 @@ knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv",
                 encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
   mutate(Species = factor(Species),
-         Species_Label = gsub(" ", "\n",Species_Label),
-         Species_Label = factor(Species_Label,
-                                levels = c("Willow\nGrowth", "Willow\nAdult",
-                                           "Typha\nGrowth","Typha\nAdult",
-                                           "Cladophora\nAdult", "Current\nFlow",
-                                           "SAS\nGrowth","SAS\nAdult",
-                                           "Steelhead\nMigration\n(Prolonged)",
-                                           "Steelhead\nMigration\n(Burst)",
-                                           "Steelhead\nMigration\n(Smolts)",
-                                           "Rec.\nUse\nKayak",
-                                           "Rec.\nUse\nFishing")),
          Lower_Limit = as.double(Lower_Limit),
          Upper_Limit = as.double(Upper_Limit),
          Designation_Category = fct_recode(Designation_Category,"Existing"="E",
                                            "Potential"="P",
-                                           "Intermittent"="I")) %>%
+                                           "Intermittent"="I"),
+         Species_Label = fct_recode(Species_Label,
+                                    "Current\nFlow"= "Current Flow",
+                                    "Willow\nGrowth" = "Willow Growth",
+                                    "Willow\nAdult" = "Willow Adult",
+                                    "Steelhead\nMigration\n(Prolonged)" = "Steelhead Migration (Prolonged)",
+                                    "Typha\nGrowth"= "Typha Growth",
+                                    "Typha\nAdult" = "Typha Adult",
+                                    "Cladophora\nAdult"= "Cladophora Adult",
+                                    "SAS\nGrowth" = "SAS Growth",
+                                    "Steelhead\nMigration\n(Smolts)" = "Steelhead Migration (Smolts)",
+                                    "Steelhead\nMigration\n(Burst)" = "Steelhead Migration (Burst)",
+                                    "Rec.\nUse\nKayak" = "Rec. Use Kayak",
+                                    "Rec.\nUse\nFishing" = "Rec. Use Fishing")) %>%
   rename(Seasonal_Component= Seasonal.Component)
+
+
+dat$Species_Label = fct_relevel(dat$Species_Label,rev)
+
 
 
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()

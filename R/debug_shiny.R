@@ -5,35 +5,29 @@ library(ggthemes)
 # DEBUG ------------------------------------------------------
 
 
-dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_BU_03172021.csv",
+dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv",
                 encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
   mutate(Species = factor(Species),
-         Species_Label = gsub(" ", "\n",Species_Label),
-         Species_Label = factor(Species_Label,
-                                levels = c("Willow\nGrowth", "Willow\nAdult",
-                                           "Typha\nGrowth","Typha\nAdult",
-                                           "Cladophora\nAdult", "Current\nFlow",
-                                           "SAS\nGrowth","SAS\nAdult",
-                                           "Steelhead\nMigration\n(Prolonged)",
-                                           "Steelhead\nMigration\n(Burst)",
-                                           "Steelhead\nMigration\n(Smolts)",
-                                           "Rec.\nUse\nKayak",
-                                           "Rec.\nUse\nFishing")),
          Lower_Limit = as.double(Lower_Limit),
          Upper_Limit = as.double(Upper_Limit),
          Designation_Category = fct_recode(Designation_Category,"Existing"="E",
                                            "Potential"="P",
                                            "Intermittent"="I"),
-         Species_Synthesis = fct_recode(Species,"Current Flow"="Current Flow",
-                                        "Willow" = "Willow - Growth",
-                                        "Willow" = "Willow - Adult",
-                                        "Typha" = "Typha - Growth",
-                                        "Typha" = "Typha - Adult",
-                                        "Cladophora" = "Cladophora - Adult",
-                                        "Rec. Use - Kayak" = "Rec. Use - Kayak",
-                                        "Rec. Use - Fishing" = "Rec. Use - Fishing")) %>%
+         Species_Label = fct_recode(Species_Label,
+                                    "Current\nFlow"= "Current Flow",
+                                    "Willow\nGrowth" = "Willow Growth",
+                                    "Willow\nAdult" = "Willow Adult",
+                                    "Steelhead\nMigration\n(Prolonged)" = "Steelhead Migration (Prolonged)",
+                                    "Typha\nGrowth"= "Typha Growth",
+                                    "Typha\nAdult" = "Typha Adult",
+                                    "Cladophora\nAdult"= "Cladophora Adult",
+                                    "SAS\nGrowth" = "SAS Growth",
+                                    "Steelhead\nMigration\n(Smolts)" = "Steelhead Migration (Smolts)",
+                                    "Steelhead\nMigration\n(Burst)" = "Steelhead Migration (Burst)",
+                                    "Rec.\nUse\nKayak" = "Rec. Use Kayak",
+                                    "Rec.\nUse\nFishing" = "Rec. Use Fishing")) %>%
   rename(Seasonal_Component= Seasonal.Component)
-         
+
          
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
@@ -48,9 +42,9 @@ dat$BU_names[grep("WILD",dat$BU_names)]
 
 
 df2 <- dat %>% filter(Node=="GLEN",
-               Designation_BU == "Designated"| is.na(Designation_BU),
+               Designation_BU == "Not Designated"| is.na(Designation_BU),
                Designation_Category == "Existing"| is.na(Designation_Category),
-               BU_names %in% dat$BU_names[grep("WILD",dat$BU_names)]|is.na(BU_names),
+               BU_names %in% dat$BU_names[grep("RARE",dat$BU_names)]|is.na(BU_names),
                metric %in% c("DS_Mag_50","Wet_BFL_Mag_10",
                              "Peak_2 as lower, Peak_10 as upper")|is.na(metric),
                Probability_Threshold=="Medium"|is.na(Probability_Threshold)) 
@@ -65,7 +59,7 @@ df3 <- dat %>% filter(Node=="GLEN",
                       Probability_Threshold %in% "Medium"|is.na(Probability_Threshold)) 
 
 
-ggplot(df2,aes(x=Species_Label, ymin = Lower_Limit,
+ggplot(df2,aes(x= fct_relevel(Species_Label,rev), ymin = Lower_Limit,
                lower = Lower_Limit,middle=(Lower_Limit+Upper_Limit)/2,
                upper = Upper_Limit, ymax = Upper_Limit,
                fill= Species_Label)) +
