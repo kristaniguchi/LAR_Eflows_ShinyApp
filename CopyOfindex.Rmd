@@ -48,6 +48,16 @@ dat$Species_Label = fct_relevel(dat$Species_Label,rev)
 
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
 names(seasons)=NULL
+
+
+
+dat_designated <- dat %>% filter(Designation_BU == "Designated")
+dat_not_designated <- dat %>% filter(Designation_BU == "Not Designated")
+
+
+
+
+
 hex <- tableau_color_pal("Tableau 20")(13)
 hex[c(6, 13)] <- c("#999999", "#B07AA1")
 species_colors <- setNames(hex, levels(dat$Species_Label))
@@ -94,36 +104,12 @@ location_choice <- reactive({
          "LA River Reach-Master Plan" = dat$waterbody)
 })
 
-
-
-BUnames <- reactive({
-  if(input$location=="Node"){
-    validate(need(input$Node != ""," "))
-    out <- c("All", dat %>% filter(Node == input$Node) %>% pull(BU_names) %>%
-               str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
-    return(out)    
-  }
-  else if(input$location == "Reporting Reach"){
-    validate(need(input$Reach != ""," "))
-    out <- c("All", dat %>% filter(Reach == input$Reach) %>% pull(BU_names) %>%
-               str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
-    return(out)      
-  }
-  else{
-    validate(need(input$MasterLA != ""," "))
-    out <- c("All", dat %>% filter(waterbody == input$MasterLA) %>% pull(BU_names) %>%
-               str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
-    return(out)       
-  }
-  
-})
-
-
 ```
 
 ------------------------------------------------------------------------
 
-```{r}
+```{r,eval=FALSE}
+# This is the old layout- works but doesnt account for designated/not designated
 fluidPage(tags$h3("Beneficial Use Designation"),
           fluidRow(
             column(4,
@@ -145,8 +131,92 @@ fluidPage(tags$h3("Beneficial Use Designation"),
                      }
               )
             }) ))
-
 ```
+
+
+
+```{r, Beneficial Use Designation}
+fluidPage(tags$h3("Beneficial Use Designation"),
+                          radioButtons("designateBU", label = " Current Designation:",
+                                       choices = c("Designated","Not Designated"),
+                                       selected= "Designated"))
+          
+
+
+BUnames <- reactive({
+  
+  if(input$designateBU == "Designated"){
+    
+    if(input$location=="Node"){
+      validate(need(input$Node != ""," "))
+      out <- c("All", dat_designated %>% filter(Node == input$Node) %>% pull(BU_names) %>%
+                 str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
+      return(out)    
+    }
+    else if(input$location == "Reporting Reach"){
+      validate(need(input$Reach != ""," "))
+      out <- c("All", dat_designated %>% filter(Reach == input$Reach) %>% pull(BU_names) %>%
+                 str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
+      return(out)      
+    }
+    else{
+      validate(need(input$MasterLA != ""," "))
+      out <- c("All", dat_designated %>% filter(waterbody == input$MasterLA) 
+               %>% pull(BU_names) %>% str_extract_all('[A-Z]+') %>% unlist() 
+               %>% unique() %>% na.omit)
+      return(out)       
+    }
+  }
+  else{
+    if(input$location=="Node"){
+      validate(need(input$Node != ""," "))
+      out <- c("All", dat_not_designated %>% filter(Node == input$Node) %>% pull(BU_names) %>%
+                 str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
+      return(out)    
+    }
+    else if(input$location == "Reporting Reach"){
+      validate(need(input$Reach != ""," "))
+      out <- c("All", dat_not_designated %>% filter(Reach == input$Reach) %>% pull(BU_names) %>%
+                 str_extract_all('[A-Z]+') %>% unlist() %>% unique() %>% na.omit)
+      return(out)      
+    }
+    else{
+      validate(need(input$MasterLA != ""," "))
+      out <- c("All", dat_not_designated %>% filter(waterbody == input$MasterLA) 
+               %>% pull(BU_names) %>% str_extract_all('[A-Z]+') %>% unlist() 
+               %>% unique() %>% na.omit)
+      return(out)       
+    }  
+  }
+  
+})
+
+
+fluidPage(
+  fluidRow(column(4, 
+                  renderUI({
+                    selectInput("BU_names", label = "Beneficial Use Name(s):",
+                                choices = BUnames(),
+                                selected = "All") })),
+           renderUI({
+             column(4,
+                    if(input$designateBU == "Designated"){
+                      selectInput("designations", label = "Designation Type:",
+                                  choices = c("All","Existing",
+                                              "Potential","Intermittent"),
+                                  selected= "All")                      
+                    })
+           })
+  ))
+```
+
+
+
+
+
+
+
+
 
 ------------------------------------------------------------------------
 
