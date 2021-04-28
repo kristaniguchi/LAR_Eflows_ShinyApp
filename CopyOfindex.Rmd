@@ -339,6 +339,7 @@ box_plot <- reactive({
       mutate(species_type = ifelse(str_detect(Species_Label, 'Growth'), 'Min',
                                    ifelse(str_detect(Species_Label, 'Adult'), 'Max', NA))) %>% 
       ungroup() %>% filter(count > 1, !is.na(species_type))
+
     ADDBOX <- FALSE
     if(nrow(dat2) > 0) {
       ADDBOX <- TRUE

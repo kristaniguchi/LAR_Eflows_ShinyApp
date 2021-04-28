@@ -73,6 +73,9 @@ metrics.to.plot <- c("Wet_BFL_Mag_10", "DS_Mag_50") #, "Wet_BFL_Mag_50", "DS_Mag
 
 
 
+# Data to look at ---------------------------------------------------------
+
+
 ffm.all.join <- merge(ffm.all, reporting.node.names, by= "ReportingNode") %>% 
   select("X.","ReportingNode", "Description","p10","p25",
          "p50","p75","p90","metric", "Scenario", "Reach", 
@@ -84,7 +87,8 @@ ffm.all.join <- merge(ffm.all, reporting.node.names, by= "ReportingNode") %>%
 
 
 
-ffm.all.join.bmp.urbn <- merge(ffm.bmp.urbn, reporting.node.names, by= "ReportingNode") %>% 
+ffm.all.join.bmp.urbn <- merge(ffm.bmp.urbn, reporting.node.names,
+                               by= "ReportingNode") %>% 
   select("X.","ReportingNode", "Description","p10","p25","p50","p75",
          "p90","metric", "Scenario", "Reach", "order",
          "order3","Reporting_Reach") %>% 
@@ -92,6 +96,10 @@ ffm.all.join.bmp.urbn <- merge(ffm.bmp.urbn, reporting.node.names, by= "Reportin
   merge(sustain.scenarios, by = "Scenario") %>% 
   mutate(ScenarioType = "Stormwater, Stormdrain Diversions") %>% 
   mutate(ScenarioType2 = Scenario)
+
+
+#   -----------------------------------------------------------------------
+
 
 
 ffm.all.join.bmp.urbn$Avg_Q_cfs <- 0
@@ -110,8 +118,6 @@ ffm.all.join.bmp.urbn$spring[ind.WRP50] <- baseline.spring/2
 ffm.all.join.bmp.urbn$dry_season[ind.WRP100] <- baseline.dry
 ffm.all.join.bmp.urbn$wet_season[ind.WRP100] <- baseline.wet
 ffm.all.join.bmp.urbn$spring[ind.WRP100] <- baseline.spring
-
-
 
 
 unique.nodes <- unique(ffm.all.join$ReportingNode)
@@ -181,9 +187,12 @@ i <- grep("GLEN", unique.nodes)
     data.plot$Percentile <- factor(data.plot$Percentile, levels = Percentile)
     
     #pivot longer .urban to format correctly
-    data.plot.urban <- pivot_longer(ffm.sub.metric.j.urban, cols = c("p90", "p50", "p10"), 
-                                    names_to="Percentile", values_to="Value")
-    data.plot.urban$Percentile <- factor(data.plot.urban$Percentile, levels = Percentile)
+    data.plot.urban <- pivot_longer(ffm.sub.metric.j.urban, 
+                                    cols = c("p90", "p50", "p10"), 
+                                    names_to="Percentile", 
+                                    values_to="Value")
+    data.plot.urban$Percentile <- factor(data.plot.urban$Percentile, 
+                                         levels = Percentile)
 
     data.plot2 <- data.plot %>% 
       mutate(Scenario = as.character(data.plot$Scenario))
@@ -196,9 +205,6 @@ i <- grep("GLEN", unique.nodes)
     data.plot.urban.merge2$BMP_WRP[which(is.na(data.plot.urban.merge2$BMP_WRP))] <- "WRP"
     data.plot.urban.merge2$UrbanBaseflow_name[which(is.na(data.plot.urban.merge2$UrbanBaseflow_name))] <- "WRP"
     
-    
-    #subset to BMP WRP only - subset urban removal only
-    #subset to all scenarios except urban50 and urban0 (baseflow removal scenarios)
     ind.urb50 <- grep("UBF50", data.plot.urban.merge2$Scenario)
     ind.urb0 <- grep("UBF0", data.plot.urban.merge2$Scenario)
     data.plot.urban.merge2.bmponly <- data.frame(data.plot.urban.merge2[-c(ind.urb50,ind.urb0),])
@@ -208,10 +214,9 @@ i <- grep("GLEN", unique.nodes)
       filter(UrbanBaseflow_pctQ != "UBF100") %>% 
       data.frame()
     
-    #if dry season metric, set x to dry season wrp
+
     dry.ind <- grep("Dry", metric.info$title_name)
     if(length(dry.ind) > 0){
-      #rename dry season WRP to generic x name
       data.plot <- data.plot %>% 
         rename(seasonal.wrp.Q = dry_season)
       ffm.sub.metric.j <- ffm.sub.metric.j %>% 
@@ -221,13 +226,10 @@ i <- grep("GLEN", unique.nodes)
       data.plot.urban.merge2.urbnonly <- data.plot.urban.merge2.urbnonly %>% 
         rename(seasonal.wrp.Q = dry_season)
       
-      
-      #x axis label for seasonal wrp
+
       x.axis <- "Average Dry-Season WRP Discharge (cfs)"
       baseline.metric <- baseline.dry
     }else{
-      #rename wet season WRP to generic x name 
-      #wrp data
       data.plot <- data.plot %>% 
         rename(seasonal.wrp.Q = wet_season)
       ffm.sub.metric.j <- ffm.sub.metric.j %>% 
@@ -237,13 +239,11 @@ i <- grep("GLEN", unique.nodes)
       data.plot.urban.merge2.urbnonly <- data.plot.urban.merge2.urbnonly %>% 
         rename(seasonal.wrp.Q = wet_season)
       
-      
-      #x axis label for seasonal wrp
       x.axis <- "Average Wet-Season WRP Discharge (cfs)"
       baseline.metric <- baseline.wet
     }
     
-    ###create sensitivity curve for WRP only using seasonal WRP and percentile points showing distribution
+
     p <- ggplot(data.plot, aes(x=seasonal.wrp.Q, y = Value, color = Percentile)) +
       geom_point() +
       labs(title = paste0("WRP Sensitivity Curve: ", unique.nodes[i]), 
@@ -261,37 +261,28 @@ i <- grep("GLEN", unique.nodes)
             axis.line = element_line(colour = "black"))
     #print plot
     print(p)
-    #save
-    file.name <- paste0(out.dir, "points_", unique.nodes[i], "_", 
-                        metric.info$metric, "_WRP_Sensitivity_Curve_seasonal.jpg")
-    ggsave(p, filename=file.name, dpi=300, height=5, width=7)
+
     
    #DRY plot only: take out wet and moderate and only show dry
     p.50 <- p + 
-    geom_point(ffm.sub.metric.j, mapping = aes(x=seasonal.wrp.Q, y = p90), color = "white") +
-    geom_point(ffm.sub.metric.j, mapping = aes(x=seasonal.wrp.Q, y = p10), color = "white") 
-    #save
-    file.name <- paste0(out.dir, "points_", unique.nodes[i], "_", 
-                        metric.info$metric, "_WRP_Sensitivity_Curve_p50.jpg")
-    ggsave(p.50, filename=file.name, dpi=300, height=5, width=7)
+    geom_point(ffm.sub.metric.j, mapping = aes(x=seasonal.wrp.Q, y = p90), 
+               color = "white") +
+    geom_point(ffm.sub.metric.j, mapping = aes(x=seasonal.wrp.Q, y = p10), 
+               color = "white") 
+
     
     
     
     ####################################
     #####SMOOTH SENSITIVITY CURVES:
     #Plot as a smooth curve with shaded band (linear reg for p50 with the upper bound being p90 and lower p10) 
-    
-    #upper bound (p90)
-    #fit p90
+  
     fit.p90 <- lm(p90 ~ seasonal.wrp.Q, data = ffm.sub.metric.j)
     summary(fit.p90)
-    #predict values 
+
     upper.bound <- predict(fit.p90, newdata = ffm.sub.metric.j)
-    #lower bound (p10)
-    #fit p10
     fit.p10 <- lm(p10 ~ seasonal.wrp.Q, data = ffm.sub.metric.j)
     summary(fit.p10)
-    #predict values 
     lower.bound <- predict(fit.p10, newdata = ffm.sub.metric.j)
     
     #plot with stat smooth WRP curve
@@ -308,12 +299,9 @@ i <- grep("GLEN", unique.nodes)
       xlab(x.axis) + 
       theme_bw() + 
       theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+            panel.grid.minor = element_blank(),
+            axis.line = element_line(colour = "black"))
     
-    #save
-    file.name2 <- paste0(out.dir, "smoothcurve_", unique.nodes[i], "_", 
-                         metric.info$metric, "_WRP_Sensitivity_Curve.jpg")
-    ggsave(p2, filename=file.name2, dpi=300, height=5, width=5)
     
     ###########add in optimal flow range lower limit to WYT plot
     #overlay optimal flow range on dry year for GLEN only
@@ -321,19 +309,12 @@ i <- grep("GLEN", unique.nodes)
       #smooth curve
       p.flowrange2 <- p2 + 
         geom_hline(yintercept=77, color = "grey") 
-      #save
-      file.name <- paste0(out.dir, "smoothcurve_", unique.nodes[i], "_", 
-                          metric.info$metric, "_WRP_Sensitivity_Curve_optimal.lowerlimit.jpg")
-      ggsave(p.flowrange2, filename=file.name, dpi=300, height=5, width=5)
+
       
       #points plot
       p.flowrange <- p + 
         geom_hline(yintercept=77, color = "grey") 
-      #save
-      file.name <- paste0(out.dir, "points_", unique.nodes[i], "_", 
-                          metric.info$metric, "_WRP_Sensitivity_Curve_optimal.lowerlimit.jpg")
-      ggsave(p.flowrange, filename=file.name, dpi=300, height=5, width=7)
-      
+
       
     }
     
@@ -368,9 +349,10 @@ i <- grep("GLEN", unique.nodes)
                 color="#d73027", linetype="twodash", lwd=1) 
     
     #save
-    file.name2 <- paste0(out.dir.bmp, "smoothcurve_", unique.nodes[i], "_", 
-                         metric.info$metric, "_WRP_Sensitivity_Curve_0Urbanflow.jpg")
-    ggsave(urban0.p, filename=file.name2, dpi=300, height=5, width=5)
+    #file.name2 <- paste0(out.dir.bmp, "smoothcurve_", unique.nodes[i], "_", 
+    #                     metric.info$metric, 
+    #                     "_WRP_Sensitivity_Curve_0Urbanflow.jpg")
+    #ggsave(urban0.p, filename=file.name2, dpi=300, height=5, width=5)
     
     
     #100% reduction plot with smooth curve
@@ -381,34 +363,39 @@ i <- grep("GLEN", unique.nodes)
                 color="#fc8d59", linetype="twodash", lwd=1) 
     
     #save
-    file.name2 <- paste0(out.dir.bmp, "smoothcurve_", unique.nodes[i], "_",
-                         metric.info$metric, "_WRP_Sensitivity_Curve_50Urbanflow.jpg")
-    ggsave(urban50.p, filename=file.name2, dpi=300, height=5, width=5)
+    #file.name2 <- paste0(out.dir.bmp, "smoothcurve_", unique.nodes[i], "_",
+    #                     metric.info$metric, 
+    #                     "_WRP_Sensitivity_Curve_50Urbanflow.jpg")
+    #ggsave(urban50.p, filename=file.name2, dpi=300, height=5, width=5)
     
 
-    #summary of scenarios - % reduction in metric from baseline for p50
-    #p50 fit and find values 
     fit.p50 <- lm(p50 ~ seasonal.wrp.Q, data = ffm.sub.metric.j)
-    #predict metric for a given WRP discharge
-    #data.frame of predictions
     seasonal.wrp.Q <- c(baseline.metric/2, 0)
     scenario <- c("50% reduction WRP", "0 cfs WRP")
     test <- data.frame(cbind(as.numeric(seasonal.wrp.Q), scenario))
     wrp.50pct.100pct <- predict(fit.p50, newdata = test)
     baseline.50 <- max(ffm.sub.metric.j$p50)
-    #find %change from baseline
+
     pct.change <- (baseline.50-wrp.50pct.100pct)/baseline.50 *100
     cfs.change <- baseline.50 - wrp.50pct.100pct
-    #find change in no urban baseflow scenario
-    #p50 fit and find values
+
     fit.p50.nourban <- lm(p50 ~ seasonal.wrp.Q, data = ffm.sub.metric.j.urban)
     urban.predict <- predict(fit.p50.nourban, newdata = test)
-    #find %change from baseline
+
     pct.change.urban <- (baseline.50-urban.predict)/baseline.50 *100
     cfs.change.urban <- baseline.50 - urban.predict
     baselinewrp.nourban <- max(ffm.sub.metric.j.urban$p50)
     pct.change.baselinewrp.nourban <- (baseline.50-baselinewrp.nourban)/baseline.50 *100
 
+    
+    
+    #Wet plot only: take out dry and moderate and only show wet
+    p.90 <- p +
+      geom_point(ffm.sub.metric.j, mapping = aes(x=Avg_Q_cfs, y = p10), color = "white") +
+      geom_point(ffm.sub.metric.j, mapping = aes(x=Avg_Q_cfs, y = p50), color = "white")
+    #save
+    #file.name <- paste0(out.dir, "points_", unique.nodes[i], "_", metric.info$metric, "_WRP_Sensitivity_Curve_wetp90.jpg")
+    #ggsave(p.90, filename=file.name, dpi=300, height=5, width=7)
 
     dry.change <- (min(ffm.sub.metric.j$p10)-max(ffm.sub.metric.j$p10))/max(ffm.sub.metric.j$p10)*100
     med.change <- (min(ffm.sub.metric.j$p50)-max(ffm.sub.metric.j$p50))/max(ffm.sub.metric.j$p50)*100
@@ -429,19 +416,23 @@ i <- grep("GLEN", unique.nodes)
                 color = "white", size=1, lty="F1") +
       geom_line(wet.urbn0,  mapping = aes(x=Avg_Q_cfs, y = Value), 
                 color = "white", size=1, lty="F1") +
-      labs(title = paste0("WRP Sensitivity Curve: ", unique.nodes[i]), subtitle=metric.info$title_name,
+      labs(title = paste0("WRP Sensitivity Curve: ", unique.nodes[i]), 
+           subtitle=metric.info$title_name,
            color = "Legend") + ylab(metric.title) +
       xlab("Average Annual WRP Discharge (cfs)") +
       scale_shape_manual(values = c("100% Urban Baseflow Removal"=2, 
-                                    "50% Urban Baseflow Removal"=1, "WRP"=20), name="Scenario Type") +
+                                    "50% Urban Baseflow Removal"=1, "WRP"=20), 
+                         name="Scenario Type") +
       scale_size_manual(values = c("100% Urban Baseflow Removal"=4, 
-                                   "50% Urban Baseflow Removal"=4, "WRP"=2), name="Scenario Type") +
+                                   "50% Urban Baseflow Removal"=4, "WRP"=2), 
+                        name="Scenario Type") +
       theme_bw() +
       theme(panel.border = element_blank(), panel.grid.major = element_blank(),
             panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
     #save
-    file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", metric.info$metric, "_WRP_Sensitivity_Curve_wet.jpg")
-    ggsave(p.wet2, filename=file.name, dpi=300, height=5, width=7)
+    #file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", 
+    #                    metric.info$metric, "_WRP_Sensitivity_Curve_wet.jpg")
+    #ggsave(p.wet2, filename=file.name, dpi=300, height=5, width=7)
     
     
     p.wet.urbn50 <- p.90 +
@@ -454,30 +445,41 @@ i <- grep("GLEN", unique.nodes)
            color = "Legend") + ylab(metric.title) +
       xlab("Average Annual WRP Discharge (cfs)") +
       scale_shape_manual(values = c("100% Urban Baseflow Removal"=2, 
-                                    "50% Urban Baseflow Removal"=1, "WRP"=20), name="Scenario Type") +
+                                    "50% Urban Baseflow Removal"=1, "WRP"=20), 
+                         name="Scenario Type") +
       scale_size_manual(values = c("100% Urban Baseflow Removal"=4, 
-                                   "50% Urban Baseflow Removal"=4, "WRP"=2), name="Scenario Type") +
+                                   "50% Urban Baseflow Removal"=4, "WRP"=2), 
+                        name="Scenario Type") +
       theme_bw() +
       theme(panel.border = element_blank(), panel.grid.major = element_blank(),
             panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
     #save
-    file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", metric.info$metric, "_WRP_Sensitivity_Curve_urban50_wet.jpg")
-    ggsave(p.wet.urbn50, filename=file.name, dpi=300, height=5, width=7)
+    #file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", 
+    #                    metric.info$metric, "_WRP_Sensitivity_Curve_urban50_wet.jpg")
+    #ggsave(p.wet.urbn50, filename=file.name, dpi=300, height=5, width=7)
     
     p.wet.urbn50.0 <- p.90 +
-      geom_line(wet.urbn50,  mapping = aes(x=Avg_Q_cfs, y = Value), color = "grey", size=1, lty="F1") +
-      geom_line(wet.urbn0,  mapping = aes(x=Avg_Q_cfs, y = Value), color = "blue", size=1, lty="F1") +
-      labs(title = paste0("WRP Sensitivity Curve: ", unique.nodes[i]), subtitle=metric.info$title_name,
+      geom_line(wet.urbn50,  mapping = aes(x=Avg_Q_cfs, y = Value), 
+                color = "grey", size=1, lty="F1") +
+      geom_line(wet.urbn0,  mapping = aes(x=Avg_Q_cfs, y = Value), 
+                color = "blue", size=1, lty="F1") +
+      labs(title = paste0("WRP Sensitivity Curve: ", unique.nodes[i]), 
+           subtitle=metric.info$title_name,
            color = "Legend") + ylab(metric.title) +
       xlab("Average Annual WRP Discharge (cfs)") +
-      scale_shape_manual(values = c("100% Urban Baseflow Removal"=2, "50% Urban Baseflow Removal"=1, "WRP"=20), name="Scenario Type") +
-      scale_size_manual(values = c("100% Urban Baseflow Removal"=4, "50% Urban Baseflow Removal"=4, "WRP"=2), name="Scenario Type") +
+      scale_shape_manual(values = c("100% Urban Baseflow Removal"=2, 
+                                    "50% Urban Baseflow Removal"=1, "WRP"=20), 
+                         name="Scenario Type") +
+      scale_size_manual(values = c("100% Urban Baseflow Removal"=4, 
+                                   "50% Urban Baseflow Removal"=4, "WRP"=2), 
+                        name="Scenario Type") +
       theme_bw() +
       theme(panel.border = element_blank(), panel.grid.major = element_blank(),
             panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
     #save
-    file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", metric.info$metric, "_WRP_Sensitivity_Curve_urban50_0_wet.jpg")
-    ggsave(p.wet.urbn50.0, filename=file.name, dpi=300, height=5, width=7)
+    #file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", 
+    #                    metric.info$metric, "_WRP_Sensitivity_Curve_urban50_0_wet.jpg")
+    #ggsave(p.wet.urbn50.0, filename=file.name, dpi=300, height=5, width=7)
     
     p.all.urbn <- p +
       geom_line(wet.urbn50,  mapping = aes(x=Avg_Q_cfs, y = Value), 
@@ -497,9 +499,7 @@ i <- grep("GLEN", unique.nodes)
       theme_bw() +
       theme(panel.border = element_blank(), panel.grid.major = element_blank(),
             panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
-    #save
-    file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", metric.info$metric, "_WRP_Sensitivity_Curve_urban50_0_allWYT.jpg")
-    ggsave(p.all.urbn, filename=file.name, dpi=300, height=5, width=7)
+
     
 
     ####################################
@@ -510,53 +510,60 @@ i <- grep("GLEN", unique.nodes)
       #Exising BU designations low flow limit overliad on sensitivity plot
       existing.p.med <- p +
         #Add in species thresholds
-        geom_hline(yintercept=as.numeric(existing.ranges.metric.j.med$Lower_Limit), linetype="twodash", color = "blue") +
-        annotate(geom = "text", x = 30, y = as.numeric(existing.ranges.metric.j.med$Lower_Limit), label = existing.ranges.metric.j.med$Species_Label) 
+        geom_hline(yintercept=as.numeric(existing.ranges.metric.j.med$Lower_Limit), 
+                   linetype="twodash", color = "blue") +
+        annotate(geom = "text", x = 30, 
+                 y = as.numeric(existing.ranges.metric.j.med$Lower_Limit), 
+                 label = existing.ranges.metric.j.med$Species_Label) 
       
-      #save this plot for existing supported species
-      file.name4 <- paste0(out.dir, unique.nodes[i], "_", metric.info$metric, "_WRPCurve_existingspp_med.jpg")
-      ggsave(existing.p.med, filename=file.name4, dpi=300, height=5, width=7)
+
     }
     #lower limits for existing BU, high probability
     if(length(existing.ranges.metric.j.high$Probability_Threshold) > 0){
       #Exising BU designations low flow limit overliad on sensitivity plot
       existing.p.high <- p +
         #Add in species thresholds
-        geom_hline(yintercept=as.numeric(existing.ranges.metric.j.high$Lower_Limit), linetype="twodash", color = "blue") +
-        annotate(geom = "text", x = 30, y = as.numeric(existing.ranges.metric.j.high$Lower_Limit), label = existing.ranges.metric.j.high$Species_Label) 
+        geom_hline(yintercept=as.numeric(existing.ranges.metric.j.high$Lower_Limit), 
+                   linetype="twodash", color = "blue") +
+        annotate(geom = "text", x = 30, 
+                 y = as.numeric(existing.ranges.metric.j.high$Lower_Limit), 
+                 label = existing.ranges.metric.j.high$Species_Label) 
       
-      #save this plot for existing supported species
-      file.name5 <- paste0(out.dir, unique.nodes[i], "_", metric.info$metric, "_WRPCurve_existingspp_high.jpg")
-      ggsave(existing.p.high, filename=file.name5, dpi=300, height=5, width=7)
+
     }
     
     #lower limits for future BU, med probability
     if(length(future.ranges.metric.j.med$Probability_Threshold) > 0){
       #Exising BU designations low flow limit overliad on sensitivity plot
       future.p.med <- p +
-        #Add in species thresholds
-        geom_hline(yintercept=as.numeric(future.ranges.metric.j.med$Lower_Limit), linetype="twodash", color = "blue") +
-        annotate(geom = "text", x = 30, y = as.numeric(future.ranges.metric.j.med$Lower_Limit), label = future.ranges.metric.j.med$Species_Label) 
+
+        geom_hline(yintercept=as.numeric(future.ranges.metric.j.med$Lower_Limit), 
+                   linetype="twodash", color = "blue") +
+        annotate(geom = "text", x = 30, 
+                 y = as.numeric(future.ranges.metric.j.med$Lower_Limit), 
+                 label = future.ranges.metric.j.med$Species_Label) 
       
-      #save this plot for future supported species
-      file.name4 <- paste0(out.dir, unique.nodes[i], "_", metric.info$metric, "_WRPCurve_futurespp_med.jpg")
-      ggsave(future.p.med, filename=file.name4, dpi=300, height=5, width=7)
+
     }
     #lower limits for future BU, high probability
     if(length(future.ranges.metric.j.high$Probability_Threshold) > 0){
-      #Exising BU designations low flow limit overliad on sensitivity plot
+
       future.p.high <- p +
         #Add in species thresholds
-        geom_hline(yintercept=as.numeric(future.ranges.metric.j.high$Lower_Limit), linetype="twodash", color = "blue") +
-        annotate(geom = "text", x = 30, y = as.numeric(future.ranges.metric.j.high$Lower_Limit), label = future.ranges.metric.j.high$Species_Label) 
+        geom_hline(yintercept=as.numeric(future.ranges.metric.j.high$Lower_Limit), 
+                   linetype="twodash", color = "blue") +
+        annotate(geom = "text", x = 30, 
+                 y = as.numeric(future.ranges.metric.j.high$Lower_Limit), 
+                 label = future.ranges.metric.j.high$Species_Label) 
       
       #save this plot for future supported species
-      file.name5 <- paste0(out.dir, unique.nodes[i], "_", metric.info$metric, "_WRPCurve_futurespp_high.jpg")
-      ggsave(future.p.high, filename=file.name5, dpi=300, height=5, width=7)
+      #file.name5 <- paste0(out.dir, unique.nodes[i], "_", 
+      #                     metric.info$metric, "_WRPCurve_futurespp_high.jpg")
+      #ggsave(future.p.high, filename=file.name5, dpi=300, height=5, width=7)
     }
   
   }
-}
+
 
 
 
@@ -600,9 +607,11 @@ for(i in 1:length(unique.nodes)){
     data.plot$Percentile <- factor(data.plot$Percentile, levels = Percentile)
     
 
-    data.plot.bmp <- pivot_longer(ffm.sub.metric.j.bmp, cols = c("p90", "p50", "p10"), 
+    data.plot.bmp <- pivot_longer(ffm.sub.metric.j.bmp, 
+                                  cols = c("p90", "p50", "p10"), 
                                   names_to="Percentile", values_to="Value")
-    data.plot.bmp$Percentile <- factor(data.plot.bmp$Percentile, levels = Percentile)
+    data.plot.bmp$Percentile <- factor(data.plot.bmp$Percentile, 
+                                       levels = Percentile)
 
     data.plot2 <- data.plot %>% 
       mutate(Scenario = as.character(data.plot$Scenario))
@@ -613,7 +622,6 @@ for(i in 1:length(unique.nodes)){
     
     #if peak flow, then don't do color since on value for POR, no WYT
     if(metric.info$title_component == "Peak Flow Magnitude"){
-      #create new dataframe to plot with scenario colors for BMP
       data.plot.bmp.merge2 <- data.plot.bmp.merge %>% 
         mutate(ScenarioBMP = Scenario)
       #remove WRP scenario at end of scenario BMP
@@ -632,8 +640,7 @@ for(i in 1:length(unique.nodes)){
       #replace scenario number from WRP with No BMP
       data.plot.bmp.merge2$ScenarioBMP[data.plot.bmp.merge2$ScenarioType == "WRP"] <- "No BMPs"
       unique(data.plot.bmp.merge2$ScenarioBMP)
-      #save as factor
-      #if baseline included add it into the levels, if not exclude it
+
       data.plot.bmp.merge2$ScenarioBMP <- factor(data.plot.bmp.merge2$ScenarioBMP, 
                                                  levels = c("No BMPs", "Conservative No Infiltration", 
                                                             "Aggresive No Infiltration", 
@@ -649,22 +656,28 @@ for(i in 1:length(unique.nodes)){
              color = "Legend") + ylab(metric.title) +
         xlab("Average Annual WRP Discharge (cfs)") +
         #scale_color_manual(values = colors, labels = labels, name="Water Year Type") +
-        scale_shape_manual(values = c("Stormwater + WRP"=2, "WRP"=20), name="Scenario Type") +
-        scale_size_manual(values = c("Stormwater + WRP"=4, "WRP"=2), name="Scenario Type") +
+        scale_shape_manual(values = c("Stormwater + WRP"=2, "WRP"=20), 
+                           name="Scenario Type") +
+        scale_size_manual(values = c("Stormwater + WRP"=4, "WRP"=2), 
+                          name="Scenario Type") +
         theme_bw() +
-        theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-              panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+        theme(panel.border = element_blank(), 
+              panel.grid.major = element_blank(),
+              panel.grid.minor = element_blank(), 
+              axis.line = element_line(colour = "black"))
       #print plot
       print(p.bmp)
       #save
-      file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", 
-                          metric.info$metric, "_WRP_Sensitivity_Curve_BMP_WRP.jpg")
-      ggsave(p.bmp, filename=file.name, dpi=300, height=5, width=7)
+      #file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", 
+     #                     metric.info$metric, "_WRP_Sensitivity_Curve_BMP_WRP.jpg")
+      #ggsave(p.bmp, filename=file.name, dpi=300, height=5, width=7)
       
     }else{
-      p.bmp <- ggplot(data.plot.bmp.merge, aes(x=Avg_Q_cfs, y = Value, color = Percentile)) +
+      p.bmp <- ggplot(data.plot.bmp.merge, aes(x=Avg_Q_cfs, 
+                                               y = Value, color = Percentile)) +
         geom_point(mapping = aes(shape = ScenarioType, size = ScenarioType)) +
-        labs(title = paste0("WRP Sensitivity Curve: ", unique.nodes[i]), subtitle=metric.info$title_name,
+        labs(title = paste0("WRP Sensitivity Curve: ", unique.nodes[i]), 
+             subtitle=metric.info$title_name,
              color = "Legend") + ylab(metric.title) +
         xlab("Average Annual WRP Discharge (cfs)") +
         scale_color_manual(values = colors, labels = labels, name="Water Year Type") +
@@ -674,13 +687,14 @@ for(i in 1:length(unique.nodes)){
                           name="Scenario Type") +
         theme_bw() +
         theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-              panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+              panel.grid.minor = element_blank(), 
+              axis.line = element_line(colour = "black"))
       #print plot
       print(p.bmp)
       #save
-      file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", 
-                          metric.info$metric, "_WRP_Sensitivity_Curve_BMP_WRP.jpg")
-      ggsave(p.bmp, filename=file.name, dpi=300, height=5, width=7)
+      #file.name <- paste0(out.dir.bmp, "points_", unique.nodes[i], "_", 
+      #                    metric.info$metric, "_WRP_Sensitivity_Curve_BMP_WRP.jpg")
+      #ggsave(p.bmp, filename=file.name, dpi=300, height=5, width=7)
       
     }
   }
