@@ -121,7 +121,7 @@ ffm.all.join.bmp.urbn$spring[ind.WRP100] <- baseline.spring
 
 
 unique.nodes <- unique(ffm.all.join$ReportingNode)
-i <- grep("GLEN", unique.nodes)
+i <- grep("LA11", unique.nodes)
 
 
 #for(i in 1:length(unique.nodes)){
@@ -563,6 +563,8 @@ i <- grep("GLEN", unique.nodes)
     }
   
   }
+
+  
 
 
 
