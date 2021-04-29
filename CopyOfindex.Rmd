@@ -6,17 +6,23 @@ runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
-library(dplyr)
-library(ggplot2)
-library(stringr)
-library(forcats)
-library(purrr)
+library(tidyverse)
 library(ggthemes)
-library(tidyr)
 library(glue)
 library(ggfittext)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
+
+
+synthesis_curves_dat <- read_csv("raw/SynthesisCurves_SpeciesProb.csv") %>% 
+  filter(species.lifestage.hyd %in% c("Typha Adult Depth","Typha Adult Velocity",
+                                      "Cladophora Adult Depth","Cladophora Adult Velocity",
+                                      "Sas Adult Velocity","Sas Adult Depth",
+                                      "Steelhead Prolonged Depth","Sas Juvenile Depth",
+                                      "Steelhead Burst Depth","Steelhead Smolts Depth",
+                                      "Steelhead Burst Velocity","Typha Seedling Depth"))
+
+
 
 dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv",
                 encoding = "UTF-8",stringsAsFactors = FALSE) %>% 
