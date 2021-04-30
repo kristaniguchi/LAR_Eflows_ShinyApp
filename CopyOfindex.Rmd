@@ -65,7 +65,7 @@ dat_not_designated <- dat %>% filter(Designation_BU == "Not Designated")
 
 
 hex <- tableau_color_pal("Tableau 20")(13)
-hex[c(6, 13)] <- c("#999999", "#B07AA1")
+hex[c(7, 9)] <- rev(hex[c(7,9)])
 species_colors <- setNames(hex, levels(dat$Species_Label))
 
 ```
