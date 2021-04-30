@@ -347,7 +347,7 @@ box_plot <- reactive({
       ungroup() %>% filter(count > 1, !is.na(species_type))
 
     ADDBOX <- FALSE
-    if(nrow(dat2) > 0) {
+    if(nrow(dat2) > 0 & input$synthesis == "Yes") {
       ADDBOX <- TRUE
       dat2 <- dat2 %>% 
         pivot_wider(names_from = species_type, values_from = Species_Label) %>% 
