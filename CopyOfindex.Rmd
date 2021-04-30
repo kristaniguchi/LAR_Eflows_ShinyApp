@@ -360,7 +360,8 @@ box_plot <- reactive({
                  Lower_Limit = max(Lower_Limit, na.rm = T),
                  Upper_Limit = min(Upper_Limit, na.rm = T)) %>%
           mutate(species_type = ifelse(Species_Label == min(Species_Label), 'Min', 'Max')) %>% 
-          ungroup() %>% filter(count > 1, !species %in% c("Rec.", "Current"))
+          ungroup() %>% filter(count > 1, !species %in% c("Rec.", "Current"),
+                               Upper_Limit > Lower_Limit)
       } else {
         dat2 <- dat %>% 
           distinct(Seasonal_Component, species, Species_Label, Lower_Limit, Upper_Limit) %>% 
@@ -372,12 +373,12 @@ box_plot <- reactive({
           mutate(species_type = ifelse(Species_Label == min(Species_Label), 'Min', 
                                        ifelse(Species_Label == max(Species_Label), 'Max', NA))) %>% 
           ungroup() %>% 
-          filter(count > 1, !is.na(species_type))
+          filter(count > 1, !is.na(species_type), Upper_Limit > Lower_Limit)
       }
       if(nrow(dat2) > 0) {
         ADDBOX <- TRUE
-        dat2 <- dat2 %>% 
-          mutate(species = ifelse(input$synthesis_type == "Multiple", "Multiple", species)) %>% 
+        dat2 <- dat2 %>% rowwise() %>% 
+          mutate(species = if_else(input$synthesis_type == "Multiple", "Multiple", species)) %>% 
           pivot_wider(id_cols = c(Seasonal_Component, Lower_Limit, Upper_Limit, species), names_from = species_type, values_from = Species_Label) %>% 
           mutate(label_range = glue::glue("{species}:\n{range} cfs", species = species, range = str_c(Lower_Limit, Upper_Limit, sep = '-')),
                  yloc = (Lower_Limit + Upper_Limit)/2,
