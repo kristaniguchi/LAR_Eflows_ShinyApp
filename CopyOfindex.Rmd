@@ -32,27 +32,10 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv",
          Designation_Category = fct_recode(Designation_Category,"Existing"="E",
                                            "Potential"="P",
                                            "Intermittent"="I"),
-         # Species_Label = fct_recode(Species_Label,
-         #                            "Current\nFlow"= "Current Flow",
-         #                            "Willow\nGrowth" = "Willow Growth",
-         #                            "Willow\nAdult" = "Willow Adult",
-         #                            "Steelhead\nMigration\n(Prolonged)" = "Steelhead Migration (Prolonged)",
-         #                            "Typha\nGrowth"= "Typha Growth",
-         #                            "Typha\nAdult" = "Typha Adult",
-         #                            "Cladophora\nAdult"= "Cladophora Adult",
-         #                            "SAS\nGrowth" = "SAS Growth",
-         #                            "Steelhead\nMigration\n(Smolts)" = "Steelhead Migration (Smolts)",
-         #                            "Steelhead\nMigration\n(Burst)" = "Steelhead Migration (Burst)",
-         #                            "Rec.\nUse\nKayak" = "Rec. Use Kayak",
-         #                            "Rec.\nUse\nFishing" = "Rec. Use Fishing")
          Species_Label = str_replace_all(Species_Label, " ", "\n") %>% 
            factor(., sort(unique(.), decreasing = T), ordered = T) %>% fct_relevel(., levels(.)[13], after = 4)
          ) %>%
   rename(Seasonal_Component= Seasonal.Component)
-
-
-# dat$Species_Label = fct_relevel(dat$Species_Label,rev)
-
 
 
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
@@ -68,10 +51,6 @@ dat_not_designated <- dat %>% filter(Designation_BU == "Not Designated")
 hex <- tableau_color_pal("Tableau 20")(nlevels(dat$Species_Label))
 hex[c(7:10)] <- rev(hex[c(7:10)])
 species_colors <- setNames(hex, levels(dat$Species_Label))
-
-# hex <- tableau_color_pal("Tableau 20")(13)
-# hex[c(7, 9)] <- rev(hex[c(7,9)])
-# species_colors <- setNames(hex, levels(dat$Species_Label))
 
 ```
 
@@ -362,14 +341,19 @@ box_plot <- reactive({
           mutate(species_type = ifelse(Species_Label == min(Species_Label), 'Min', 'Max')) %>% 
           ungroup() %>% filter(count > 1, !species %in% c("Rec.", "Current"),
                                Upper_Limit > Lower_Limit)
-      } else {
+      } else { 
+        # Multiple synthesis
         dat2 <- dat %>% 
           distinct(Seasonal_Component, species, Species_Label, Lower_Limit, Upper_Limit) %>% 
           filter(!species %in% c("Current", "Rec.")) %>% 
           group_by(Seasonal_Component) %>% 
-          mutate(count = n(),
-                 Lower_Limit = max(Lower_Limit, na.rm = T),
-                 Upper_Limit = min(Upper_Limit, na.rm = T)) %>%
+          mutate(ll = max(Lower_Limit, na.rm = T),
+             ul = min(Upper_Limit, na.rm = T)) %>%
+      mutate(Upper_Limit = ifelse(ul < ll & Upper_Limit == ul, NA, Upper_Limit)) %>%
+      na.omit() %>% 
+      mutate(count = n()) %>% 
+      mutate(Lower_Limit = max(Lower_Limit, na.rm = T),
+             Upper_Limit = min(Upper_Limit, na.rm = T)) %>%
           mutate(species_type = ifelse(Species_Label == min(Species_Label), 'Min', 
                                        ifelse(Species_Label == max(Species_Label), 'Max', NA))) %>% 
           ungroup() %>% 
