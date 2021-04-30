@@ -14,13 +14,16 @@ library(ggfittext)
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 
 
-synthesis_curves_dat <- read_csv("raw/SynthesisCurves_SpeciesProb.csv") %>% 
+sensitivity_dat <- read_csv("raw/SynthesisCurves_SpeciesProb.csv") %>% 
   filter(species.lifestage.hyd %in% c("Typha Adult Depth","Typha Adult Velocity",
                                       "Cladophora Adult Depth","Cladophora Adult Velocity",
                                       "Sas Adult Velocity","Sas Adult Depth",
                                       "Steelhead Prolonged Depth","Sas Juvenile Depth",
                                       "Steelhead Burst Depth","Steelhead Smolts Depth",
-                                      "Steelhead Burst Velocity","Typha Seedling Depth"))
+                                      "Steelhead Burst Velocity","Typha Seedling Depth")) %>% 
+  rename(Node = ReportingNode,
+         species_lifestage = species.lifestage,
+         species_lifestage_hyd = species.lifestage.hyd)
 
 
 
@@ -688,3 +691,67 @@ renderDataTable({
 
 
 ## Sensitivity Curves
+
+```{r}
+fluidPage(tags$h3("Location and Season"),
+          fluidRow(column(4,
+                          radioButtons("sens_location", 
+                                       label = "Select Location:",
+                                       choices = c("Node","Reporting Reach"),
+                                       selected="Node")),
+                   renderUI({ column(4,
+                                    if(input$sens_location == "Reporting Reach"){
+                                      selectInput("sens_Reach",label = "Specific Location:",
+                                                  choices = sens_location_choice() %>%
+                                                    unique() %>% sort)
+                                    }
+                                    else if (input$sens_location == "Node"){
+                                      selectInput("sens_Node",label = "Specific Location:",
+                                                  choices = sens_location_choice() %>%
+                                                    unique)
+                                    }
+                   )}), 
+                   column(4,
+                          selectInput("sens_season", label = "Select Season:",
+                                      choices = unique(sensitivity_dat$season),
+                                      selected= unique(sensitivity_dat$season) %>%  .[1]))
+          ))
+
+
+sens_location_choice <- reactive({
+  switch(input$sens_location,
+         "Reporting Reach" = sensitivity_dat$Reporting_Reach,
+         "Node"= sensitivity_dat$Node)
+})
+
+```
+
+
+------------------------------------------------------------------------
+
+
+```{r}
+sensitivity_curves_dat <- reactive({
+  if(input$sens_location == "Node"){
+    validate(need(input$sens_Node != ""," "))
+    
+    out <- sensitivity_dat %>% filter(Node == input$sens_Node,
+                                      season == input$sens_season)
+    return(out)
+  }
+  else{
+    validate(need(input$sens_Reach != ""," "))
+    out <- sensitivity_dat %>% filter(Reporting_Reach == input$sens_Reach,
+                                      season == input$sens_season)
+    return(out)
+  }
+})
+
+```
+
+
+
+
+
+
+

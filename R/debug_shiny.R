@@ -1,4 +1,3 @@
-library(readr)
 library(tidyverse)
 library(ggthemes)
 
@@ -13,19 +12,9 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv",
          Designation_Category = fct_recode(Designation_Category,"Existing"="E",
                                            "Potential"="P",
                                            "Intermittent"="I"),
-         Species_Label = fct_recode(Species_Label,
-                                    "Current\nFlow"= "Current Flow",
-                                    "Willow\nGrowth" = "Willow Growth",
-                                    "Willow\nAdult" = "Willow Adult",
-                                    "Steelhead\nMigration\n(Prolonged)" = "Steelhead Migration (Prolonged)",
-                                    "Typha\nGrowth"= "Typha Growth",
-                                    "Typha\nAdult" = "Typha Adult",
-                                    "Cladophora\nAdult"= "Cladophora Adult",
-                                    "SAS\nGrowth" = "SAS Growth",
-                                    "Steelhead\nMigration\n(Smolts)" = "Steelhead Migration (Smolts)",
-                                    "Steelhead\nMigration\n(Burst)" = "Steelhead Migration (Burst)",
-                                    "Rec.\nUse\nKayak" = "Rec. Use Kayak",
-                                    "Rec.\nUse\nFishing" = "Rec. Use Fishing")) %>%
+         Species_Label = str_replace_all(Species_Label, " ", "\n") %>% 
+           factor(., sort(unique(.), decreasing = T), ordered = T) %>% 
+           fct_relevel(., levels(.)[13], after = 4)) %>%
   rename(Seasonal_Component= Seasonal.Component)
 
          
@@ -72,9 +61,6 @@ ggplot(df2,aes(x= fct_relevel(Species_Label,rev), ymin = Lower_Limit,
         panel.grid.minor.y = element_blank()) +
   labs(title="Flow Ranges",x ="", y = "Flow (cfs)")+
   scale_y_log10()
-
-
-
 
 
 
@@ -275,9 +261,3 @@ summer_multiple_synthesis <- discard(species_list, function(x) nrow(x) == 0) %>%
 
 summer_multiple_synthesis %>% select(-c("Ranges","Range_Diff")) %>% 
   unlist(use.names = FALSE)
-
-
-
-
-
-
