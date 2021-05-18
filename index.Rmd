@@ -768,22 +768,6 @@ sensitivity_curves_dat <- reactive({
 
 
 ```{r}
-
-.onLoad <- function(libname, pkgname) {
-  shiny::addResourcePath(
-    prefix = "img",
-    directoryPath = system.file(
-      "data/www",
-      package = "imageissue"
-    )
-  )
-}
-
-.onUnload <- function(libname, pkgname) {
-  shiny::removeResourcePath("img")
-}
-
-
 goodV <- 0
 ```
 
@@ -861,8 +845,6 @@ hab_choice <- reactive({
 
 
 
-
-
 ```{r}
 fluidPage(
   
@@ -874,9 +856,7 @@ fluidPage(
                               c("ALL","EST", "WILD","RARE", "MIGR", "SPWN", "COLD")),
                   selectInput("season", "Season Baseflow:",
                               c("Wet" = "wet", "Dry" = "dry")),
-                  sliderInput("wrp", "WRP Discharge (cfs):",
-                              min = 1, max = 100, value = 1),
-                  selectInput("use", width = "92%",textOutput("other"),
+                  selectInput("use", "Select Species:",textOutput("other"),
                               c( 
                                 "Willow Adult",
                                 "Steelhead Migration (Prolonged)",
@@ -886,18 +866,35 @@ fluidPage(
                                 "Steelhead Migration (Burst)",
                                 "Kayak",
                                 "Fishing")),
+                                    sliderInput("wrp", "WRP Discharge (cfs):",
+                              min = 1, max = 100, value = 1),
                   
                   downloadButton('heatmap', 'Download  Heat Map')),
     
     mainPanel(
-      tabsetPanel(type = "pills",
-                  tabPanel("Heat Map",
                            renderPlot({heatmap_plot()},height=600,width=950)
-                  )))
+                  )
+                           
     
   )
 )
 ```
+
+
+```{r}
+renderLeaflet({la_map()})
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 ```{r}
@@ -1555,7 +1552,7 @@ output$heatmap <- downloadHandler(
 
 
 ```{r}
-renderLeaflet({
+la_map <- reactive({
   
   
  observe({
@@ -2227,7 +2224,6 @@ renderLeaflet({
     
   })
 ```
-
 
 
 
