@@ -113,41 +113,9 @@ location_choice <- reactive({
 
 ------------------------------------------------------------------------
 
-```{r,eval=FALSE}
-# This is the old layout- works but doesnt account for designated/not designated
-fluidPage(tags$h3("Beneficial Use Designation"),
-          fluidRow(
-            column(4,
-                   radioButtons("designateBU", label = " Current Designation:",
-                                choices = c("Designated","Not Designated"),
-                                selected= "Designated")),
-            renderUI({
-              column(4,
-                     selectInput("BU_names", label = "Beneficial Use Name(s):",
-                                 choices = BUnames(),
-                                 selected = "All")) }),
-            renderUI({
-              column(4,
-                     if(input$designateBU == "Designated"){
-                       selectInput("designations", label = "Designation Type:",
-                                   choices = c("All","Existing",
-                                               "Potential","Intermittent"),
-                                   selected= "All")                      
-                     }
-              )
-            }) ))
-```
 
 
-
-```{r, Beneficial Use Designation}
-fluidPage(tags$h3("Beneficial Use Designation"),
-                          radioButtons("designateBU", label = " Current Designation:",
-                                       choices = c("Designated","Not Designated"),
-                                       selected= "Designated"))
-          
-
-
+```{r}
 BUnames <- reactive({
   
   if(input$designateBU == "Designated"){
@@ -196,6 +164,48 @@ BUnames <- reactive({
   
 })
 
+```
+
+
+
+
+
+```{r,eval=TRUE}
+# This is the old layout- works but doesnt account for designated/not designated
+fluidPage(tags$h3("Beneficial Use Designation"),
+          fluidRow(
+            column(4,
+                   radioButtons("designateBU", label = " Current Designation:",
+                                choices = c("Designated","Not Designated"),
+                                selected= "Designated")),
+            renderUI({
+              column(4,
+                     selectInput("BU_names", label = "Beneficial Use Name(s):",
+                                 choices = BUnames(),
+                                 selected = "All")) }),
+            renderUI({
+              column(4,
+                     if(input$designateBU == "Designated"){
+                       selectInput("designations", label = "Designation Type:",
+                                   choices = c("All","Existing",
+                                               "Potential","Intermittent"),
+                                   selected= "All")                      
+                     }
+              )
+            }) ))
+```
+
+
+
+```{r, Beneficial Use Designation,eval=FALSE}
+fluidPage(tags$h3("Beneficial Use Designation"),
+                          radioButtons("designateBU", label = " Current Designation:",
+                                       choices = c("Designated","Not Designated"),
+                                       selected= "Designated"))
+          
+
+
+
 
 fluidPage(
   fluidRow(column(4, 
@@ -214,12 +224,6 @@ fluidPage(
            })
   ))
 ```
-
-
-
-
-
-
 
 
 
@@ -710,22 +714,25 @@ fluidPage(tags$h3("Location and Season"),
                                        label = "Select Location:",
                                        choices = c("Node","Reporting Reach"),
                                        selected="Node")),
-                   renderUI({ column(4,
-                                    if(input$sens_location == "Reporting Reach"){
-                                      selectInput("sens_Reach",label = "Specific Location:",
-                                                  choices = sens_location_choice() %>%
-                                                    unique() %>% sort)
-                                    }
-                                    else if (input$sens_location == "Node"){
-                                      selectInput("sens_Node",label = "Specific Location:",
-                                                  choices = sens_location_choice() %>%
-                                                    unique)
-                                    }
-                   )}), 
+                   column(4,renderUI({
+                     if(input$sens_location == "Reporting Reach"){
+                       selectInput("sens_Reach",label = "Specific Location:",
+                                   choices = sens_location_choice() %>%
+                                     unique() %>% sort)
+                     }
+                     else if (input$sens_location == "Node"){
+                       #selectInput("sens_Node",label = "Specific Location:",
+                       #           choices = sens_location_choice() %>%
+                       #             unique)
+                       selectInput("node", "Specific Location:",
+                                   c("LA11", "F34D", "F57C","GLEN",
+                                     "LA3","LA8","LA13","LA14",
+                                     "F319","F300"))
+                     }
+                   })), 
                    column(4,
                           selectInput("sens_season", label = "Select Season:",
-                                      choices = unique(sensitivity_dat$season),
-                                      selected= unique(sensitivity_dat$season) %>%  .[1]))
+                                      choices = c("Dry"="dry","Wet"="wet")))
           ))
 
 
@@ -741,7 +748,7 @@ sens_location_choice <- reactive({
 ------------------------------------------------------------------------
 
 
-```{r}
+```{r, eval=FALSE}
 sensitivity_curves_dat <- reactive({
   if(input$sens_location == "Node"){
     validate(need(input$sens_Node != ""," "))
@@ -759,6 +766,381 @@ sensitivity_curves_dat <- reactive({
 })
 
 ```
+
+
+
+
+```{r}
+
+
+#Did they fall in the range? 
+fmDry <- FMM[!grepl("Wet", FMM$Season),] #dry only
+fmWet <- FMM[!grepl("Dry", FMM$Season),] #wet only
+
+
+flowRDry0 <- FlowRanges[!grepl("Wet_BFL_Mag_50", FlowRanges$metric),] #dry 
+flowRDry1 <- flowRDry0[!grepl("Wet_BFL_Mag_10", flowRDry0$metric),] #dry 
+
+flowRWet0 <- FlowRanges[!grepl("DS_Mag_50", FlowRanges$metric),] #wet 
+flowRWet1 <- flowRWet0[!grepl("DS_Mag_10", flowRWet0$metric),] #wet
+
+sens_curve <- reactive({
+  if(input$sens_location == "Node"){
+    validate(need(input$sens_season != ""," "))
+    validate(need(input$node != ""," "))
+    
+    x = 0:100
+    F300p10Dry <- 0.900017708 + 0.805599066*x
+    F300p10Wet <- 0.900017708 + 0.805599066*x
+    
+    F319p10Dry <- 47.39457326 + 1.005771489*x
+    F319p10Wet <- 47.39457326 + 1.005771489*x
+    
+    F57Cp10Dry <- 11.99113979 + 0.907820603*x
+    F57Cp10Wet <-11.99113979 + 0.907820603*x
+    
+    LA13p10Dry <-6.623349565 + 0.820509704*x
+    LA13p10Wet <-6.623349565 + 0.820509704*x
+    
+    LA11p10Dry<-11.95112229 + 0.888542946*x
+    LA11p10Wet<-11.95112229 + 0.888542946*x
+    
+    F34Dp10Dry<-45.94858526 + 0.998084005*x
+    F34Dp10Wet<-45.94858526 + 0.998084005*x
+    
+    LA14p10Dry<-4.912058332 + 0.827809744*x
+    LA14p10Wet<-4.912058332 + 0.827809744*x
+    
+    GLENp10Dry<-9.885996252 + 0.918687061*x
+    GLENp10Wet<-9.885996252 + 0.918687061*x
+    
+    
+    LA8p10Dry<-27.92521955 + 0.921523533*x
+    LA8p10Wet<-27.92521955 + 0.921523533*x
+    
+    LA3p10Dry<-46.63140866 + 1.007484302*x
+    LA3p10Wet<-46.63140866 + 1.007484302*x
+    F300p50Dry <- 7.515974555 + 0.818915631*x
+    F300p50Wet <- 7.515974555 + 0.818915631*x
+    
+    F319p50Dry <- 59.7864079 + 0.968084353*x
+    F319p50Wet <- 59.7864079 + 0.968084353*x
+    
+    F57Cp50Dry <- 19.36427883 + 1.019596427*x
+    F57Cp50Wet <-19.36427883 + 1.019596427*x
+    
+    LA13p50Dry <-12.49375321 + 0.895458007*x
+    LA13p50Wet <-12.49375321 + 0.895458007*x
+    
+    LA11p50Dry<-17.56386445 + 1.017568674*x
+    LA11p50Wet<-17.56386445 + 1.017568674*x
+    
+    F34Dp50Dry<-55.60826969 + 0.946218349*x
+    F34Dp50Wet<-55.60826969 + 0.946218349*x
+    
+    LA14p50Dry<-10.53879805 + 0.902100964*x
+    LA14p50Wet<-10.53879805 + 0.902100964*x
+    
+    GLENp50Dry<-16.06509232 + 1.016729283*x
+    GLENp50Wet<-16.06509232 + 1.016729283*x
+    
+    
+    LA8p50Dry<-33.05435573 + 0.98455202*x
+    LA8p50Wet<-33.05435573 + 0.98455202*x
+    
+    LA3p50Dry<-59.08826412 + 0.970926122*x
+    LA3p50Wet<-59.08826412 + 0.970926122*x
+    F300p90Dry <- 9.236788795 + 0.876596075*x
+    F300p90Wet <- 9.236788795 + 0.876596075*x
+    
+    F319p90Dry <- 76.45154635 + 1.043169622*x
+    F319p90Wet <- 76.45154635 + 1.043169622*x
+    
+    F57Cp90Dry <- 25.59802376 + 1.046174046*x
+    F57Cp90Wet <-25.59802376 + 1.046174046*x
+    
+    LA13p90Dry <-20.28892415 + 0.870686647*x
+    LA13p90Wet <-20.28892415 + 0.870686647*x
+    
+    LA11p90Dry<-23.76124488 + 1.049193898*x
+    LA11p90Wet<-23.76124488 + 1.049193898*x
+    
+    F34Dp90Dry<-71.72411613 + 0.95174529*x
+    F34Dp90Wet<-71.72411613 + 0.95174529*x
+    
+    LA14p90Dry<-18.18934302 + 0.88306858*x
+    LA14p90Wet<-18.18934302 + 0.88306858*x
+    
+    GLENp90Dry<-22.38736668 + 1.048267846*x
+    GLENp90Wet<-22.38736668 + 1.048267846*x
+    LA8p90Dry<-39.67282263 + 1.012418222*x
+    LA8p90Wet<-39.67282263 + 1.012418222*x
+    LA3p90Dry<-75.29510986 + 1.002334493*x
+    LA3p90Wet<-75.29510986 + 1.002334493*x
+    
+    
+    
+    if(input$sens_season == "wet"){
+      fm <- fmWet
+      flow <- flowRWet1
+      F300p10 <- F300p10Wet
+      F319p10 <- F319p10Wet
+      F57Cp10 <-F57Cp10Wet
+      LA13p10 <- LA13p10Wet
+      LA11p10 <- LA11p10Wet
+      F34Dp10 <- F34Dp10Wet
+      LA14p10 <- LA14p10Wet
+      GLENp10 <- GLENp10Wet
+      LA8p10 <- LA8p10Wet
+      LA3p10 <- LA3p10Wet
+      F300p50 <- F300p50Wet
+      F319p50 <- F319p50Wet
+      F57Cp50 <-F57Cp50Wet
+      LA13p50 <- LA13p50Wet
+      LA11p50 <- LA11p50Wet
+      F34Dp50 <- F34Dp50Wet
+      LA14p50 <- LA14p50Wet
+      GLENp50 <- GLENp50Wet
+      LA8p50 <- LA8p50Wet
+      LA3p50 <- LA3p50Wet
+      F300p90 <- F300p90Wet
+      
+      F319p90 <- F319p90Wet
+      
+      F57Cp90 <- F57Cp90Wet
+      
+      
+      LA13p90 <- LA13p90Wet
+      
+      
+      LA11p90 <- LA11p90Wet
+      
+      
+      F34Dp90 <- F34Dp90Wet
+      
+      
+      LA14p90 <- LA14p90Wet
+      
+      GLENp90 <- GLENp90Wet
+      
+      
+      LA8p90 <- LA8p90Wet
+      
+      
+      LA3p90 <- LA3p90Wet
+      
+    }
+    else{
+      fm <- fmDry
+      flow <-flowRDry1
+      F300p10 <- F300p10Dry
+      F319p10 <- F319p10Dry
+      F57Cp10 <-F57Cp10Dry
+      LA13p10 <- LA13p10Dry
+      LA11p10 <- LA11p10Dry
+      F34Dp10 <- F34Dp10Dry
+      LA14p10 <- LA14p10Dry
+      GLENp10 <- GLENp10Dry
+      LA8p10 <- LA8p10Dry
+      LA3p10 <- LA3p10Dry
+      F300p50 <- F300p50Dry
+      F319p50 <- F319p50Dry
+      F57Cp50 <-F57Cp50Dry
+      LA13p50 <- LA13p50Dry
+      LA11p50 <- LA11p50Dry
+      F34Dp50 <- F34Dp50Dry
+      LA14p50 <- LA14p50Dry
+      GLENp50 <- GLENp50Dry
+      LA8p50 <- LA8p50Dry
+      LA3p50 <- LA3p50Dry
+      F300p90 <- F300p90Dry
+      
+      F319p90 <- F319p90Dry
+      
+      F57Cp90 <- F57Cp90Dry
+      
+      LA13p90 <- LA13p90Dry
+      
+      LA11p90 <- LA11p90Dry
+      
+      F34Dp90 <- F34Dp90Dry
+      
+      LA14p90 <- LA14p90Dry
+      
+      GLENp90 <- GLENp90Dry
+      
+      LA8p90 <- LA8p90Dry
+      
+      LA3p90 <- LA3p90Dry
+    }
+    name = "red"
+    fun.1 <- function(x) x^2 + x
+    if(input$node == "LA11"){
+      fun.1 <- LA11p10
+      name = "LA11"
+    }
+    if(input$node == "F300"){
+      fun.1 <- F300p10
+      name = "F300"
+    }
+    if(input$node == "F319"){
+      fun.1 <- F319p10
+      name = "F319"
+    }
+    if(input$node == "LA13"){
+      fun.1 <- LA13p10
+      name = "LA13"
+    }
+    if(input$node == "F34D"){
+      fun.1 <- F34Dp10
+      name = "F34D"
+    }
+    if(input$node == "LA14"){
+      fun.1 <- LA14p10
+      name = "LA14"
+    }
+    if(input$node == "GLEN"){
+      fun.1 <- GLENp10
+      name = "GLEN"
+    }
+    if(input$node == "LA8"){
+      fun.1 <- LA8p10
+      name = "LA8"
+    }
+    if(input$node == "LA3"){
+      fun.1 <- LA3p10
+      name = "LA3"
+    }
+    if(input$node == "F57C"){
+      fun.1 <- F57Cp10
+      name = "F57C"
+    }
+    if(input$node == "LA20"){
+      fun.1 <- F57Cp10
+      name = "F57C"
+    }
+    if(input$node == "LA20_2"){
+      fun.1 <- F57Cp10
+      name = "F57C"
+    }
+    fun.2 <- function(x) x^2 + x
+    if(input$node == "LA11"){
+      fun.2 <- LA11p50
+      name = "LA11"
+    }
+    if(input$node == "F300"){
+      fun.2 <- F300p50
+      name = "F300"
+    }
+    if(input$node == "F319"){
+      fun.2 <- F319p50
+      name = "F319"
+    }
+    if(input$node == "LA13"){
+      fun.2 <- LA13p50
+      name = "LA13"
+    }
+    if(input$node == "F34D"){
+      fun.2 <- F34Dp50
+      name = "F34D"
+    }
+    if(input$node == "LA14"){
+      fun.2 <- LA14p50
+      name = "LA14"
+    }
+    if(input$node == "GLEN"){
+      fun.2 <- GLENp50
+      name = "GLEN"
+    }
+    if(input$node == "LA8"){
+      fun.2 <- LA8p50
+      name = "LA8"
+    }
+    if(input$node == "LA3"){
+      fun.2 <- LA3p50
+      name = "LA3"
+    }
+    if(input$node == "F57C"){
+      fun.2 <- F57Cp50
+      name = "F57C"
+    }
+    fun.3 <- function(x) x^2 + x
+    if(input$node == "LA11"){
+      fun.3 <- LA11p90
+      name = "LA11"
+    }
+    if(input$node == "F300"){
+      fun.3 <- F300p90
+      name = "F300"
+    }
+    if(input$node == "F319"){
+      fun.3 <- F319p90
+      name = "F319"
+    }
+    if(input$node == "LA13"){
+      fun.3 <- LA13p90
+      name = "LA13"
+    }
+    if(input$node == "F34D"){
+      fun.3 <- F34Dp90
+      name = "F34D"
+    }
+    if(input$node == "LA14"){
+      fun.3 <- LA14p90
+      name = "LA14"
+    }
+    if(input$node == "GLEN"){
+      fun.3 <- GLENp90
+      name = "GLEN"
+    }
+    if(input$node == "LA8"){
+      fun.3 <- LA8p90
+      name = "LA8"
+    }
+    if(input$node == "LA3"){
+      fun.3 <- LA3p90
+      name = "LA3"
+    }
+    if(input$node == "F57C"){
+      fun.3 <- F57Cp90
+      name = "F57C"
+    }
+    aData = data.frame(x =x, y = fun.1)
+    bData = data.frame(x=x, y = fun.2)
+    cData = data.frame(x=x, y = fun.3)
+    plotter <- data.frame(
+      x = 0:100,
+      p10 = fun.1,
+      p50 = fun.2,
+      p90 = fun.3
+    )
+    
+    ggplot(plotter, aes(x=x)) + 
+      geom_line(aes(y = p50, colour="50th Percentile"),size = 1, linetype = 1, color = "blue") +
+      labs(x = "Average Annual Season WRP Discharge (cfs)", y = "Season Baseflow Magnitude (cfs)")+
+      ylim(c(0,175)) +
+      theme_bw()+
+      theme(axis.text = element_text(size = 12),
+            axis.title=element_text(size=14,face="bold"),
+            legend.text = element_text(size = 15))+
+      scale_colour_manual(values = c("blue"))+
+      geom_ribbon(data =plotter,
+                  aes(ymin=p10,ymax=p90), fill = 'grey', alpha = .7)+
+      ggtitle("10th - 90th Percentile")
+  } 
+  
+  
+})
+```
+
+
+
+```{r}
+renderPlot({sens_curve()})
+```
+
+
+
 
 
 
@@ -782,16 +1164,7 @@ popCon <- function(name){
 }
 
 
-#Did they fall in the range? 
-fmDry <- FMM[!grepl("Wet", FMM$Season),] #dry only
-fmWet <- FMM[!grepl("Dry", FMM$Season),] #wet only
 
-
-flowRDry0 <- FlowRanges[!grepl("Wet_BFL_Mag_50", FlowRanges$metric),] #dry 
-flowRDry1 <- flowRDry0[!grepl("Wet_BFL_Mag_10", flowRDry0$metric),] #dry 
-
-flowRWet0 <- FlowRanges[!grepl("DS_Mag_50", FlowRanges$metric),] #wet 
-flowRWet1 <- flowRWet0[!grepl("DS_Mag_10", flowRWet0$metric),] #wet
 
 
 aCol = "blue"
@@ -854,7 +1227,7 @@ fluidPage(
     
     sidebarPanel( selectInput("hab", "Beneficial Use:",
                               c("ALL","EST", "WILD","RARE", "MIGR", "SPWN", "COLD")),
-                  selectInput("season", "Season Baseflow:",
+                  selectInput("season2", "Season Baseflow:",
                               c("Wet" = "wet", "Dry" = "dry")),
                   selectInput("use", "Select Species:",textOutput("other"),
                               c( 
@@ -952,7 +1325,7 @@ heatmap_plot <- reactive({
   LA3p10Wet<-46.63140866 + 1.007484302*input$wrp
   LA3p90Wet<-75.29510986 + 1.002334493*input$wrp
   
-  if(input$season == "wet"){
+  if(input$season2 == "wet"){
     fm <- fmWet
     flow <- flowRWet1
     F300p10 <- F300p10Wet
