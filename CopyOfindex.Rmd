@@ -1,5 +1,5 @@
 ---
-title: "LA River"
+title: "LA River Environmental Flows Dashboard"
 author: ""
 output: html_document
 runtime: shiny
@@ -71,7 +71,56 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
 #  {.tabset .tabset-pills}
 
-## Optimal Flow Range {.tabset}
+## Overview {.tabset}
+**Welcome to the Los Angeles (LA) River Environmental Flows Dashboard!**
+
+
+-Add in SCCWRP and CSM logos
+
+-LA River watershed map
+
+
+This interactive web page will allow you to explore flow ranges associated with beneficial uses of the LA River (**Flow Range Determination**) and **Sensitivity Curves**, evaluate the relative effects of various WRP discharges on multiple locations of the river (**Flow Range Heat Map**), and visualize flow at multiple cross sections (**Flow Depth Visualizer**).  Start by using the menu sections on the top.
+
+------------------------------------------------------------------------
+
+<font size="5">Project Background</font>
+
+SCCWRP is working with the State Water Resources Control Board and the Los Angeles Regional Water Quality Control Board, in cooperation with local municipalities (including City of LA Bureau of Sanitation, City of LA Department of Water and Power, LA County Department of Public Works, and LA County Sanitation Districts), to conduct the Los Angeles River Environmental Flows Project (Project). The goals of the project are to develop a process for establishing flow criteria, to apply the process to provide recommendations for flow criteria in the LA River, and to produce tools and approaches to evaluate management scenarios necessary to achieve recommended flow criteria. The project also serves as an important pilot application of the California Environmental Flows Framework (CEFF) by demonstrating how CEFF can be applied in a highly urbanized watershed where flow alteration is primarily caused by wastewater and stormwater discharges.  The outcomes of this project may also serve as a model for assessing similar situations in other river systems.
+
+
+For more information about this project, go to https://www.sccwrp.org/about/research-areas/ecohydrology/los-angeles-river-flows-project/
+
+------------------------------------------------------------------------
+
+<font size="5"> Flow Range Determination </font> 
+
+Background on section and descriptions of use
+
+User decision flow chart
+
+------------------------------------------------------------------------
+
+<font size="5">Sensitivity Curves</font>
+
+Background on section and descriptions of use
+
+Example sensivity curve and description of plots [flow- and species-based]
+
+------------------------------------------------------------------------
+
+<font size="5">Flow Range Heat Maps</font>
+
+Background on section and descriptions of use
+
+------------------------------------------------------------------------
+
+<font size="5">Flow Depth Visualizer</font>
+
+Background on section and descriptions of use
+
+
+## Flow Range Determination {.tabset}
 
 ```{r}
 fluidPage(tags$h3("Location and Season"),
@@ -1146,7 +1195,7 @@ renderPlot({sens_curve()})
 
 
 
-## Maps 
+## Flow Range Heat Map 
 
 
 ```{r}
@@ -2598,7 +2647,7 @@ la_map <- reactive({
   })
 ```
 
-
+## Flow Depth Visualizer {.tabset}
 
 
 
