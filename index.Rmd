@@ -15,7 +15,7 @@ library(rgdal)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 
-
+shiny::addResourcePath(prefix = "img", directoryPath = here::here("www"))
 sensitivity_dat <- read_csv("raw/SynthesisCurves_SpeciesProb.csv") %>% 
   filter(species.lifestage.hyd %in% c("Typha Adult Depth","Typha Adult Velocity",
                                       "Cladophora Adult Depth","Cladophora Adult Velocity",
@@ -72,6 +72,7 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 #  {.tabset .tabset-pills}
 
 ## Optimal Flow Range {.tabset}
+
 
 ```{r}
 fluidPage(tags$h3("Location and Season"),
@@ -2597,9 +2598,3 @@ la_map <- reactive({
     
   })
 ```
-
-
-
-
-
-

@@ -1150,6 +1150,7 @@ renderPlot({sens_curve()})
 
 
 ```{r}
+
 goodV <- 0
 ```
 
@@ -2027,7 +2028,7 @@ la_map <- reactive({
     LA3p10Wet<-46.63140866 + 1.007484302*input$wrp
     LA3p90Wet<-75.29510986 + 1.002334493*input$wrp
     
-    if(input$season == "wet"){
+    if(input$season2 == "wet"){
       fm <- fmWet
       flow <- flowRWet1
       F300p10 <- F300p10Wet
