@@ -75,9 +75,9 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 **Welcome to the Los Angeles (LA) River Environmental Flows Dashboard!**
 
 
--Add in SCCWRP and CSM logos
+- Add in SCCWRP and CSM logos
 
--LA River watershed map
+- LA River watershed map
 
 
 This interactive web page will allow you to explore flow ranges associated with beneficial uses of the LA River (**Flow Range Determination**) and **Sensitivity Curves**, evaluate the relative effects of various WRP discharges on multiple locations of the river (**Flow Range Heat Map**), and visualize flow at multiple cross sections (**Flow Depth Visualizer**).  Start by using the menu sections on the top.
@@ -1236,35 +1236,6 @@ aCol = "black"
 ```
 
 
-```{r eval=FALSE}
-hab_choice <- reactive({
-  switch(input$hab,
-         "ALL" = c( 
-        "Willow Adult",
-        "Steelhead Migration (Prolonged)",
-        "Typha Adult",
-        "Cladophora Adult",
-        "SAS Adult",
-        "Steelhead Migration (Burst)",
-        "Kayak",
-        "Fishing"),
-        "COLD" = c("SAS Adult","Steelhead Migration (Prolonged)",
-             "Steelhead Migration (Burst)"),
-        "SPWN" = "SAS Adult",
-        'MIGR' = c("Steelhead Migration (Prolonged)",
-             "Steelhead Migration (Burst)"),
-        "Recreation" = c("Kayak","Fishing"),
-        "RARE" = c("SAS Adult",
-            "Steelhead Migration (Burst)",
-            "Willow Adult",
-            "Steelhead Migration (Prolonged)"),
-        "WILD" = c("Willow Adult", "Typha Adult",
-           "Cladophora Adult"),
-        "EST" = c("Steelhead Migration (Prolonged)",
-             "Steelhead Migration (Burst)",
-             "Cladophora Adult"))
-})
-```
 
 
 
@@ -1295,7 +1266,7 @@ fluidPage(
                   downloadButton('heatmap', 'Download  Heat Map')),
     
     mainPanel(
-                           renderPlot({heatmap_plot()},height=600,width=950)
+                           renderPlot({heatmap_plot()},height = 650, width =700)
                   )
                            
     
@@ -1539,14 +1510,14 @@ heatmap_plot <- reactive({
     
     
     if(is.na(lower) | is.na(upper)){
-      return("Unknown")
+      return("Not Applicable")
     }
     if(nrow(range) == 0){
-      new <- "Unknown"
+      new <- "Not Applicable"
       return(new)
     }
     if(toString(range$Lower_Limit) == "TBD" | toString(range$Upper_Limit) == "TBD"){
-      new = "Unknown"
+      new = "Not Applicable"
       return(new)
     }
     if(as.numeric(p10) > upper){ 
@@ -2650,6 +2621,338 @@ la_map <- reactive({
 
 ## Flow Depth Visualizer {.tabset}
 
+```{r}
+LA20_2 <- read.csv("data/XC_LA20_2.csv")
+colnames(LA20_2) <- c("Station", "Elevation")
+#hydro2020 <- read.csv("data/hydraulic_ts_LA20_2.csv")
 
+LA11<- read.csv("data/XC_LA11.csv")
+colnames(LA11) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA11101<- read.csv("data/XC_11101250.csv")
+colnames(LA11101) <- c("Station", "Elevation") 
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LAF34D<- read.csv("data/XC_F34D.csv")
+colnames(LAF34D) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LAF37B_High<- read.csv("data/XC_F37B_High.csv")
+colnames(LAF37B_High) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LAF3_Low<- read.csv("data/XC_F37B_Low.csv")
+colnames(LAF3_Low) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LAF45B<- read.csv("data/XC_F45B.csv")
+colnames(LAF45B) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LAF57C<- read.csv("data/XC_F57C.csv")
+colnames(LAF57C) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LAF300<- read.csv("data/XC_F300.csv")
+colnames(LAF300) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LAF319<- read.csv("data/XC_F319.csv")
+colnames(LAF319) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+GLEN<- read.csv("data/XC_GLEN.csv")
+colnames(GLEN) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA1<- read.csv("data/XC_LA1.csv")
+colnames(LA1) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA2<- read.csv("data/XC_LA2.csv")
+colnames(LA2) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA3<- read.csv("data/XC_LA3.csv")
+colnames(LA3) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA8<- read.csv("data/XC_LA8.csv")
+colnames(LA8) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA13<- read.csv("data/XC_LA13.csv")
+colnames(LA13) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA14<- read.csv("data/XC_LA14.csv")
+colnames(LA14) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA20<- read.csv("data/XC_LA20.csv")
+colnames(LA20) <- c("Station", "Elevation")
+#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
+LA11Depth <- read.csv("data/equationBetter.csv")
+```
+
+
+
+
+
+```{r}
+fluidPage(
+  
+  
+  sidebarLayout(
+    
+    
+    sidebarPanel(selectInput("node_depth","Select Location:",
+            choices =   c("LA11","LA20_2","LA20","F34D",
+                          "F57C","F37B_High","GLEN","LA3","LA8",
+                          "LA13","LA14","F319","F300",
+                          "F45B","F37B_Low")),
+            renderUI({
+  validate(need(input$node_depth !=""," "))
+  
+  max_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>% 
+    pull(MaxDepth)
+  selected_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>%
+    pull(MaxDepth) *0.1
+  numericInput("cfs_depth","Flow (cfs)",min=0,
+               max = max_cfs,selected_cfs,step = 50
+  )
+}),
+renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))})),
+mainPanel(renderPlot({graphPlan()}))))
+```
+
+
+
+
+```{r}
+node_depth_dat <- tribble(
+  ~Node, ~MaxDepth,
+  "LA20",29000 ,
+  "LA20_2", 28000 ,
+  "F300", 32655, 
+  "LA14", 46500, 
+  "LA13", 84000, 
+  "GLEN", 33948, 
+  "LA11", 60436, 
+  "F57C", 96000, 
+  "LA8", 150000, 
+  "F34D", 200000, 
+  "F45B", 50000,
+  "F37B_High", 13250, 
+  "LA3", 150000, 
+  "F37B_Low", 5089,
+  "F319", 150000)
+
+```
+
+
+
+
+
+
+```{r}
+
+getDepth <- function(name, flow){
+  dName <- paste("obs_numeric", name, sep = "")
+  fName <-paste("y", name, sep = "")
+  mydata = data.frame(LA11Depth[dName], LA11Depth[fName])
+  names(mydata)
+  here <- mydata[flow, which(colnames(mydata) ==dName)]
+  return(here)
+}
+```
+
+
+```{r}
+
+getFlow <- function(depth, name){
+  dName <- paste("obs_numeric", name, sep = "")
+  fName <-paste("y", name, sep = "")
+  mydata = data.frame(round(LA11Depth[dName]), LA11Depth[fName])
+  names(mydata)
+  rownum = which(mydata[ ,which(colnames(mydata)== dName) ] == depth, arr.ind=TRUE)
+  return(round(median(rownum)))
+}
+
+```
+
+
+
+
+```{r}
+
+draw.stick <- function(x,y,scale=1,arms="down",  #Francis Smart made this stick figure code 
+                       gender="male",lwd=3, clcol="white",
+                       linecol="black",
+                       hat=NA) {
+  s <- scale/100
+  
+  require("plotrix")
+  
+  # Draw Head
+  draw.ellipse(x+50*s,y+75*s,10*s+2,15*s,lwd=lwd, border=linecol)
+  
+  # Draw torso
+  lines(c(x+50*s,x+50*s), c(y+35*s,y+60*s),lwd=lwd, col=linecol)
+  
+  if (arms=="up"){
+    lines(c(x+50*s,x-2*s), c(y+50*s,y+25*s),lwd=lwd, col=linecol) # Left
+    lines(c(x+50*s,x+108*s), c(y+50*s,y+65*s),lwd=lwd, col=linecol) # Right
+  }
+  
+  # Draw male legs
+  if (gender=="male") {
+    lines(c(x+50*s,x+30*s), c(y+35*s,y+9*s),lwd=lwd, col=linecol)
+    lines(c(x+50*s,x+70*s), c(y+35*s,y+9*s),lwd=lwd, col=linecol)
+  }
+}
+```
+
+
+
+```{r}
+graphPlan <- reactive({
+  
+  validate(need(input$node_depth !=""," "))
+  validate(need(input$cfs_depth !=""," "))
+  
+  better1 <- paste("plot", input$node_depth, sep = "")
+  better2 <- paste("y", input$node_depth, sep = "")
+  
+
+  if(input$node_depth == "LA20_2"){
+    fix <- LA20_2
+    yx <- getDepth("LA20_2", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "LA11"){
+    fix <- LA11
+    yx <- getDepth("LA11", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "F34D"){
+    fix <- LAF34D
+    yx <- getDepth("F34D", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "F37B_High"){
+    fix <- LAF37B_High
+    yx <- getDepth("F37B_High", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "F37B_Low"){
+    fix <- LAF3_Low
+    yx <- getDepth("F37B_Low", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "F45B"){
+    fix <- LAF45B
+    yx <- getDepth("F45B", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "F57C"){
+    fix <- LAF57C
+    yx <- getDepth("F57C", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "F300"){
+    fix <- LAF300
+    yx <- getDepth("F300", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "F319"){
+    fix <- LAF319
+    yx <- getDepth("F319", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "GLEN"){
+    fix <- GLEN
+    yx <- getDepth("GLEN", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "LA3"){
+    fix <- LA3
+    yx <- getDepth("LA3", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "LA8"){
+    fix <- LA8
+    yx <- getDepth("LA8", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "LA13"){
+    fix <- LA13
+    yx <- getDepth("LA13", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "LA14"){
+    fix <- LA14
+    yx <- getDepth("LA14", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  if(input$node_depth == "LA20"){
+    fix <- LA20
+    yx <- getDepth("LA20", input$cfs_depth)
+    y <- fix$Elevation - min(fix$Elevation)
+    n <- length(y)
+    x <- fix$Station 
+  }
+  
+  s = smooth.spline(x, y, spar=0.5)
+  xy <- predict(s, seq(min(x), max(x), by=1)) # Some vertices on the curve
+  m <- length(xy$x)                         
+  x.poly <- c(xy$x, xy$x[m], xy$x[1])         # Adjoin two x-coordinates
+  y.poly <- c(xy$y, 0, 0)   # .. and the corresponding y-coordinates
+  
+  plot(x, y, type='n', xlab="Station (ft)", ylab="Depth (ft)", 
+       main = input$node_depth, cex.main = 3, col.main = '#2E8B57',
+       cex.lab = 1.5, cex.sub = 3, col.lab = "#228B22", font.lab = 4, font.main = 4)
+  polygon(c(min(x),min(x), max(x)-2, max(x)-2 ),c(0,yx, yx, 0), col = "#81b7d2")
+  polygon(x.poly, y.poly, col= "#097770", border=NA) 
+  
+  if(input$node_depth == "F37B_High" || input$node_depth == "F300"){
+    draw.stick(min(x)-6,-1, scale = 7.5, arms="up", lwd = 3)
+  }
+  else {
+    draw.stick(min(x)-9,-1, scale = 7.5, arms="up", lwd = 3)
+  }
+  
+}) 
+```
 
 
