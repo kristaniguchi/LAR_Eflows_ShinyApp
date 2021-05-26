@@ -640,7 +640,7 @@ synthesis_current_flows <- reactive({
 
 ```{r}
 DT::renderDataTable({
-  if(input$synthesis == "Yes" & input$location == "Node"){
+  if(input$synthesis == "Yes" & input$location == "Node" & input$season != "All"){
     if(input$synthesis_type == "Single"){
       if(input$season != "All"){
         
@@ -713,76 +713,22 @@ DT::renderDataTable({
 
 
 
-```{r, eval=FALSE}
-renderDataTable({ 
-  species_season <- synthesis()[["Table"]] %>% pull(Species) %>%
-    unlist() %>%
-    unique()
-  
-  species_list = list()
-  for(i in 1:length(species_season)){
-    
-    species_list[[i]] = suppressWarnings(
-      as_tibble(species_season %>% combn(i) %>% t()) %>%
-        rowwise() %>%
-        mutate(Ranges = Reduce(intersect,
-                               synthesis()[[2]][[input$season]][
-                                 grep(str_c(c_across(),collapse = "|"),
-                                      species_season)]) %>% 
-                 range() %>% ranges_print()) %>% 
-        mutate(Range_Diff = Reduce(intersect,
-                                   synthesis()[[2]][[input$season]][
-                                     grep(str_c(c_across(),
-                                                collapse = "|"),
-                                          species_season)])
-               %>% range() %>% diff()) %>%
-        filter(Range_Diff != "-Inf") %>%
-        ungroup() %>%
-        top_n(Range_Diff,n=1))
-  }
-  
-  
-  multiple_synthesis <- discard(species_list, function(x) nrow(x) == 0) %>%
-    last()
-  
-  multiple_synthesis %>% select(-c("Range_Diff")) %>%
-    unlist(use.names = FALSE)
-})
-```
-
-
-
-
 
 ## Sensitivity Curves
 
 ```{r}
 fluidPage(tags$h3("Location and Season"),
           fluidRow(column(4,
-                          radioButtons("sens_location", 
-                                       label = "Select Location:",
-                                       choices = c("Node","Reporting Reach"),
-                                       selected="Node")),
-                   column(4,renderUI({
-                     if(input$sens_location == "Reporting Reach"){
-                       selectInput("sens_Reach",label = "Specific Location:",
-                                   choices = sens_location_choice() %>%
-                                     unique() %>% sort)
-                     }
-                     else if (input$sens_location == "Node"){
-                       #selectInput("sens_Node",label = "Specific Location:",
-                       #           choices = sens_location_choice() %>%
-                       #             unique)
                        selectInput("node", "Specific Location:",
                                    c("LA11", "F34D", "F57C","GLEN",
                                      "LA3","LA8","LA13","LA14",
-                                     "F319","F300"))
-                     }
-                   })), 
+                                     "F319","F300"))), 
                    column(4,
                           selectInput("sens_season", label = "Select Season:",
-                                      choices = c("Dry"="dry","Wet"="wet")))
-          ))
+                                      choices = c("Dry"="dry","Wet"="wet"))),
+                   column(4,
+                          selectInput("sens_UBF", label = "Select UBF:",
+                                      choices = c("UBF0","UBF50","UBF100")))))
 
 
 sens_location_choice <- reactive({
@@ -795,27 +741,6 @@ sens_location_choice <- reactive({
 
 
 ------------------------------------------------------------------------
-
-
-```{r, eval=FALSE}
-sensitivity_curves_dat <- reactive({
-  if(input$sens_location == "Node"){
-    validate(need(input$sens_Node != ""," "))
-    
-    out <- sensitivity_dat %>% filter(Node == input$sens_Node,
-                                      season == input$sens_season)
-    return(out)
-  }
-  else{
-    validate(need(input$sens_Reach != ""," "))
-    out <- sensitivity_dat %>% filter(Reporting_Reach == input$sens_Reach,
-                                      season == input$sens_season)
-    return(out)
-  }
-})
-
-```
-
 
 
 
@@ -834,101 +759,132 @@ flowRWet0 <- FlowRanges[!grepl("DS_Mag_50", FlowRanges$metric),] #wet
 flowRWet1 <- flowRWet0[!grepl("DS_Mag_10", flowRWet0$metric),] #wet
 
 sens_curve <- reactive({
-  if(input$sens_location == "Node"){
+  if(input$sens_UBF == "UBF0"){
     validate(need(input$sens_season != ""," "))
     validate(need(input$node != ""," "))
     
     x = 0:100
-    F300p10Dry <- 0.900017708 + 0.805599066*x
-    F300p10Wet <- 0.900017708 + 0.805599066*x
+    # UBF0
+    F300p10Dry <- 0.2759 + 0.928049117261522*x
+    F300p10Wet <- 0.12743000000000 + 0.860528401345517*x
     
-    F319p10Dry <- 47.39457326 + 1.005771489*x
-    F319p10Wet <- 47.39457326 + 1.005771489*x
+    F319p10Dry <- 3.09190833333333 + 0.901283573271957*x
+    F319p10Wet <- 3.23505083333333 + 0.858052131135869*x
     
-    F57Cp10Dry <- 11.99113979 + 0.907820603*x
-    F57Cp10Wet <-11.99113979 + 0.907820603*x
+    F57Cp10Dry <- 3.04752083333334 + 0.89780191138599*x
+    F57Cp10Wet <-3.05811916666666 + 0.852257927992448*x
     
-    LA13p10Dry <-6.623349565 + 0.820509704*x
-    LA13p10Wet <-6.623349565 + 0.820509704*x
+    LA13p10Dry <--0.0177541666666679 + 0.908978535421035*x
+    LA13p10Wet <-0.0168766666666714 + 0.877785531664648*x
     
-    LA11p10Dry<-11.95112229 + 0.888542946*x
-    LA11p10Wet<-11.95112229 + 0.888542946*x
+    LA11p10Dry<-1.42435833333334 + 0.907889677644299*x
+    LA11p10Wet<-1.50892416666666 + 0.877071002008068*x
     
-    F34Dp10Dry<-45.94858526 + 0.998084005*x
-    F34Dp10Wet<-45.94858526 + 0.998084005*x
+    F34Dp10Dry<-3.046120833 + 0.900674904*x
+    F34Dp10Wet<-3.113899167 + 0.855259884*x
     
-    LA14p10Dry<-4.912058332 + 0.827809744*x
-    LA14p10Wet<-4.912058332 + 0.827809744*x
+
     
-    GLENp10Dry<-9.885996252 + 0.918687061*x
-    GLENp10Wet<-9.885996252 + 0.918687061*x
+    LA14p10Dry<-0.170541667 + 0.917579994*x
+    LA14p10Wet<-0.1094 + 0.8781502*x
+  
     
+    GLENp10Dry<-0.1044875 + 0.89905345*x
+    GLENp10Wet<-0.064108333 + 0.876925846*x
     
-    LA8p10Dry<-27.92521955 + 0.921523533*x
-    LA8p10Wet<-27.92521955 + 0.921523533*x
+
+    LA8p10Dry<-3.057025 + 0.896364706*x
+    LA8p10Wet<-3.061306667 + 0.85220692*x
+  
     
-    LA3p10Dry<-46.63140866 + 1.007484302*x
-    LA3p10Wet<-46.63140866 + 1.007484302*x
-    F300p50Dry <- 7.515974555 + 0.818915631*x
-    F300p50Wet <- 7.515974555 + 0.818915631*x
-    
-    F319p50Dry <- 59.7864079 + 0.968084353*x
-    F319p50Wet <- 59.7864079 + 0.968084353*x
-    
-    F57Cp50Dry <- 19.36427883 + 1.019596427*x
-    F57Cp50Wet <-19.36427883 + 1.019596427*x
-    
-    LA13p50Dry <-12.49375321 + 0.895458007*x
-    LA13p50Wet <-12.49375321 + 0.895458007*x
-    
-    LA11p50Dry<-17.56386445 + 1.017568674*x
-    LA11p50Wet<-17.56386445 + 1.017568674*x
-    
-    F34Dp50Dry<-55.60826969 + 0.946218349*x
-    F34Dp50Wet<-55.60826969 + 0.946218349*x
-    
-    LA14p50Dry<-10.53879805 + 0.902100964*x
-    LA14p50Wet<-10.53879805 + 0.902100964*x
-    
-    GLENp50Dry<-16.06509232 + 1.016729283*x
-    GLENp50Wet<-16.06509232 + 1.016729283*x
+    LA3p10Dry<-3.075233333 + 0.901405241*x
+    LA3p10Wet<-3.183428333 + 0.8571592*x
+ 
+
+    F300p50Dry <- 0.471433333 + 0.98607692*x
+    F300p50Wet <- 0.389243333 + 0.972782287*x
     
     
-    LA8p50Dry<-33.05435573 + 0.98455202*x
-    LA8p50Wet<-33.05435573 + 0.98455202*x
+    F319p50Dry <- 3.141541667 + 0.984314288*x
+    F319p50Wet <- 3.5314475 + 0.968478183*x
     
-    LA3p50Dry<-59.08826412 + 0.970926122*x
-    LA3p50Wet<-59.08826412 + 0.970926122*x
-    F300p90Dry <- 9.236788795 + 0.876596075*x
-    F300p90Wet <- 9.236788795 + 0.876596075*x
+  
+    F57Cp50Dry <-  3.120866667 + 0.982749468*x
+    F57Cp50Wet <-3.502015 + 0.947470993*x
+  
     
-    F319p90Dry <- 76.45154635 + 1.043169622*x
-    F319p90Wet <- 76.45154635 + 1.043169622*x
+    LA13p50Dry <-0.200066667 + 0.972687005*x
+    LA13p50Wet <-0.354046667 + 0.967654362*x
     
-    F57Cp90Dry <- 25.59802376 + 1.046174046*x
-    F57Cp90Wet <-25.59802376 + 1.046174046*x
-    
-    LA13p90Dry <-20.28892415 + 0.870686647*x
-    LA13p90Wet <-20.28892415 + 0.870686647*x
-    
-    LA11p90Dry<-23.76124488 + 1.049193898*x
-    LA11p90Wet<-23.76124488 + 1.049193898*x
-    
-    F34Dp90Dry<-71.72411613 + 0.95174529*x
-    F34Dp90Wet<-71.72411613 + 0.95174529*x
-    
-    LA14p90Dry<-18.18934302 + 0.88306858*x
-    LA14p90Wet<-18.18934302 + 0.88306858*x
-    
-    GLENp90Dry<-22.38736668 + 1.048267846*x
-    GLENp90Wet<-22.38736668 + 1.048267846*x
-    LA8p90Dry<-39.67282263 + 1.012418222*x
-    LA8p90Wet<-39.67282263 + 1.012418222*x
-    LA3p90Dry<-75.29510986 + 1.002334493*x
-    LA3p90Wet<-75.29510986 + 1.002334493*x
+
+    LA11p50Dry<-1.500695833 + 0.9920234664*x
+    LA11p50Wet<-1.847085 + 0.946765283*x
+   
+
+    F34Dp50Dry<-3.118075 + 0.983705477*x
+    F34Dp50Wet<-3.546828333 + 0.955932799*x
     
     
+    LA14p50Dry<-0.383633333 + 0.983570629*x
+    LA14p50Wet<-0.443888333 + 0.968354829*x
+   
+
+    GLENp50Dry<-0.1272375 + 0.983284118*x
+    GLENp50Wet<-0.3830925 + 0.947159945*x
     
+
+    LA8p50Dry<-3.1217625 +0.98115916*x
+    LA8p50Wet<-3.518124167 + 0.949074777*x
+  
+    
+    LA3p50Dry<-3.145716667 + 0.98395374*x
+    LA3p50Wet<-3.572595 + 0.964739136*x
+    
+
+    F300p90Dry <- 0.68965 + 1.037970368*x
+    F300p90Wet <- 0.866066667 + 1.00608897*x
+    
+    
+    F319p90Dry <- 3.3874875 + 1.09410519*x
+    F319p90Wet <- 6.028019167 + 0.97194679*x
+  
+
+    
+      
+    F57Cp90Dry <- 3.4333625 + 1.079492919*x
+    F57Cp90Wet <-3.948730833 + 0.977697646*x
+    
+
+    LA13p90Dry <-0.2375625 + 1.069487095*x
+    LA13p90Wet <-0.621583333 + 1.007369839*x
+    
+
+    
+    LA11p90Dry<-1.8197125 + 1.0893563778*x
+    LA11p90Wet<-2.207846667 + 0.979230885*x
+    
+
+  
+    F34Dp90Dry<-3.273470833 + 1.095089887*x
+    F34Dp90Wet<-4.656798333 + 0.97639256*x
+    
+
+    LA14p90Dry<-0.543754167 + 1.070049625*x
+    LA14p90Wet<-0.7274475 + 1.00785122*x
+
+
+    GLENp90Dry<-0.487341667	 + 1.07843565*x
+    GLENp90Wet<-0.68509 + 0.979851782*x
+    
+    
+    LA8p90Dry<-3.267441667 + 1.093362021*x
+    LA8p90Wet<-4.126330833 + 0.977142093*x
+    
+
+    LA3p90Dry<-3.374066667 + 1.096772517*x
+    LA3p90Wet<-5.7195825 + 0.973521175*x
+    
+
     if(input$sens_season == "wet"){
       fm <- fmWet
       flow <- flowRWet1
@@ -1199,23 +1155,14 @@ renderPlot({sens_curve()})
 
 
 ```{r}
-
 goodV <- 0
-```
 
-
-
-```{r}
 popCon <- function(name){
   link <- paste("?url=inTabpanel_", name, sep = "")
   name <- paste(sep = "<br/>",
                 actionLink(link, name),
                 "This one would also update to another tab")
 }
-
-
-
-
 
 aCol = "blue"
 bCol = "red"
@@ -1846,12 +1793,13 @@ heatmap_plot <- reactive({
   
   
   goodV$Node <- factor(goodV$Node, levels = goodV$Node)
-  
-  
   dat3 <- reshape2::melt(goodV, id.var = 'Node')
+  
+  heatmap_colors <- setNames(c("#E7F0F1",hex[c(11,8,7)]), levels(dat3$value))
+  
   ggplot(dat3, aes(variable, Node)) + geom_tile(aes(fill = value),
-                                                colour = "white") + 
-    scale_fill_manual(values=hex[c(11,8,7,6)])+
+                                                colour = "#D8D8D8") + 
+    scale_fill_manual(values=heatmap_colors)+
     theme_bw()+
     theme(text = element_text(size = 13),
           axis.text.x = element_text(angle = 30, hjust = 1))+
@@ -2708,7 +2656,7 @@ fluidPage(
   sidebarLayout(
     
     
-    sidebarPanel(selectInput("node_depth","Select Location:",
+    sidebarPanel(width=3,selectInput("node_depth","Select Location:",
             choices =   c("LA11","LA20_2","LA20","F34D",
                           "F57C","F37B_High","GLEN","LA3","LA8",
                           "LA13","LA14","F319","F300",
@@ -2725,7 +2673,7 @@ fluidPage(
   )
 }),
 renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))})),
-mainPanel(renderPlot({graphPlan()}))))
+mainPanel(width=9,renderPlot({graphPlan()}))))
 ```
 
 
