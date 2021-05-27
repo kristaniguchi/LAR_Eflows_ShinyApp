@@ -72,28 +72,26 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 #  {.tabset .tabset-pills}
 
 ## Overview {.tabset}
+
 **Welcome to the Los Angeles (LA) River Environmental Flows Dashboard!**
 
+-   Add in SCCWRP and CSM logos
 
-- Add in SCCWRP and CSM logos
+-   LA River watershed map
 
-- LA River watershed map
-
-
-This interactive web page will allow you to explore flow ranges associated with beneficial uses of the LA River (**Flow Range Determination**) and **Sensitivity Curves**, evaluate the relative effects of various WRP discharges on multiple locations of the river (**Flow Range Heat Map**), and visualize flow at multiple cross sections (**Flow Depth Visualizer**).  Start by using the menu sections on the top.
+This interactive web page will allow you to explore flow ranges associated with beneficial uses of the LA River (**Flow Range Determination**) and **Sensitivity Curves**, evaluate the relative effects of various WRP discharges on multiple locations of the river (**Flow Range Heat Map**), and visualize flow at multiple cross sections (**Flow Depth Visualizer**). Start by using the menu sections on the top.
 
 ------------------------------------------------------------------------
 
 <font size="5">Project Background</font>
 
-SCCWRP is working with the State Water Resources Control Board and the Los Angeles Regional Water Quality Control Board, in cooperation with local municipalities (including City of LA Bureau of Sanitation, City of LA Department of Water and Power, LA County Department of Public Works, and LA County Sanitation Districts), to conduct the Los Angeles River Environmental Flows Project (Project). The goals of the project are to develop a process for establishing flow criteria, to apply the process to provide recommendations for flow criteria in the LA River, and to produce tools and approaches to evaluate management scenarios necessary to achieve recommended flow criteria. The project also serves as an important pilot application of the California Environmental Flows Framework (CEFF) by demonstrating how CEFF can be applied in a highly urbanized watershed where flow alteration is primarily caused by wastewater and stormwater discharges.  The outcomes of this project may also serve as a model for assessing similar situations in other river systems.
+SCCWRP is working with the State Water Resources Control Board and the Los Angeles Regional Water Quality Control Board, in cooperation with local municipalities (including City of LA Bureau of Sanitation, City of LA Department of Water and Power, LA County Department of Public Works, and LA County Sanitation Districts), to conduct the Los Angeles River Environmental Flows Project (Project). The goals of the project are to develop a process for establishing flow criteria, to apply the process to provide recommendations for flow criteria in the LA River, and to produce tools and approaches to evaluate management scenarios necessary to achieve recommended flow criteria. The project also serves as an important pilot application of the California Environmental Flows Framework (CEFF) by demonstrating how CEFF can be applied in a highly urbanized watershed where flow alteration is primarily caused by wastewater and stormwater discharges. The outcomes of this project may also serve as a model for assessing similar situations in other river systems.
 
-
-For more information about this project, go to https://www.sccwrp.org/about/research-areas/ecohydrology/los-angeles-river-flows-project/
+For more information about this project, go to <https://www.sccwrp.org/about/research-areas/ecohydrology/los-angeles-river-flows-project/>
 
 ------------------------------------------------------------------------
 
-<font size="5"> Flow Range Determination </font> 
+<font size="5"> Flow Range Determination </font>
 
 Background on section and descriptions of use
 
@@ -118,7 +116,6 @@ Background on section and descriptions of use
 <font size="5">Flow Depth Visualizer</font>
 
 Background on section and descriptions of use
-
 
 ## Flow Range Determination {.tabset}
 
@@ -161,8 +158,6 @@ location_choice <- reactive({
 ```
 
 ------------------------------------------------------------------------
-
-
 
 ```{r}
 BUnames <- reactive({
@@ -215,10 +210,6 @@ BUnames <- reactive({
 
 ```
 
-
-
-
-
 ```{r,eval=TRUE}
 # This is the old layout- works but doesnt account for designated/not designated
 fluidPage(tags$h3("Beneficial Use Designation"),
@@ -243,8 +234,6 @@ fluidPage(tags$h3("Beneficial Use Designation"),
               )
             }) ))
 ```
-
-
 
 ```{r, Beneficial Use Designation,eval=FALSE}
 fluidPage(tags$h3("Beneficial Use Designation"),
@@ -274,8 +263,6 @@ fluidPage(
   ))
 ```
 
-
-
 ------------------------------------------------------------------------
 
 ```{r}
@@ -301,11 +288,9 @@ fluidPage(tags$h3("Species"),
           ))
 ```
 
-
 If Species Synthesis is Yes - synthesis ruleset applied to get overall flow recommendations
 
 Otherwise, flow recommendations by individual life stages
-
 
 ------------------------------------------------------------------------
 
@@ -518,7 +503,6 @@ output$boxdat <- downloadHandler(
 
 ```
 
-
 ```{r}
 fluidPage(
 downloadButton('boxdat', 'Download Data'),
@@ -526,9 +510,6 @@ downloadButton('boxfig', 'Download Boxplot')
 )
 renderPlot({box_plot()},height=600,width=1100)
 ```
-
-
-
 
 ```{r}
 ranges_print <- function(x)
@@ -543,7 +524,6 @@ is_integer0 <- function(x)
   is.integer(x) && length(x) == 0L
 }
 ```
-
 
 ```{r}
 synthesis <- reactive({
@@ -636,8 +616,6 @@ synthesis_current_flows <- reactive({
 
 ```
 
-
-
 ```{r}
 DT::renderDataTable({
   if(input$synthesis == "Yes" & input$location == "Node" & input$season != "All"){
@@ -711,24 +689,25 @@ DT::renderDataTable({
 },options = list(dom = 't'))
 ```
 
-
-
-
 ## Sensitivity Curves
 
 ```{r}
 fluidPage(tags$h3("Location and Season"),
-          fluidRow(column(4,
-                       selectInput("node", "Specific Location:",
-                                   c("LA11", "F34D", "F57C","GLEN",
-                                     "LA3","LA8","LA13","LA14",
-                                     "F319","F300"))), 
-                   column(4,
+          fluidRow(column(3,
+                          selectInput("node", "Specific Location:",
+                                      c("LA11", "F34D", "F57C","GLEN",
+                                        "LA3","LA8","LA13","LA14",
+                                        "F319","F300"))), 
+                   column(3,
                           selectInput("sens_season", label = "Select Season:",
                                       choices = c("Dry"="dry","Wet"="wet"))),
-                   column(4,
+                   column(3,
                           selectInput("sens_UBF", label = "Select UBF:",
-                                      choices = c("UBF0","UBF50","UBF100")))))
+                                      choices = c("UBF0","UBF50","UBF100"),
+                                      multiple=TRUE,
+                                      selected="UBF0")),
+                   column(3,tags$h3(""),
+                          downloadButton('sensitivity_curve', 'Download Sensitivity Curve'))))
 
 
 sens_location_choice <- reactive({
@@ -739,10 +718,7 @@ sens_location_choice <- reactive({
 
 ```
 
-
 ------------------------------------------------------------------------
-
-
 
 ```{r}
 
@@ -765,124 +741,7 @@ sens_curve <- reactive({
     
     x = 0:100
     # UBF0
-    F300p10Dry <- 0.2759 + 0.928049117261522*x
-    F300p10Wet <- 0.12743000000000 + 0.860528401345517*x
-    
-    F319p10Dry <- 3.09190833333333 + 0.901283573271957*x
-    F319p10Wet <- 3.23505083333333 + 0.858052131135869*x
-    
-    F57Cp10Dry <- 3.04752083333334 + 0.89780191138599*x
-    F57Cp10Wet <-3.05811916666666 + 0.852257927992448*x
-    
-    LA13p10Dry <--0.0177541666666679 + 0.908978535421035*x
-    LA13p10Wet <-0.0168766666666714 + 0.877785531664648*x
-    
-    LA11p10Dry<-1.42435833333334 + 0.907889677644299*x
-    LA11p10Wet<-1.50892416666666 + 0.877071002008068*x
-    
-    F34Dp10Dry<-3.046120833 + 0.900674904*x
-    F34Dp10Wet<-3.113899167 + 0.855259884*x
-    
-
-    
-    LA14p10Dry<-0.170541667 + 0.917579994*x
-    LA14p10Wet<-0.1094 + 0.8781502*x
-  
-    
-    GLENp10Dry<-0.1044875 + 0.89905345*x
-    GLENp10Wet<-0.064108333 + 0.876925846*x
-    
-
-    LA8p10Dry<-3.057025 + 0.896364706*x
-    LA8p10Wet<-3.061306667 + 0.85220692*x
-  
-    
-    LA3p10Dry<-3.075233333 + 0.901405241*x
-    LA3p10Wet<-3.183428333 + 0.8571592*x
- 
-
-    F300p50Dry <- 0.471433333 + 0.98607692*x
-    F300p50Wet <- 0.389243333 + 0.972782287*x
-    
-    
-    F319p50Dry <- 3.141541667 + 0.984314288*x
-    F319p50Wet <- 3.5314475 + 0.968478183*x
-    
-  
-    F57Cp50Dry <-  3.120866667 + 0.982749468*x
-    F57Cp50Wet <-3.502015 + 0.947470993*x
-  
-    
-    LA13p50Dry <-0.200066667 + 0.972687005*x
-    LA13p50Wet <-0.354046667 + 0.967654362*x
-    
-
-    LA11p50Dry<-1.500695833 + 0.9920234664*x
-    LA11p50Wet<-1.847085 + 0.946765283*x
-   
-
-    F34Dp50Dry<-3.118075 + 0.983705477*x
-    F34Dp50Wet<-3.546828333 + 0.955932799*x
-    
-    
-    LA14p50Dry<-0.383633333 + 0.983570629*x
-    LA14p50Wet<-0.443888333 + 0.968354829*x
-   
-
-    GLENp50Dry<-0.1272375 + 0.983284118*x
-    GLENp50Wet<-0.3830925 + 0.947159945*x
-    
-
-    LA8p50Dry<-3.1217625 +0.98115916*x
-    LA8p50Wet<-3.518124167 + 0.949074777*x
-  
-    
-    LA3p50Dry<-3.145716667 + 0.98395374*x
-    LA3p50Wet<-3.572595 + 0.964739136*x
-    
-
-    F300p90Dry <- 0.68965 + 1.037970368*x
-    F300p90Wet <- 0.866066667 + 1.00608897*x
-    
-    
-    F319p90Dry <- 3.3874875 + 1.09410519*x
-    F319p90Wet <- 6.028019167 + 0.97194679*x
-  
-
-    
-      
-    F57Cp90Dry <- 3.4333625 + 1.079492919*x
-    F57Cp90Wet <-3.948730833 + 0.977697646*x
-    
-
-    LA13p90Dry <-0.2375625 + 1.069487095*x
-    LA13p90Wet <-0.621583333 + 1.007369839*x
-    
-
-    
-    LA11p90Dry<-1.8197125 + 1.0893563778*x
-    LA11p90Wet<-2.207846667 + 0.979230885*x
-    
-
-  
-    F34Dp90Dry<-3.273470833 + 1.095089887*x
-    F34Dp90Wet<-4.656798333 + 0.97639256*x
-    
-
-    LA14p90Dry<-0.543754167 + 1.070049625*x
-    LA14p90Wet<-0.7274475 + 1.00785122*x
-
-
-    GLENp90Dry<-0.487341667	 + 1.07843565*x
-    GLENp90Wet<-0.68509 + 0.979851782*x
-    
-    
-    LA8p90Dry<-3.267441667 + 1.093362021*x
-    LA8p90Wet<-4.126330833 + 0.977142093*x
-    
-
-    LA3p90Dry<-3.374066667 + 1.096772517*x
-    LA3p90Wet<-5.7195825 + 0.973521175*x
+    source('R/sensitivity_curves_UBF0.R')
     
 
     if(input$sens_season == "wet"){
@@ -1138,8 +997,6 @@ sens_curve <- reactive({
 })
 ```
 
-
-
 ```{r}
 renderPlot({sens_curve()})
 ```
@@ -1148,11 +1005,22 @@ renderPlot({sens_curve()})
 
 
 
+```{r}
+output$sensitivity_curve <-downloadHandler(
+  filename = function() {
+    paste0(input$node,"-",input$sens_season,".png")
+  },
+  content = function(file) {
+    ggsave(file, plot = sens_curve(), device = "png",
+           width = 30, height = 20, units = "cm")
+  }
+)
+```
 
 
 
-## Flow Range Heat Map 
 
+## Flow Range Heat Map
 
 ```{r}
 goodV <- 0
@@ -1181,10 +1049,6 @@ mCol = "red"
 color = 'blue'
 aCol = "black"
 ```
-
-
-
-
 
 ```{r}
 fluidPage(
@@ -1221,22 +1085,9 @@ fluidPage(
 )
 ```
 
-
 ```{r}
 renderLeaflet({la_map()})
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 ```{r}
 heatmap_plot <- reactive({
@@ -1811,8 +1662,6 @@ heatmap_plot <- reactive({
 })
 ```
 
-
-
 ```{r}
 output$heatmap <- downloadHandler(
   filename = function() {
@@ -1824,10 +1673,6 @@ output$heatmap <- downloadHandler(
   }
 )
 ```
-
-
-
-
 
 ```{r}
  PopcontentLA20 <- paste(sep = "<br/>",
@@ -1888,10 +1733,6 @@ output$heatmap <- downloadHandler(
                           paste0("Los Angeles River below confluence with Burbank Channel"))
  
 ```
-
-
-
-
 
 ```{r}
 la_map <- reactive({
@@ -2572,82 +2413,76 @@ la_map <- reactive({
 ```{r}
 LA20_2 <- read.csv("data/XC_LA20_2.csv")
 colnames(LA20_2) <- c("Station", "Elevation")
-#hydro2020 <- read.csv("data/hydraulic_ts_LA20_2.csv")
 
 LA11<- read.csv("data/XC_LA11.csv")
 colnames(LA11) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LA11101<- read.csv("data/XC_11101250.csv")
 colnames(LA11101) <- c("Station", "Elevation") 
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LAF34D<- read.csv("data/XC_F34D.csv")
 colnames(LAF34D) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LAF37B_High<- read.csv("data/XC_F37B_High.csv")
 colnames(LAF37B_High) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LAF3_Low<- read.csv("data/XC_F37B_Low.csv")
 colnames(LAF3_Low) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LAF45B<- read.csv("data/XC_F45B.csv")
 colnames(LAF45B) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LAF57C<- read.csv("data/XC_F57C.csv")
 colnames(LAF57C) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LAF300<- read.csv("data/XC_F300.csv")
 colnames(LAF300) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LAF319<- read.csv("data/XC_F319.csv")
 colnames(LAF319) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 GLEN<- read.csv("data/XC_GLEN.csv")
 colnames(GLEN) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LA1<- read.csv("data/XC_LA1.csv")
 colnames(LA1) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LA2<- read.csv("data/XC_LA2.csv")
 colnames(LA2) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LA3<- read.csv("data/XC_LA3.csv")
 colnames(LA3) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LA8<- read.csv("data/XC_LA8.csv")
 colnames(LA8) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LA13<- read.csv("data/XC_LA13.csv")
 colnames(LA13) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LA14<- read.csv("data/XC_LA14.csv")
 colnames(LA14) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
+
 
 LA20<- read.csv("data/XC_LA20.csv")
 colnames(LA20) <- c("Station", "Elevation")
-#hydro11 <- read.csv("data/hydraulic_ts_LA11.csv")
 
 LA11Depth <- read.csv("data/equationBetter.csv")
 ```
-
-
-
-
 
 ```{r}
 fluidPage(
@@ -2657,27 +2492,24 @@ fluidPage(
     
     
     sidebarPanel(width=3,selectInput("node_depth","Select Location:",
-            choices =   c("LA11","LA20_2","LA20","F34D",
-                          "F57C","F37B_High","GLEN","LA3","LA8",
-                          "LA13","LA14","F319","F300",
-                          "F45B","F37B_Low")),
-            renderUI({
-  validate(need(input$node_depth !=""," "))
-  
-  max_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>% 
-    pull(MaxDepth)
-  selected_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>%
-    pull(MaxDepth) *0.1
-  numericInput("cfs_depth","Flow (cfs)",min=0,
-               max = max_cfs,selected_cfs,step = 50
-  )
-}),
-renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))})),
-mainPanel(width=9,renderPlot({graphPlan()}))))
+                                     choices =   c("LA11","LA20_2","LA20","F34D",
+                                                   "F57C","F37B_High","GLEN","LA3","LA8",
+                                                   "LA13","LA14","F319","F300",
+                                                   "F45B","F37B_Low")),
+                 renderUI({
+                   validate(need(input$node_depth !=""," "))
+                   
+                   max_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>% 
+                     pull(MaxDepth)
+                   selected_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>%
+                     pull(MaxDepth) *0.1
+                   numericInput("cfs_depth","Flow (cfs)",min=0,
+                                max = max_cfs,selected_cfs,step = 50
+                   )
+                 }),
+                 renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))})),
+    mainPanel(width=9,renderPlot({graphPlan()}))))
 ```
-
-
-
 
 ```{r}
 node_depth_dat <- tribble(
@@ -2700,11 +2532,6 @@ node_depth_dat <- tribble(
 
 ```
 
-
-
-
-
-
 ```{r}
 
 getDepth <- function(name, flow){
@@ -2716,7 +2543,6 @@ getDepth <- function(name, flow){
   return(here)
 }
 ```
-
 
 ```{r}
 
@@ -2730,9 +2556,6 @@ getFlow <- function(depth, name){
 }
 
 ```
-
-
-
 
 ```{r}
 
@@ -2763,8 +2586,6 @@ draw.stick <- function(x,y,scale=1,arms="down",  #Francis Smart made this stick 
 }
 ```
 
-
-
 ```{r}
 graphPlan <- reactive({
   
@@ -2774,7 +2595,7 @@ graphPlan <- reactive({
   better1 <- paste("plot", input$node_depth, sep = "")
   better2 <- paste("y", input$node_depth, sep = "")
   
-
+  
   if(input$node_depth == "LA20_2"){
     fix <- LA20_2
     yx <- getDepth("LA20_2", input$cfs_depth)
@@ -2902,5 +2723,3 @@ graphPlan <- reactive({
   
 }) 
 ```
-
-
