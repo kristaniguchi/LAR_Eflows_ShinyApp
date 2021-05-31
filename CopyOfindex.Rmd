@@ -705,7 +705,7 @@ fluidPage(tags$h3("Location and Season"),
                           selectInput("sens_UBF", label = "Select UBF:",
                                       choices = c("UBF0","UBF50","UBF100"),
                                       multiple=TRUE,
-                                      selected="UBF0")),
+                                      selected="UBF100")),
                    column(3,tags$h3(""),
                           downloadButton('sensitivity_curve', 'Download Sensitivity Curve'))))
 
@@ -735,15 +735,16 @@ flowRWet0 <- FlowRanges[!grepl("DS_Mag_50", FlowRanges$metric),] #wet
 flowRWet1 <- flowRWet0[!grepl("DS_Mag_10", flowRWet0$metric),] #wet
 
 sens_curve <- reactive({
-  if(input$sens_UBF == "UBF0"){
+  
+  if(input$sens_UBF == "UBF100"){
     validate(need(input$sens_season != ""," "))
     validate(need(input$node != ""," "))
     
     x = 0:100
-    # UBF0
     source('R/sensitivity_curves_UBF0.R')
+    source('R/sensitivity_curves_UBF50.R')
+    source('R/sensitivity_curves_UBF100.R')
     
-
     if(input$sens_season == "wet"){
       fm <- fmWet
       flow <- flowRWet1
@@ -792,7 +793,98 @@ sens_curve <- reactive({
       
       
       LA3p90 <- LA3p90Wet
+      #UBF50
+      F300p10_UBF50 <- F300p10Wet_UBF50
+      F319p10_UBF50 <- F319p10Wet_UBF50
+      F57Cp10_UBF50 <-F57Cp10Wet_UBF50
+      LA13p10_UBF50 <- LA13p10Wet_UBF50
+      LA11p10_UBF50 <- LA11p10Wet_UBF50
+      F34Dp10_UBF50 <- F34Dp10Wet_UBF50
+      LA14p10_UBF50 <- LA14p10Wet_UBF50
+      GLENp10_UBF50 <- GLENp10Wet_UBF50
+      LA8p10_UBF50 <- LA8p10Wet_UBF50
+      LA3p10_UBF50 <- LA3p10Wet_UBF50
+      F300p50_UBF50 <- F300p50Wet_UBF50
+      F319p50_UBF50 <- F319p50Wet_UBF50
+      F57Cp50_UBF50 <-F57Cp50Wet_UBF50
+      LA13p50_UBF50 <- LA13p50Wet_UBF50
+      LA11p50_UBF50 <- LA11p50Wet_UBF50
+      F34Dp50_UBF50 <- F34Dp50Wet_UBF50
+      LA14p50_UBF50 <- LA14p50Wet_UBF50
+      GLENp50_UBF50 <- GLENp50Wet_UBF50
+      LA8p50_UBF50 <- LA8p50Wet_UBF50
+      LA3p50_UBF50 <- LA3p50Wet_UBF50
+      F300p90_UBF50 <- F300p90Wet_UBF50
       
+      F319p90_UBF50 <- F319p90Wet_UBF50
+      
+      F57Cp90_UBF50 <- F57Cp90Wet_UBF50
+      
+      
+      LA13p90_UBF50 <- LA13p90Wet_UBF50
+      
+      
+      LA11p90_UBF50 <- LA11p90Wet_UBF50
+      
+      
+      F34Dp90_UBF50 <- F34Dp90Wet_UBF50
+      
+      
+      LA14p90_UBF50 <- LA14p90Wet_UBF50
+      
+      GLENp90_UBF50 <- GLENp90Wet_UBF50
+      
+      
+      LA8p90_UBF50 <- LA8p90Wet_UBF50
+      
+      
+      LA3p90_UBF50 <- LA3p90Wet_UBF50
+      #UB100
+      F300p10_UBF100 <- F300p10Wet_UBF100
+      F319p10_UBF100 <- F319p10Wet_UBF100
+      F57Cp10_UBF100 <-F57Cp10Wet_UBF100
+      LA13p10_UBF100 <- LA13p10Wet_UBF100
+      LA11p10_UBF100 <- LA11p10Wet_UBF100
+      F34Dp10_UBF100 <- F34Dp10Wet_UBF100
+      LA14p10_UBF100 <- LA14p10Wet_UBF100
+      GLENp10_UBF100 <- GLENp10Wet_UBF100
+      LA8p10_UBF100 <- LA8p10Wet_UBF100
+      LA3p10_UBF100 <- LA3p10Wet_UBF100
+      F300p50_UBF100 <- F300p50Wet_UBF100
+      F319p50_UBF100 <- F319p50Wet_UBF100
+      F57Cp50_UBF100 <-F57Cp50Wet_UBF100
+      LA13p50_UBF100 <- LA13p50Wet_UBF100
+      LA11p50_UBF100 <- LA11p50Wet_UBF100
+      F34Dp50_UBF100 <- F34Dp50Wet_UBF100
+      LA14p50_UBF100 <- LA14p50Wet_UBF100
+      GLENp50_UBF100 <- GLENp50Wet_UBF100
+      LA8p50_UBF100 <- LA8p50Wet_UBF100
+      LA3p50_UBF100 <- LA3p50Wet_UBF100
+      F300p90_UBF100 <- F300p90Wet_UBF100
+      
+      F319p90_UBF100 <- F319p90Wet_UBF100
+      
+      F57Cp90_UBF100 <- F57Cp90Wet_UBF100
+      
+      
+      LA13p90_UBF100 <- LA13p90Wet_UBF100
+      
+      
+      LA11p90_UBF100 <- LA11p90Wet_UBF100
+      
+      
+      F34Dp90_UBF100 <- F34Dp90Wet_UBF100
+      
+      
+      LA14p90_UBF100 <- LA14p90Wet_UBF100
+      
+      GLENp90_UBF100 <- GLENp90Wet_UBF100
+      
+      
+      LA8p90_UBF100 <- LA8p90Wet_UBF100
+      
+      
+      LA3p90_UBF100 <- LA3p90Wet_UBF100
     }
     else{
       fm <- fmDry
@@ -836,162 +928,315 @@ sens_curve <- reactive({
       LA8p90 <- LA8p90Dry
       
       LA3p90 <- LA3p90Dry
+      #UBF50
+      F300p10_UBF50 <- F300p10Dry_UBF50
+      F319p10_UBF50 <- F319p10Dry_UBF50
+      F57Cp10_UBF50 <-F57Cp10Dry_UBF50
+      LA13p10_UBF50 <- LA13p10Dry_UBF50
+      LA11p10_UBF50 <- LA11p10Dry_UBF50
+      F34Dp10_UBF50 <- F34Dp10Dry_UBF50
+      LA14p10_UBF50 <- LA14p10Dry_UBF50
+      GLENp10_UBF50 <- GLENp10Dry_UBF50
+      LA8p10_UBF50 <- LA8p10Dry_UBF50
+      LA3p10_UBF50 <- LA3p10Dry_UBF50
+      F300p50_UBF50 <- F300p50Dry_UBF50
+      F319p50_UBF50 <- F319p50Dry_UBF50
+      F57Cp50_UBF50 <-F57Cp50Dry_UBF50
+      LA13p50_UBF50 <- LA13p50Dry_UBF50
+      LA11p50_UBF50 <- LA11p50Dry_UBF50
+      F34Dp50_UBF50 <- F34Dp50Dry_UBF50
+      LA14p50_UBF50 <- LA14p50Dry_UBF50
+      GLENp50_UBF50 <- GLENp50Dry_UBF50
+      LA8p50_UBF50 <- LA8p50Dry_UBF50
+      LA3p50_UBF50 <- LA3p50Dry_UBF50
+      F300p90_UBF50 <- F300p90Dry_UBF50
+      
+      F319p90_UBF50 <- F319p90Dry_UBF50
+      
+      F57Cp90_UBF50 <- F57Cp90Dry_UBF50
+      
+      LA13p90_UBF50 <- LA13p90Dry_UBF50
+      
+      LA11p90_UBF50 <- LA11p90Dry_UBF50
+      
+      F34Dp90_UBF50 <- F34Dp90Dry_UBF50
+      
+      LA14p90_UBF50 <- LA14p90Dry_UBF50
+      
+      GLENp90_UBF50 <- GLENp90Dry_UBF50
+      
+      LA8p90_UBF50 <- LA8p90Dry_UBF50
+      
+      LA3p90_UBF50 <- LA3p90Dry_UBF50 
+      #UBF100
+      F300p10_UBF100 <- F300p10Dry_UBF100
+      F319p10_UBF100 <- F319p10Dry_UBF100
+      F57Cp10_UBF100 <-F57Cp10Dry_UBF100
+      LA13p10_UBF100 <- LA13p10Dry_UBF100
+      LA11p10_UBF100 <- LA11p10Dry_UBF100
+      F34Dp10_UBF100 <- F34Dp10Dry_UBF100
+      LA14p10_UBF100 <- LA14p10Dry_UBF100
+      GLENp10_UBF100 <- GLENp10Dry_UBF100
+      LA8p10_UBF100 <- LA8p10Dry_UBF100
+      LA3p10_UBF100 <- LA3p10Dry_UBF100
+      F300p50_UBF100 <- F300p50Dry_UBF100
+      F319p50_UBF100 <- F319p50Dry_UBF100
+      F57Cp50_UBF100 <-F57Cp50Dry_UBF100
+      LA13p50_UBF100 <- LA13p50Dry_UBF100
+      LA11p50_UBF100 <- LA11p50Dry_UBF100
+      F34Dp50_UBF100 <- F34Dp50Dry_UBF100
+      LA14p50_UBF100 <- LA14p50Dry_UBF100
+      GLENp50_UBF100 <- GLENp50Dry_UBF100
+      LA8p50_UBF100 <- LA8p50Dry_UBF100
+      LA3p50_UBF100 <- LA3p50Dry_UBF100
+      F300p90_UBF100 <- F300p90Dry_UBF100
+      
+      F319p90_UBF100 <- F319p90Dry_UBF100
+      
+      F57Cp90_UBF100 <- F57Cp90Dry_UBF100
+      
+      LA13p90_UBF100 <- LA13p90Dry_UBF100
+      
+      LA11p90_UBF100 <- LA11p90Dry_UBF100
+      
+      F34Dp90_UBF100 <- F34Dp90Dry_UBF100
+      
+      LA14p90_UBF100 <- LA14p90Dry_UBF100
+      
+      GLENp90_UBF100 <- GLENp90Dry_UBF100
+      
+      LA8p90_UBF100 <- LA8p90Dry_UBF100
+      
+      LA3p90_UBF100 <- LA3p90Dry_UBF100
     }
-    name = "red"
     fun.1 <- function(x) x^2 + x
+    fun.1_UBF50 <- function(x) x^2 + x
+    fun.1_UBF100 <- function(x) x^2 + x
     if(input$node == "LA11"){
       fun.1 <- LA11p10
+      fun.1_UBF50 <- LA11p10_UBF50
+      fun.1_UBF100 <- LA11p10_UBF100
       name = "LA11"
     }
     if(input$node == "F300"){
       fun.1 <- F300p10
+      fun.1_UBF50 <- F300p10_UBF50
+      fun.1_UBF100 <- F300p10_UBF100
       name = "F300"
     }
     if(input$node == "F319"){
       fun.1 <- F319p10
+      fun.1_UBF50 <- F319p10_UBF50
+      fun.1_UBF100 <- F319p10_UBF100
       name = "F319"
     }
     if(input$node == "LA13"){
       fun.1 <- LA13p10
+      fun.1_UBF50 <- LA13p10_UBF50
+      fun.1_UBF100 <- LA13p10_UBF100
       name = "LA13"
     }
     if(input$node == "F34D"){
       fun.1 <- F34Dp10
+      fun.1_UBF50 <- F34Dp10_UBF50
+      fun.1_UBF100 <- F34Dp10_UBF100
       name = "F34D"
     }
     if(input$node == "LA14"){
       fun.1 <- LA14p10
+      fun.1_UBF50 <- LA14p10_UBF50
+      fun.1_UBF100 <- LA14p10_UBF100
       name = "LA14"
     }
     if(input$node == "GLEN"){
       fun.1 <- GLENp10
+      fun.1_UBF50 <- GLENp10_UBF50
+      fun.1_UBF100 <- GLENp10_UBF100
       name = "GLEN"
     }
     if(input$node == "LA8"){
       fun.1 <- LA8p10
+      fun.1_UBF50 <- LA8p10_UBF50
+      fun.1_UBF100 <- LA8p10_UBF100
       name = "LA8"
     }
     if(input$node == "LA3"){
       fun.1 <- LA3p10
+      fun.1_UBF50 <- LA3p10_UBF50
+      fun.1_UBF100 <- LA3p10_UBF100
       name = "LA3"
     }
     if(input$node == "F57C"){
       fun.1 <- F57Cp10
+      fun.1_UBF50 <- F57Cp10_UBF50
+      fun.1_UBF100 <- F57Cp10_UBF100
       name = "F57C"
     }
     if(input$node == "LA20"){
       fun.1 <- F57Cp10
+      fun.1_UBF50 <- F57Cp10_UBF50
+      fun.1_UBF100 <- F57Cp10_UBF100
       name = "F57C"
     }
     if(input$node == "LA20_2"){
       fun.1 <- F57Cp10
+      fun.1_UBF50 <- F57Cp10_UBF50
+      fun.1_UBF100 <- F57Cp10_UBF100
       name = "F57C"
     }
     fun.2 <- function(x) x^2 + x
+    fun.2_UBF50 <- function(x) x^2 + x
+    fun.2_UBF100 <- function(x) x^2 + x
     if(input$node == "LA11"){
       fun.2 <- LA11p50
+      fun.2_UBF50 <- LA11p50_UBF50
+      fun.2_UBF100 <- LA11p50_UBF100
       name = "LA11"
     }
     if(input$node == "F300"){
       fun.2 <- F300p50
+      fun.2_UBF50 <- F300p50_UBF50
+      fun.2_UBF100 <- F300p50_UBF100
       name = "F300"
     }
     if(input$node == "F319"){
       fun.2 <- F319p50
+      fun.2_UBF50 <- F319p50_UBF50
+      fun.2_UBF100 <- F319p50_UBF100
       name = "F319"
     }
     if(input$node == "LA13"){
       fun.2 <- LA13p50
+      fun.2_UBF50 <- LA13p50_UBF50
+      fun.2_UBF100 <- LA13p50_UBF100
       name = "LA13"
     }
     if(input$node == "F34D"){
       fun.2 <- F34Dp50
+      fun.2_UBF50 <- F34Dp50_UBF50
+      fun.2_UBF100 <- F34Dp50_UBF100
       name = "F34D"
     }
     if(input$node == "LA14"){
       fun.2 <- LA14p50
+      fun.2_UBF50 <- LA14p50_UBF50
+      fun.2_UBF100 <- LA14p50_UBF100
       name = "LA14"
     }
     if(input$node == "GLEN"){
       fun.2 <- GLENp50
+      fun.2_UBF50 <- GLENp50_UBF50
+      fun.2_UBF100 <- GLENp50_UBF100
       name = "GLEN"
     }
     if(input$node == "LA8"){
       fun.2 <- LA8p50
+      fun.2_UBF50 <- LA8p50_UBF50
+      fun.2_UBF100 <- LA8p50_UBF100
       name = "LA8"
     }
     if(input$node == "LA3"){
       fun.2 <- LA3p50
+      fun.2_UBF50 <- LA3p50_UBF50
+      fun.2_UBF100 <- LA3p50_UBF100
       name = "LA3"
     }
     if(input$node == "F57C"){
       fun.2 <- F57Cp50
+      fun.2_UBF50 <- F57Cp50_UBF50
+      fun.2_UBF100 <- F57Cp50_UBF100
       name = "F57C"
     }
     fun.3 <- function(x) x^2 + x
+    fun.3_UBF50 <- function(x) x^2 + x
+    fun.3_UBF100 <- function(x) x^2 + x
     if(input$node == "LA11"){
       fun.3 <- LA11p90
+      fun.3_UBF50 <- LA11p90_UBF50
+      fun.3_UBF100 <- LA11p90_UBF100
       name = "LA11"
     }
     if(input$node == "F300"){
       fun.3 <- F300p90
+      fun.3_UBF50 <- F300p90_UBF50
+      fun.3_UBF100 <- F300p90_UBF100
       name = "F300"
     }
     if(input$node == "F319"){
       fun.3 <- F319p90
+      fun.3_UBF50 <- F319p90_UBF50
+      fun.3_UBF100 <- F319p90_UBF100
       name = "F319"
     }
     if(input$node == "LA13"){
       fun.3 <- LA13p90
+      fun.3_UBF50 <- LA13p90_UBF50
+      fun.3_UBF100 <- LA13p90_UBF100
       name = "LA13"
     }
     if(input$node == "F34D"){
       fun.3 <- F34Dp90
+      fun.3_UBF50 <- F34Dp90_UBF50
+      fun.3_UBF100 <- F34Dp90_UBF100
       name = "F34D"
     }
     if(input$node == "LA14"){
       fun.3 <- LA14p90
+      fun.3_UBF50 <- LA14p90_UBF50
+      fun.3_UBF100 <- LA14p90_UBF100
       name = "LA14"
     }
     if(input$node == "GLEN"){
       fun.3 <- GLENp90
+      fun.3_UBF50 <- GLENp90_UBF50
+      fun.3_UBF100 <- GLENp90_UBF100
       name = "GLEN"
     }
     if(input$node == "LA8"){
       fun.3 <- LA8p90
+      fun.3_UBF50 <- LA8p90_UBF50
+      fun.3_UBF100 <- LA8p90_UBF100
       name = "LA8"
     }
     if(input$node == "LA3"){
       fun.3 <- LA3p90
+      fun.3_UBF50 <- LA3p90_UBF50
+      fun.3_UBF100 <- LA3p90_UBF100
       name = "LA3"
     }
     if(input$node == "F57C"){
       fun.3 <- F57Cp90
+      fun.3_UBF50 <- F57Cp90_UBF50
+      fun.3_UBF100 <- F57Cp90_UBF100
       name = "F57C"
     }
-    aData = data.frame(x =x, y = fun.1)
-    bData = data.frame(x=x, y = fun.2)
-    cData = data.frame(x=x, y = fun.3)
-    plotter <- data.frame(
+    plotter<- data.frame(
       x = 0:100,
-      p10 = fun.1,
-      p50 = fun.2,
-      p90 = fun.3
+      p10_UBF0 = fun.1,
+      p50_UBF0 = fun.2,
+      p90_UBF0 = fun.3,
+      p10_UBF50 = fun.1_UBF50,
+      p50_UBF50 = fun.2_UBF50,
+      p90_UBF50 = fun.3_UBF50,
+      p10_UBF100 = fun.1_UBF100,
+      p50_UBF100 = fun.2_UBF100,
+      p90_UBF100 = fun.3_UBF100
     )
-    
-    ggplot(plotter, aes(x=x)) + 
-      geom_line(aes(y = p50, colour="50th Percentile"),size = 1, linetype = 1, color = "blue") +
-      labs(x = "Average Annual Season WRP Discharge (cfs)", y = "Season Baseflow Magnitude (cfs)")+
-      ylim(c(0,175)) +
-      theme_bw()+
-      theme(axis.text = element_text(size = 12),
-            axis.title=element_text(size=14,face="bold"),
-            legend.text = element_text(size = 15))+
-      scale_colour_manual(values = c("blue"))+
-      geom_ribbon(data =plotter,
-                  aes(ymin=p10,ymax=p90), fill = 'grey', alpha = .7)+
-      ggtitle("10th - 90th Percentile")
-  } 
+  }
+  
+   ggplot(plotter, aes(x=x)) +
+     geom_line(aes(y = p50_UBF100, colour="50th Percentile"),size = 1, linetype = 1, color = "blue") +
+     labs(x = "Average Annual Season WRP Discharge (cfs)", y = "Season Baseflow Magnitude (cfs)")+
+     ylim(c(0,175)) +
+     theme_bw()+
+     theme(axis.text = element_text(size = 12),
+           axis.title=element_text(size=14,face="bold"),
+           legend.text = element_text(size = 15))+
+     scale_colour_manual(values = c("blue"))+
+     geom_ribbon(data =plotter,
+                 aes(ymin=p10_UBF100,ymax=p90_UBF100), fill = 'grey', alpha = .7)+
+     ggtitle("10th - 90th Percentile")
+  
   
   
 })
@@ -1001,6 +1246,9 @@ sens_curve <- reactive({
 renderPlot({sens_curve()})
 ```
 
+```{r,eval=FALSE}
+renderPrint({sens_curve()})
+```
 
 
 
@@ -2484,7 +2732,7 @@ colnames(LA20) <- c("Station", "Elevation")
 LA11Depth <- read.csv("data/equationBetter.csv")
 ```
 
-```{r}
+```{r,eval=FALSE}
 fluidPage(
   
   
@@ -2510,6 +2758,44 @@ fluidPage(
                  renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))})),
     mainPanel(width=9,renderPlot({graphPlan()}))))
 ```
+
+
+
+
+```{r}
+
+fixedRow(
+  column(3,
+         selectInput("node_depth","Select Location:",
+                     choices =   c("LA11","LA20_2","LA20","F34D",
+                                   "F57C","F37B_High","GLEN","LA3","LA8",
+                                   "LA13","LA14","F319","F300",
+                                   "F45B","F37B_Low"))
+  ),
+  column(3,
+         renderUI({
+           validate(need(input$node_depth !=""," "))
+           
+           max_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>% 
+             pull(MaxDepth)
+           selected_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>%
+             pull(MaxDepth) *0.1
+           numericInput("cfs_depth","Flow (cfs)",min=0,
+                        max = max_cfs,selected_cfs,step = 50
+           )
+         })
+  ),
+  column(3,tags$h1(),
+         renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))})
+  )
+)
+fluidRow(column(12,
+                renderPlot({graphPlan()})))
+
+```
+
+
+
 
 ```{r}
 node_depth_dat <- tribble(
