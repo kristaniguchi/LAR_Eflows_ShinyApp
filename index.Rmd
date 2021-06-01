@@ -1915,7 +1915,8 @@ heatmap_plot <- reactive({
   
   ggplot(dat3, aes(variable, Node)) + geom_tile(aes(fill = value),
                                                 colour = "#D8D8D8") + 
-    scale_fill_manual(values=heatmap_colors)+
+    scale_fill_manual(breaks=attr(heatmap_colors,"names"),
+      values=heatmap_colors)+
     theme_bw()+
     theme(text = element_text(size = 13),
           axis.text.x = element_text(angle = 30, hjust = 1))+
