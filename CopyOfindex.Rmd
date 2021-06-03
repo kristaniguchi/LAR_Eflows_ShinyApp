@@ -689,11 +689,16 @@ DT::renderDataTable({
 },options = list(dom = 't'))
 ```
 
-## Sensitivity Curves
+## Sensitivity Curves {.tabset .tabset-pills}
 
 ```{r}
 flowranges <- read_csv("raw/Willow_Typha_Med_High_FishingKayaking_Flowranges.csv") %>% mutate(season = case_when(Seasonal.Component == "Dry Season Baseflow" ~ "dry",
                                                                                                                  Seasonal.Component == "Wet Season Baseflow" ~ "wet"))
+
+
+SpeciesProb <- read_csv("raw/SynthesisCurves_SpeciesProb.csv") %>%
+  mutate(season = case_when(season == "Dry" ~ "dry",
+                            season == "Wet" ~ "wet"))
 
 ```
 
@@ -707,28 +712,28 @@ fluidPage(tags$h3("Location and Season"),
                                         "F319","F300"))), 
                    column(3,
                           selectInput("sens_season", label = "Select Season:",
-                                      choices = c("Dry"="dry","Wet"="wet"))),
+                                      choices = c("Dry"="dry","Wet"="wet")))))
+```
+
+------------------------------------------------------------------------
+
+### Curve1
+
+```{r}
+fluidPage(tags$h3("Species"),
+          fluidRow(column(3,selectInput("sens_species",label="Select Species:",
+                                        choices = c("Fishing","Kayak","Typha",
+                                                    "Willow") )),
+                   column(3,selectInput("sens_prob",label="Select Probability Threshold",choices = c("Medium","High"))),
                    column(3,
                           selectInput("sens_UBF", label = "Select Additional UBF:",
                                       choices = c("None","UBF0","UBF50",
                                                   "UBF0 and UBF50"),
-                                      selected="None"))))
-```
-
-
-------------------------------------------------------------------------
-
-```{r}
-fluidPage(tags$h3("Species"),
-fluidRow(column(3,selectInput("sens_species",label="Select Species:",
-                                        choices = c("Fishing","Kayak","Typha",
-                                                    "Willow") )),
-                   column(3,selectInput("sens_prob",label="Select Probability Threshold",choices = c("Medium","High"))),
+                                      selected="None")),
                    column(3,tags$h3(""),
                           downloadButton('sensitivity_curve', 'Download Sensitivity Curve'))))
 ```
 
-------------------------------------------------------------------------
 
 ```{r}
 #Did they fall in the range? 
@@ -1366,6 +1371,49 @@ output$sensitivity_curve <-downloadHandler(
   }
 )
 ```
+
+### Curve2
+
+```{r}
+fluidPage(tags$h3("Species Sensitivity Curves"),
+          fluidRow(
+            column(4, 
+                   renderUI({
+                     tempdf <- SpeciesProb %>% filter(ReportingNode == input$node)
+                     tempdf_species <- unique(tempdf %>% pull(species.lifestage))
+                     selectInput("sens_species2",label="Select Species:",
+                                 choices = tempdf_species )
+                     })
+                   )
+          )
+)
+```
+
+
+
+```{r}
+SpeciesProb_dat <- reactive({
+  validate(need(input$node != ""," "))
+  validate(need(input$sens_season != ""," "))
+  validate(need(input$sens_species2 != ""," "))
+  
+  out <- SpeciesProb %>%
+    filter(ReportingNode == input$node) %>% 
+    filter(season == input$sens_season) %>% 
+    filter(species.lifestage == input$sens_species2)
+  
+  return(out)
+})
+
+
+```
+
+
+
+```{r}
+renderPrint({SpeciesProb_dat()})
+```
+
 
 
 
