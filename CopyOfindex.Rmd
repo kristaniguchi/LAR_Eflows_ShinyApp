@@ -709,11 +709,18 @@ fluidPage(tags$h3("Location and Season"),
                           selectInput("sens_season", label = "Select Season:",
                                       choices = c("Dry"="dry","Wet"="wet"))),
                    column(3,
-                          selectInput("sens_UBF", label = "Select UBF:",
-                                      choices = c("UBF0","UBF50","UBF100"),
-                                      multiple=TRUE,
-                                      selected="UBF100"))),
-          fluidRow(column(3,selectInput("sens_species",label="Select Species:",
+                          selectInput("sens_UBF", label = "Select Additional UBF:",
+                                      choices = c("None","UBF0","UBF50",
+                                                  "UBF0 and UBF50"),
+                                      selected="None"))))
+```
+
+
+------------------------------------------------------------------------
+
+```{r}
+fluidPage(tags$h3("Species"),
+fluidRow(column(3,selectInput("sens_species",label="Select Species:",
                                         choices = c("Fishing","Kayak","Typha",
                                                     "Willow") )),
                    column(3,selectInput("sens_prob",label="Select Probability Threshold",choices = c("Medium","High"))),
@@ -1254,39 +1261,90 @@ sens_curve <- reactive({
   plotter_UBF50 <- plotter %>% select(x,p10_UBF50,p50_UBF50,p90_UBF50)
   plotter_UBF100 <- plotter %>% select(x,p10_UBF100,p50_UBF100,p90_UBF100)
   
-
-  g <- ggplot()+
-    geom_line(data=plotter_UBF100,aes(x=x,y = p50_UBF100, colour="50th Percentile"),
-              size = 1, linetype = 1, color = "blue") +
-    geom_line(data=plotter_UBF50,aes(x=x,y = p50_UBF50),
-              size = 1, linetype = 2, color = "orange")+
-    geom_line(data=plotter_UBF0,aes(x=x,y = p50_UBF0),
-              size = 1, linetype = 3, color = "red")+
-    labs(x = "Average Annual Season WRP Discharge (cfs)", 
-         y = "Season Baseflow Magnitude (cfs)",title="10th - 90th Percentile")+
+  
+  base_plot <- ggplot()+
+    geom_line(data=plotter_UBF100,aes(x=x,y = p50_UBF100, 
+                                      colour="50th Percentile"),size = 1, 
+              linetype = 1, color = "blue") +
     geom_ribbon(data =plotter_UBF100,
                 aes(x=x,xmin=0,xmax=100,ymin=p10_UBF100,ymax=p90_UBF100), 
                 fill = '#c3d0e6', alpha = .5)+
-    geom_ribbon(data =plotter_UBF50,
-                aes(x=x,xmin=0,xmax=100,ymin=p10_UBF50,ymax=p90_UBF50), 
-                fill = '#f0c67d', alpha = .5)+
-    geom_ribbon(data =plotter_UBF0,
-                aes(x=x,xmin=0,xmax=100,ymin=p10_UBF0,ymax=p90_UBF0), 
-                fill = '#f0857d', alpha = .5)+
+    labs(x = "Average Annual Season WRP Discharge (cfs)", 
+         y = "Season Baseflow Magnitude (cfs)",title="10th - 90th Percentile")+
     theme_bw()+
     theme(axis.text = element_text(size = 12),
           axis.title=element_text(size=14,face="bold"),
           legend.text = element_text(size = 15))
   
-  if(nrow(filtered_flowranges()) >0){
-    ymin = filtered_flowranges() %>% pull(Lower_Limit)
-    ymax = filtered_flowranges() %>% pull(Upper_Limit)
-    g +geom_ribbon(aes(x=x,xmin=0,xmax=Inf,ymin=ymin,ymax=ymax), 
-                   fill = '#474747', alpha = .1)
-  }else{
-    return(g)
+  
+  if(input$sens_UBF != "None"){
+    
+    if(input$sens_UBF =="UBF50"){
+      g <- base_plot +
+        geom_line(data=plotter_UBF50,aes(x=x,y = p50_UBF50),
+                  size = 1, linetype = 2, color = "orange")+
+        geom_ribbon(data =plotter_UBF50,
+                    aes(x=x,xmin=0,xmax=100,ymin=p10_UBF50,ymax=p90_UBF50), 
+                    fill = '#f0c67d', alpha = .5)
+    }
+    else if(input$sens_UBF == "UBF0"){
+      g <- base_plot+ geom_line(data=plotter_UBF0,aes(x=x,y = p50_UBF0),
+                                size = 1, linetype = 3, color = "red")+
+        geom_ribbon(data =plotter_UBF0,
+                    aes(x=x,xmin=0,xmax=100,ymin=p10_UBF0,ymax=p90_UBF0), 
+                    fill = '#f0857d', alpha = .5)
+    }
+    else{
+      g <- base_plot +
+        geom_line(data=plotter_UBF0,aes(x=x,y = p50_UBF0),
+                  size = 1, linetype = 3, color = "red")+
+        geom_ribbon(data =plotter_UBF0,
+                    aes(x=x,xmin=0,xmax=100,ymin=p10_UBF0,ymax=p90_UBF0),
+                    fill = '#f0857d', alpha = .5)+
+        geom_line(data=plotter_UBF50,aes(x=x,y = p50_UBF50),
+                  size = 1, linetype = 2, color = "orange")+
+        geom_ribbon(data =plotter_UBF50,
+                    aes(x=x,xmin=0,xmax=100,ymin=p10_UBF50,ymax=p90_UBF50),
+                    fill = '#f0c67d', alpha = .5)
+    }
+    if(nrow(filtered_flowranges()) >0){
+      ymin = filtered_flowranges() %>% pull(Lower_Limit)
+      ymax = filtered_flowranges() %>% pull(Upper_Limit)
+      
+      if(ymax > 180){
+        ymax_limit = 180
+      }
+      else{
+        ymax_limit = ymax
+      }
+      
+      g +geom_ribbon(aes(x=x,xmin=0,xmax=Inf,ymin=ymin,ymax=ymax_limit),
+                     fill = '#474747', alpha = .1,color='black')
+    }else{
+      return(g)
+    }
+  }
+  else{
+    if(nrow(filtered_flowranges()) >0){
+      ymin = filtered_flowranges() %>% pull(Lower_Limit)
+      ymax = filtered_flowranges() %>% pull(Upper_Limit)
+      if(ymax > 180){
+        ymax_limit = 180
+      }
+      else{
+        ymax_limit = ymax
+      }
+      
+      base_plot +geom_ribbon(aes(x=x,xmin=0,xmax=Inf,ymin=ymin,ymax=ymax_limit),
+                             fill = '#474747', alpha = .1,color='black')
+    }else{
+      return(base_plot)
+    }
   }
   
+
+
+
 })
 ```
 
@@ -1937,7 +1995,7 @@ heatmap_plot <- reactive({
   goodV$Node <- factor(goodV$Node, levels = goodV$Node)
   dat3 <- reshape2::melt(goodV, id.var = 'Node')
   
-  heatmap_colors <- setNames(c(hex[c(11,8,7)],"#E7F0F1"), c("Too High","Within Range",
+  heatmap_colors <- setNames(c(hex[c(3,8,11)],"#E7F0F1"), c("Too High","Within Range",
                                                             "Too Low","Not Applicable"))
   
   ggplot(dat3, aes(variable, Node)) + geom_tile(aes(fill = value),
