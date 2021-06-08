@@ -233,7 +233,7 @@ for(i in 1:length(unique.nodes)){
   prob.sub.urban$spring[ind.WRP100] <- baselines$spring
   
   #loop to create sensitivity curves for each season
-  for(j in 1:length(seasons.to.plot)){
+  for(j in 1:1){
     
     #subset percentiles to season j - these contain all hyd factors
     #subset WRP to season j
@@ -429,7 +429,7 @@ for(i in 1:length(unique.nodes)){
         #save
         file.name2 <- paste0(out.dir.species.lifestage.limitingfactor, unique.nodes[i], "_", unique.lifestage.hyd[n], "_",seasons.to.plot[j], "_Species_Sensitivity_Curve.jpg")
         #ggsave(p2.life.stage, filename=file.name2, dpi=300, height=5, width=5)
-        
+        write.csv(wrp.sub.metric.j.life.stage,paste0("SpeciesProb-Wet",i,".csv"))
         
         #####################################################
         #JOSE: do not need to plot the urban baseflow removal scenarios, only WRP plot
@@ -517,11 +517,13 @@ for(i in 1:length(unique.nodes)){
         dry.change <- (min(ffm.sub.metric.j$p10)-max(ffm.sub.metric.j$p10))/max(ffm.sub.metric.j$p10)*100
         med.change <- (min(ffm.sub.metric.j$p50)-max(ffm.sub.metric.j$p50))/max(ffm.sub.metric.j$p50)*100
         wet.change <- (min(ffm.sub.metric.j$p90)-max(ffm.sub.metric.j$p90))/max(ffm.sub.metric.j$p90)*100
-        
+
       }
+      
     }
     
   }
+
 }
 
 
