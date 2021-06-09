@@ -717,7 +717,7 @@ fluidPage(tags$h3("Location and Season"),
 
 ------------------------------------------------------------------------
 
-### Curve1
+### Flow-Based Curve
 
 ```{r}
 fluidPage(tags$h3("Species"),
@@ -1364,7 +1364,7 @@ output$sensitivity_curve <-downloadHandler(
 )
 ```
 
-### Curve2
+### Species-Based Curve
 
 ```{r}
 tags$h3("Species Sensitivity Curves")
@@ -1385,8 +1385,6 @@ SpeciesProb_dat <- reactive({
 
 ```
 
-
-
 ```{r}
 lower_curve <- reactive({
   
@@ -1398,7 +1396,6 @@ lower_curve <- reactive({
 })
 ```
 
-
 ```{r}
 upper_curve <- reactive({
   
@@ -1409,9 +1406,6 @@ upper_curve <- reactive({
   return(upper.fit)
 })
 ```
-
-
-
 
 ```{r,eval=TRUE}
 SpeciesProb_plot <- reactive({
@@ -1451,8 +1445,6 @@ renderPlot({SpeciesProb_plot()})
 column(3,
        downloadButton('species_curve', 'Download Species Curve'))
 ```
-
-
 
 ```{r}
 output$species_curve <-downloadHandler(
@@ -2930,7 +2922,6 @@ colnames(LA20) <- c("Station", "Elevation")
 
 LA11Depth <- read.csv("data/equationBetter.csv")
 ```
-
 
 ```{r}
 
