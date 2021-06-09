@@ -13,7 +13,8 @@ library(leaflet)
 library(ggfittext)
 library(rgdal)
 
-knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
+knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE,
+                      fig.path = "www")
 
 
 sensitivity_dat <- read_csv("raw/SynthesisCurves_SpeciesProb.csv") %>% 
@@ -702,7 +703,6 @@ SpeciesProb <- read_csv("raw/SpeciesProb_dat.csv") %>%
 
 ```
 
-
 ```{r}
 fluidPage(tags$h3("Location and Season"),
           fluidRow(column(3,
@@ -734,7 +734,6 @@ fluidPage(tags$h3("Species"),
                           downloadButton('sensitivity_curve', 'Download Sensitivity Curve'))))
 ```
 
-
 ```{r}
 #Did they fall in the range? 
 fmDry <- FMM[!grepl("Wet", FMM$Season),] #dry only
@@ -747,8 +746,6 @@ flowRDry1 <- flowRDry0[!grepl("Wet_BFL_Mag_10", flowRDry0$metric),] #dry
 flowRWet0 <- FlowRanges[!grepl("DS_Mag_50", FlowRanges$metric),] #wet 
 flowRWet1 <- flowRWet0[!grepl("DS_Mag_10", flowRWet0$metric),] #wet
 ```
-
-
 
 ```{r}
 filtered_flowranges <- reactive({
@@ -768,8 +765,6 @@ filtered_flowranges <- reactive({
   
 })
 ```
-
-
 
 ```{r}
 sens_curve <- reactive({
@@ -1357,9 +1352,6 @@ sens_curve <- reactive({
 renderPlot({sens_curve()})
 ```
 
-
-
-
 ```{r}
 output$sensitivity_curve <-downloadHandler(
   filename = function() {
@@ -1378,8 +1370,6 @@ output$sensitivity_curve <-downloadHandler(
 tags$h3("Species Sensitivity Curves")
 ```
 
-
-
 ```{r}
 SpeciesProb_dat <- reactive({
   validate(need(input$node != ""," "))
@@ -1397,28 +1387,61 @@ SpeciesProb_dat <- reactive({
 
 
 
+```{r}
+lower_curve <- reactive({
+  
+  lower.curve <- loess(p10 ~ seasonal.wrp.Q, data= SpeciesProb_dat()) 
+  lower.fit <- data.frame(predict(lower.curve, se=TRUE ))
+  lower.fit$fit[lower.fit$fit < 0] <- 0
+  
+  return(lower.fit)
+})
+```
+
+
+```{r}
+upper_curve <- reactive({
+  
+  upper.curve <- loess(p90 ~ seasonal.wrp.Q, data= SpeciesProb_dat()) 
+  upper.fit <- data.frame(predict(upper.curve, se=TRUE ))
+  
+  upper.fit$fit[upper.fit$fit > 1] <- 1
+  return(upper.fit)
+})
+```
+
+
+
 
 ```{r,eval=TRUE}
 SpeciesProb_plot <- reactive({
   
   dat <- SpeciesProb_dat()
   unique_node <- dat$ReportingNode
+  baseline <- dat %>% filter(Scenario==0) %>% pull(type_season)
   species_lifestage <- dat$species.lifestage.hyd
   
   ggplot(dat,
          aes(x=seasonal.wrp.Q, y = p50), color="blue") +
     geom_smooth(level=0) +
+    geom_ribbon(aes(ymin=lower_curve()$fit, ymax=upper_curve()$fit), 
+                alpha=0.2, fill="#4575b4") +
+    geom_vline(xintercept=baseline, linetype="dashed", color = "black") +
     labs(title = paste0("Species Sensitivity Curve: ",unique_node),
          subtitle=paste0(str_to_title(input$sens_season),"-Season Probability of Occurance: ",
-                         species_lifestage))+
+                         species_lifestage),
+         y= paste0(str_to_title(input$sens_season),"-Season Probability of Occurance"),
+         x= paste0("Average Annual",str_to_title(input$sens_season),"-Season WRP Discharge (cfs)"))+
     theme_bw() + 
-    theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+    theme(panel.border = element_blank(), 
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(), 
+          axis.line = element_line(colour = "black"),
+          axis.text = element_text(size = 12),
+          axis.title=element_text(size=14,face="bold"))
   
 })
 ```
-
-
 
 ```{r,eval=TRUE}
 renderPlot({SpeciesProb_plot()})
@@ -1428,6 +1451,7 @@ renderPlot({SpeciesProb_plot()})
 column(3,
        downloadButton('species_curve', 'Download Species Curve'))
 ```
+
 
 
 ```{r}
@@ -1441,10 +1465,6 @@ output$species_curve <-downloadHandler(
   }
 )
 ```
-
-
-
-
 
 ## Flow Range Heat Map
 
@@ -2590,212 +2610,212 @@ la_map <- reactive({
     LA8CA<-fowGet("LA8", "Cladophora Adult", 16,LA8p)
     if(input$use == "Cladophora Adult"){
       aCol <- ifelse(LA20CA == 0,"#006400", hex[11])
-      aCol <- ifelse(LA20CA == 150,"grey", aCol)
+      aCol <- ifelse(LA20CA == 150,"#E7F0F1", aCol)
       bCol <- ifelse(LA20_2CA == 0, "#006400", hex[11])
-      bCol <- ifelse(LA20_2CA == 150, "grey", bCol)
+      bCol <- ifelse(LA20_2CA == 150, "#E7F0F1", bCol)
       cCol <- ifelse(F300CA == 0,"#006400",  hex[11])
-      cCol <- ifelse(F300CA == 150,"grey",  cCol)
+      cCol <- ifelse(F300CA == 150,"#E7F0F1",  cCol)
       dCol <- ifelse(LA14CA == 0, "#006400", hex[11])
-      dCol <- ifelse(LA14CA == 150, "grey", dCol)
+      dCol <- ifelse(LA14CA == 150, "#E7F0F1", dCol)
       eCol <-  ifelse(LA13CA == 0, "#006400", hex[11])
-      eCol <-  ifelse(LA13CA == 150, "grey", eCol)
+      eCol <-  ifelse(LA13CA == 150, "#E7F0F1", eCol)
       fCol <-  ifelse(GLENCA == 0, "#006400", hex[11])
-      fCol <-  ifelse(GLENCA == 150, "grey", fCol)
+      fCol <-  ifelse(GLENCA == 150, "#E7F0F1", fCol)
       gCol <-  ifelse(LA11CA == 0, "#006400", hex[11])
-      gCol <-  ifelse(LA11CA == 150, "grey", gCol)
+      gCol <-  ifelse(LA11CA == 150, "#E7F0F1", gCol)
       hCol <- ifelse(F57CCA == 0, "#006400", hex[11])
-      hCol <- ifelse(F57CCA == 150, "grey", hCol)
+      hCol <- ifelse(F57CCA == 150, "#E7F0F1", hCol)
       iCol <- ifelse(LA8CA == 0, "#006400", hex[11])
-      iCol <- ifelse(LA8CA == 150, "grey", iCol)
+      iCol <- ifelse(LA8CA == 150, "#E7F0F1", iCol)
       jCol <- ifelse(F34DCA == 0, "#006400", hex[11])
-      jCol <- ifelse(F34DCA == 150, "grey", jCol)
+      jCol <- ifelse(F34DCA == 150, "#E7F0F1", jCol)
       kCol <- ifelse(LA3CA == 0, "#006400", hex[11])
-      kCol <- ifelse(LA3CA == 150, "grey", kCol)
+      kCol <- ifelse(LA3CA == 150, "#E7F0F1", kCol)
       lCol <- ifelse(F319CA == 0, "#006400", hex[11])
-      lCol <- ifelse(F319CA == 150, "grey", lCol)
+      lCol <- ifelse(F319CA == 150, "#E7F0F1", lCol)
       
     }
     if(input$use == "Fishing"){
       aCol <- ifelse(LA20FI == 0,"#006400", hex[11])
-      aCol <- ifelse(LA20FI == 150,"grey", aCol)
+      aCol <- ifelse(LA20FI == 150,"#E7F0F1", aCol)
       bCol <- ifelse(LA20_2FI == 0, "#006400", hex[11])
-      bCol <- ifelse(LA20_2FI == 150, "grey", bCol)
+      bCol <- ifelse(LA20_2FI == 150, "#E7F0F1", bCol)
       cCol <- ifelse(F300FI == 0,"#006400",  hex[11])
-      cCol <- ifelse(F300FI == 150,"grey",  cCol)
+      cCol <- ifelse(F300FI == 150,"#E7F0F1",  cCol)
       dCol <- ifelse(LA14FI == 0, "#006400", hex[11])
-      dCol <- ifelse(LA14FI == 150, "grey", dCol)
+      dCol <- ifelse(LA14FI == 150, "#E7F0F1", dCol)
       eCol <-  ifelse(LA13FI == 0, "#006400", hex[11])
-      eCol <-  ifelse(LA13FI == 150, "grey", eCol)
+      eCol <-  ifelse(LA13FI == 150, "#E7F0F1", eCol)
       fCol <-  ifelse(GLENFI == 0, "#006400", hex[11])
-      fCol <-  ifelse(GLENFI == 150, "grey", fCol)
+      fCol <-  ifelse(GLENFI == 150, "#E7F0F1", fCol)
       gCol <-  ifelse(LA11FI == 0, "#006400", hex[11])
-      gCol <-  ifelse(LA11FI == 150, "grey", gCol)
+      gCol <-  ifelse(LA11FI == 150, "#E7F0F1", gCol)
       hCol <- ifelse(F57CFI == 0, "#006400", hex[11])
-      hCol <- ifelse(F57CFI == 150, "grey", hCol)
+      hCol <- ifelse(F57CFI == 150, "#E7F0F1", hCol)
       iCol <- ifelse(LA8FI == 0, "#006400", hex[11])
-      iCol <- ifelse(LA8FI == 150, "grey", iCol)
+      iCol <- ifelse(LA8FI == 150, "#E7F0F1", iCol)
       jCol <- ifelse(F34DFI == 0, "#006400", hex[11])
-      jCol <- ifelse(F34DFI == 150, "grey", jCol)
+      jCol <- ifelse(F34DFI == 150, "#E7F0F1", jCol)
       kCol <- ifelse(LA3FI == 0, "#006400", hex[11])
-      kCol <- ifelse(LA3FI == 150, "grey", kCol)
+      kCol <- ifelse(LA3FI == 150, "#E7F0F1", kCol)
       lCol <- ifelse(F319FI == 0, "#006400", hex[11])
-      lCol <- ifelse(F319FI == 150, "grey", lCol)
+      lCol <- ifelse(F319FI == 150, "#E7F0F1", lCol)
     }
     if(input$use == "Willow Adult"){
       aCol <- ifelse(LA20WA == 0,"#006400", hex[11])
-      aCol <- ifelse(LA20WA == 150,"grey", aCol)
+      aCol <- ifelse(LA20WA == 150,"#E7F0F1", aCol)
       bCol <- ifelse(LA20_2WA == 0, "#006400", hex[11])
-      bCol <- ifelse(LA20_2WA == 150, "grey", bCol)
+      bCol <- ifelse(LA20_2WA == 150, "#E7F0F1", bCol)
       cCol <- ifelse(F300WA == 0,"#006400",  hex[11])
-      cCol <- ifelse(F300WA == 150,"grey",  cCol)
+      cCol <- ifelse(F300WA == 150,"#E7F0F1",  cCol)
       dCol <- ifelse(LA14WA == 0, "#006400", hex[11])
-      dCol <- ifelse(LA14WA == 150, "grey", dCol)
+      dCol <- ifelse(LA14WA == 150, "#E7F0F1", dCol)
       eCol <-  ifelse(LA13WA == 0, "#006400", hex[11])
-      eCol <-  ifelse(LA13WA == 150, "grey", eCol)
+      eCol <-  ifelse(LA13WA == 150, "#E7F0F1", eCol)
       fCol <-  ifelse(GLENWA == 0, "#006400", hex[11])
-      fCol <-  ifelse(GLENWA == 150, "grey", fCol)
+      fCol <-  ifelse(GLENWA == 150, "#E7F0F1", fCol)
       gCol <-  ifelse(LA11WA == 0, "#006400", hex[11])
-      gCol <-  ifelse(LA11WA == 150, "grey", gCol)
+      gCol <-  ifelse(LA11WA == 150, "#E7F0F1", gCol)
       hCol <- ifelse(F57CWA == 0, "#006400", hex[11])
-      hCol <- ifelse(F57CWA == 150, "grey", hCol)
+      hCol <- ifelse(F57CWA == 150, "#E7F0F1", hCol)
       iCol <- ifelse(LA8WA == 0, "#006400", hex[11])
-      iCol <- ifelse(LA8WA == 150, "grey", iCol)
+      iCol <- ifelse(LA8WA == 150, "#E7F0F1", iCol)
       jCol <- ifelse(F34DWA == 0, "#006400", hex[11])
-      jCol <- ifelse(F34DWA == 150, "grey", jCol)
+      jCol <- ifelse(F34DWA == 150, "#E7F0F1", jCol)
       kCol <- ifelse(LA3WA == 0, "#006400", hex[11])
-      kCol <- ifelse(LA3WA == 150, "grey", kCol)
+      kCol <- ifelse(LA3WA == 150, "#E7F0F1", kCol)
       lCol <- ifelse(F319WA == 0, "#006400", hex[11])
-      lCol <- ifelse(F319WA == 150, "grey", lCol)
+      lCol <- ifelse(F319WA == 150, "#E7F0F1", lCol)
     }
     if(input$use == "Steelhead Migration (Prolonged)"){
       aCol <- ifelse(LA20MP == 0,"#006400", hex[11])
-      aCol <- ifelse(LA20MP == 150,"grey", aCol)
+      aCol <- ifelse(LA20MP == 150,"#E7F0F1", aCol)
       bCol <- ifelse(LA20_2MP == 0, "#006400", hex[11])
-      bCol <- ifelse(LA20_2MP == 150, "grey", bCol)
+      bCol <- ifelse(LA20_2MP == 150, "#E7F0F1", bCol)
       cCol <- ifelse(F300MP == 0,"#006400",  hex[11])
-      cCol <- ifelse(F300MP == 150,"grey",  cCol)
+      cCol <- ifelse(F300MP == 150,"#E7F0F1",  cCol)
       dCol <- ifelse(LA14MP == 0, "#006400", hex[11])
-      dCol <- ifelse(LA14MP == 150, "grey", dCol)
+      dCol <- ifelse(LA14MP == 150, "#E7F0F1", dCol)
       eCol <-  ifelse(LA13MP == 0, "#006400", hex[11])
-      eCol <-  ifelse(LA13MP == 150, "grey", eCol)
+      eCol <-  ifelse(LA13MP == 150, "#E7F0F1", eCol)
       fCol <-  ifelse(GLENMP == 0, "#006400", hex[11])
-      fCol <-  ifelse(GLENMP == 150, "grey", fCol)
+      fCol <-  ifelse(GLENMP == 150, "#E7F0F1", fCol)
       gCol <-  ifelse(LA11MP == 0, "#006400", hex[11])
-      gCol <-  ifelse(LA11MP == 150, "grey", gCol)
+      gCol <-  ifelse(LA11MP == 150, "#E7F0F1", gCol)
       hCol <- ifelse(F57CMP == 0, "#006400", hex[11])
-      hCol <- ifelse(F57CMP == 150, "grey", hCol)
+      hCol <- ifelse(F57CMP == 150, "#E7F0F1", hCol)
       iCol <- ifelse(LA8MP == 0, "#006400", hex[11])
-      iCol <- ifelse(LA8MP == 150, "grey", iCol)
+      iCol <- ifelse(LA8MP == 150, "#E7F0F1", iCol)
       jCol <- ifelse(F34DMP == 0, "#006400", hex[11])
-      jCol <- ifelse(F34DMP == 150, "grey", jCol)
+      jCol <- ifelse(F34DMP == 150, "#E7F0F1", jCol)
       kCol <- ifelse(LA3MP == 0, "#006400", hex[11])
-      kCol <- ifelse(LA3MP == 150, "grey", kCol)
+      kCol <- ifelse(LA3MP == 150, "#E7F0F1", kCol)
       lCol <- ifelse(F319MP == 0, "#006400", hex[11])
-      lCol <- ifelse(F319MP == 150, "grey", lCol)
+      lCol <- ifelse(F319MP == 150, "#E7F0F1", lCol)
     }
     if(input$use == "Typha Adult"){
       aCol <- ifelse(LA20TA == 0,"#006400", hex[11])
-      aCol <- ifelse(LA20TA == 150,"grey", aCol)
+      aCol <- ifelse(LA20TA == 150,"#E7F0F1", aCol)
       bCol <- ifelse(LA20_2TA == 0, "#006400", hex[11])
-      bCol <- ifelse(LA20_2TA == 150, "grey", bCol)
+      bCol <- ifelse(LA20_2TA == 150, "#E7F0F1", bCol)
       cCol <- ifelse(F300TA == 0,"#006400",  hex[11])
-      cCol <- ifelse(F300TA == 150,"grey",  cCol)
+      cCol <- ifelse(F300TA == 150,"#E7F0F1",  cCol)
       dCol <- ifelse(LA14TA == 0, "#006400", hex[11])
-      dCol <- ifelse(LA14TA == 150, "grey", dCol)
+      dCol <- ifelse(LA14TA == 150, "#E7F0F1", dCol)
       eCol <-  ifelse(LA13TA == 0, "#006400", hex[11])
-      eCol <-  ifelse(LA13TA == 150, "grey", eCol)
+      eCol <-  ifelse(LA13TA == 150, "#E7F0F1", eCol)
       fCol <-  ifelse(GLENTA == 0, "#006400", hex[11])
-      fCol <-  ifelse(GLENTA == 150, "grey", fCol)
+      fCol <-  ifelse(GLENTA == 150, "#E7F0F1", fCol)
       gCol <-  ifelse(LA11TA == 0, "#006400", hex[11])
-      gCol <-  ifelse(LA11TA == 150, "grey", gCol)
+      gCol <-  ifelse(LA11TA == 150, "#E7F0F1", gCol)
       hCol <- ifelse(F57CTA == 0, "#006400", hex[11])
-      hCol <- ifelse(F57CTA == 150, "grey", hCol)
+      hCol <- ifelse(F57CTA == 150, "#E7F0F1", hCol)
       iCol <- ifelse(LA8TA == 0, "#006400", hex[11])
-      iCol <- ifelse(LA8TA == 150, "grey", iCol)
+      iCol <- ifelse(LA8TA == 150, "#E7F0F1", iCol)
       jCol <- ifelse(F34DTA == 0, "#006400", hex[11])
-      jCol <- ifelse(F34DTA == 150, "grey", jCol)
+      jCol <- ifelse(F34DTA == 150, "#E7F0F1", jCol)
       kCol <- ifelse(LA3TA == 0, "#006400", hex[11])
-      kCol <- ifelse(LA3TA == 150, "grey", kCol)
+      kCol <- ifelse(LA3TA == 150, "#E7F0F1", kCol)
       lCol <- ifelse(F319TA == 0, "#006400", hex[11])
-      lCol <- ifelse(F319TA == 150, "grey", lCol)
+      lCol <- ifelse(F319TA == 150, "#E7F0F1", lCol)
     }
     if(input$use == "SAS Adult"){
       aCol <- ifelse(LA20AD == 0,"#006400", hex[11])
-      aCol <- ifelse(LA20AD == 150,"grey", aCol)
+      aCol <- ifelse(LA20AD == 150,"#E7F0F1", aCol)
       bCol <- ifelse(LA20_2AD == 0, "#006400", hex[11])
-      bCol <- ifelse(LA20_2AD == 150, "grey", bCol)
+      bCol <- ifelse(LA20_2AD == 150, "#E7F0F1", bCol)
       cCol <- ifelse(F300AD == 0,"#006400",  hex[11])
-      cCol <- ifelse(F300AD == 150,"grey",  cCol)
+      cCol <- ifelse(F300AD == 150,"#E7F0F1",  cCol)
       dCol <- ifelse(LA14AD == 0, "#006400", hex[11])
-      dCol <- ifelse(LA14AD == 150, "grey", dCol)
+      dCol <- ifelse(LA14AD == 150, "#E7F0F1", dCol)
       eCol <-  ifelse(LA13AD == 0, "#006400", hex[11])
-      eCol <-  ifelse(LA13AD == 150, "grey", eCol)
+      eCol <-  ifelse(LA13AD == 150, "#E7F0F1", eCol)
       fCol <-  ifelse(GLENAD == 0, "#006400", hex[11])
-      fCol <-  ifelse(GLENAD == 150, "grey", fCol)
+      fCol <-  ifelse(GLENAD == 150, "#E7F0F1", fCol)
       gCol <-  ifelse(LA11AD == 0, "#006400", hex[11])
-      gCol <-  ifelse(LA11AD == 150, "grey", gCol)
+      gCol <-  ifelse(LA11AD == 150, "#E7F0F1", gCol)
       hCol <- ifelse(F57CAD == 0, "#006400", hex[11])
-      hCol <- ifelse(F57CAD == 150, "grey", hCol)
+      hCol <- ifelse(F57CAD == 150, "#E7F0F1", hCol)
       iCol <- ifelse(LA8AD == 0, "#006400", hex[11])
-      iCol <- ifelse(LA8AD == 150, "grey", iCol)
+      iCol <- ifelse(LA8AD == 150, "#E7F0F1", iCol)
       jCol <- ifelse(F34DAD == 0, "#006400", hex[11])
-      jCol <- ifelse(F34DAD == 150, "grey", jCol)
+      jCol <- ifelse(F34DAD == 150, "#E7F0F1", jCol)
       kCol <- ifelse(LA3AD == 0, "#006400", hex[11])
-      kCol <- ifelse(LA3AD == 150, "grey", kCol)
+      kCol <- ifelse(LA3AD == 150, "#E7F0F1", kCol)
       lCol <- ifelse(F319AD == 0, "#006400", hex[11])
-      lCol <- ifelse(F319AD == 150, "grey", lCol)
+      lCol <- ifelse(F319AD == 150, "#E7F0F1", lCol)
     }
     if(input$use == "Steelhead Migration (Burst)"){
       aCol <- ifelse(LA20SB == 0,"#006400", hex[11])
-      aCol <- ifelse(LA20SB == 150,"grey", aCol)
+      aCol <- ifelse(LA20SB == 150,"#E7F0F1", aCol)
       bCol <- ifelse(LA20_2SB == 0, "#006400", hex[11])
-      bCol <- ifelse(LA20_2SB == 150, "grey", bCol)
+      bCol <- ifelse(LA20_2SB == 150, "#E7F0F1", bCol)
       cCol <- ifelse(F300SB == 0,"#006400",  hex[11])
-      cCol <- ifelse(F300SB == 150,"grey",  cCol)
+      cCol <- ifelse(F300SB == 150,"#E7F0F1",  cCol)
       dCol <- ifelse(LA14SB == 0, "#006400", hex[11])
-      dCol <- ifelse(LA14SB == 150, "grey", dCol)
+      dCol <- ifelse(LA14SB == 150, "#E7F0F1", dCol)
       eCol <-  ifelse(LA13SB == 0, "#006400", hex[11])
-      eCol <-  ifelse(LA13SB == 150, "grey", eCol)
+      eCol <-  ifelse(LA13SB == 150, "#E7F0F1", eCol)
       fCol <-  ifelse(GLENSB == 0, "#006400", hex[11])
-      fCol <-  ifelse(GLENSB == 150, "grey", fCol)
+      fCol <-  ifelse(GLENSB == 150, "#E7F0F1", fCol)
       gCol <-  ifelse(LA11SB == 0, "#006400", hex[11])
-      gCol <-  ifelse(LA11SB == 150, "grey", gCol)
+      gCol <-  ifelse(LA11SB == 150, "#E7F0F1", gCol)
       hCol <- ifelse(F57CSB == 0, "#006400", hex[11])
-      hCol <- ifelse(F57CSB == 150, "grey", hCol)
+      hCol <- ifelse(F57CSB == 150, "#E7F0F1", hCol)
       iCol <- ifelse(LA8SB == 0, "#006400", hex[11])
-      iCol <- ifelse(LA8SB == 150, "grey", iCol)
+      iCol <- ifelse(LA8SB == 150, "#E7F0F1", iCol)
       jCol <- ifelse(F34DSB == 0, "#006400", hex[11])
-      jCol <- ifelse(F34DSB == 150, "grey", jCol)
+      jCol <- ifelse(F34DSB == 150, "#E7F0F1", jCol)
       kCol <- ifelse(LA3SB == 0, "#006400", hex[11])
-      kCol <- ifelse(LA3SB == 150, "grey", kCol)
+      kCol <- ifelse(LA3SB == 150, "#E7F0F1", kCol)
       lCol <- ifelse(F319SB == 0, "#006400", hex[11])
-      lCol <- ifelse(F319SB == 150, "grey", lCol)
+      lCol <- ifelse(F319SB == 150, "#E7F0F1", lCol)
     }
     if(input$use == "Kayak"){
       aCol <- ifelse(LA20KA == 0,"#006400", hex[11])
-      aCol <- ifelse(LA20KA == 150,"grey", aCol)
+      aCol <- ifelse(LA20KA == 150,"#E7F0F1", aCol)
       bCol <- ifelse(LA20_2KA == 0, "#006400", hex[11])
-      bCol <- ifelse(LA20_2KA == 150, "grey", bCol)
+      bCol <- ifelse(LA20_2KA == 150, "#E7F0F1", bCol)
       cCol <- ifelse(F300KA == 0,"#006400",  hex[11])
-      cCol <- ifelse(F300KA == 150,"grey",  cCol)
+      cCol <- ifelse(F300KA == 150,"#E7F0F1",  cCol)
       dCol <- ifelse(LA14KA == 0, "#006400", hex[11])
-      dCol <- ifelse(LA14KA == 150, "grey", dCol)
+      dCol <- ifelse(LA14KA == 150, "#E7F0F1", dCol)
       eCol <-  ifelse(LA13KA == 0, "#006400", hex[11])
-      eCol <-  ifelse(LA13KA == 150, "grey", eCol)
+      eCol <-  ifelse(LA13KA == 150, "#E7F0F1", eCol)
       fCol <-  ifelse(GLENKA == 0, "#006400", hex[11])
-      fCol <-  ifelse(GLENKA == 150, "grey", fCol)
+      fCol <-  ifelse(GLENKA == 150, "#E7F0F1", fCol)
       gCol <-  ifelse(LA11KA == 0, "#006400", hex[11])
-      gCol <-  ifelse(LA11KA == 150, "grey", gCol)
+      gCol <-  ifelse(LA11KA == 150, "#E7F0F1", gCol)
       hCol <- ifelse(F57CKA == 0, "#006400", hex[11])
-      hCol <- ifelse(F57CKA == 150, "grey", hCol)
+      hCol <- ifelse(F57CKA == 150, "#E7F0F1", hCol)
       iCol <- ifelse(LA8KA == 0, "#006400", hex[11])
-      iCol <- ifelse(LA8KA == 150, "grey", iCol)
+      iCol <- ifelse(LA8KA == 150, "#E7F0F1", iCol)
       jCol <- ifelse(F34DKA == 0, "#006400", hex[11])
-      jCol <- ifelse(F34DKA == 150, "grey", jCol)
+      jCol <- ifelse(F34DKA == 150, "#E7F0F1", jCol)
       kCol <- ifelse(LA3KA == 0, "#006400", hex[11])
-      kCol <- ifelse(LA3KA == 150, "grey", kCol)
+      kCol <- ifelse(LA3KA == 150, "#E7F0F1", kCol)
       lCol <- ifelse(F319KA == 0, "#006400", hex[11])
-      lCol <- ifelse(F319KA == 150, "grey", lCol)
+      lCol <- ifelse(F319KA == 150, "#E7F0F1", lCol)
     }
     LosAngeles <- leaflet(options = leafletOptions( 
       minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
@@ -2911,35 +2931,6 @@ colnames(LA20) <- c("Station", "Elevation")
 LA11Depth <- read.csv("data/equationBetter.csv")
 ```
 
-```{r,eval=FALSE}
-fluidPage(
-  
-  
-  sidebarLayout(
-    
-    
-    sidebarPanel(width=3,selectInput("node_depth","Select Location:",
-                                     choices =   c("LA11","LA20_2","LA20","F34D",
-                                                   "F57C","F37B_High","GLEN","LA3","LA8",
-                                                   "LA13","LA14","F319","F300",
-                                                   "F45B","F37B_Low")),
-                 renderUI({
-                   validate(need(input$node_depth !=""," "))
-                   
-                   max_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>% 
-                     pull(MaxDepth)
-                   selected_cfs <- node_depth_dat %>% filter(Node == input$node_depth) %>%
-                     pull(MaxDepth) *0.1
-                   numericInput("cfs_depth","Flow (cfs)",min=0,
-                                max = max_cfs,selected_cfs,step = 50
-                   )
-                 }),
-                 renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))})),
-    mainPanel(width=9,renderPlot({graphPlan()}))))
-```
-
-
-
 
 ```{r}
 
@@ -2964,17 +2955,15 @@ fixedRow(
            )
          })
   ),
-  column(3,tags$h1(),
-         renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))})
+  column(3,tags$h1(""),
+         tags$h2(style="color:#2E8B57",    
+         renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))}))
   )
 )
 fluidRow(column(12,
                 renderPlot({graphPlan()})))
 
 ```
-
-
-
 
 ```{r}
 node_depth_dat <- tribble(
