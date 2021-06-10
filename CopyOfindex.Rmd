@@ -75,11 +75,9 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 ## Overview {.tabset}
 
 #### **Welcome to the Los Angeles (LA) River Environmental Flows Dashboard!**
-<center>
-+---------------------------------------+---------------------------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------+
-| ![](www/sccwrp_logo.png){width="361"} | ![](www/LogosWaterboards.png){width="300" height="220"} | ![](www/colorado-school-of-mines.png){width="330" height="200"} | ![](www/council_watershed_health.png){width="180" height="200"} |
-+---------------------------------------+---------------------------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------+
-</center>
+
+![](www/logos_all.png)
+
 This interactive web page will allow you to explore flow ranges associated with beneficial uses of the LA River (**Flow Range Determination**) and **Sensitivity Curves**, evaluate the relative effects of various WRP discharges on multiple locations of the river (**Flow Range Heat Map**), and visualize flow at multiple cross sections (**Flow Depth Visualizer**). Start by using the menu sections on the top.
 
 ------------------------------------------------------------------------
