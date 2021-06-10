@@ -74,11 +74,13 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
 ## Overview {.tabset}
 
-**Welcome to the Los Angeles (LA) River Environmental Flows Dashboard!**
+#### **Welcome to the Los Angeles (LA) River Environmental Flows Dashboard!**
 
--   Add in SCCWRP and CSM logos
-
--   LA River watershed map
++----------------------------------------------------+-----------------------------------------------------------------+
+| ![](www/sccwrp_logo.png){width="223"}              | ![](www/council_watershed_health.png){width="280" height="217"} |
++----------------------------------------------------+-----------------------------------------------------------------+
+| ![](www/colorado-school-of-mines.png){width="429"} | ![](www/LogosWaterboards.png){width="350" height="250"}         |
++----------------------------------------------------+-----------------------------------------------------------------+
 
 This interactive web page will allow you to explore flow ranges associated with beneficial uses of the LA River (**Flow Range Determination**) and **Sensitivity Curves**, evaluate the relative effects of various WRP discharges on multiple locations of the river (**Flow Range Heat Map**), and visualize flow at multiple cross sections (**Flow Depth Visualizer**). Start by using the menu sections on the top.
 
@@ -98,13 +100,17 @@ Background on section and descriptions of use
 
 User decision flow chart
 
+![](www/FigureX_flowrecommendationprocess.jpg)
+
 ------------------------------------------------------------------------
 
 <font size="5">Sensitivity Curves</font>
 
 Background on section and descriptions of use
 
-Example sensivity curve and description of plots [flow- and species-based]
+Example sensitivity curve and description of plots [flow- and species-based]
+
+![](www/FigureX_SensitivityCurveProcess.jpg)
 
 ------------------------------------------------------------------------
 
@@ -3157,7 +3163,7 @@ graphPlan <- reactive({
        main = input$node_depth, cex.main = 3, col.main = '#2E8B57',
        cex.lab = 1.5, cex.sub = 3, col.lab = "#228B22", font.lab = 4, font.main = 4)
   polygon(c(min(x),min(x), max(x)-2, max(x)-2 ),c(0,yx, yx, 0), col = "#81b7d2")
-  polygon(x.poly, y.poly, col= "#097770", border=NA) 
+  polygon(x.poly, y.poly, col= "#c4beb7", border="black") 
   
   if(input$node_depth == "F37B_High" || input$node_depth == "F300"){
     draw.stick(min(x)-6,-1, scale = 7.5, arms="up", lwd = 3)
