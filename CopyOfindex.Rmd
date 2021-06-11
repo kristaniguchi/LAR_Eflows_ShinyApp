@@ -1387,7 +1387,7 @@ SpeciesProb_dat <- reactive({
 
 ```
 
-```{r}
+```{r,eval=FALSE}
 lower_curve <- reactive({
   
   lower.curve <- loess(p10 ~ seasonal.wrp.Q, data= SpeciesProb_dat()) 
@@ -1398,7 +1398,7 @@ lower_curve <- reactive({
 })
 ```
 
-```{r}
+```{r,eval=FALSE}
 upper_curve <- reactive({
   
   upper.curve <- loess(p90 ~ seasonal.wrp.Q, data= SpeciesProb_dat()) 
@@ -1409,7 +1409,7 @@ upper_curve <- reactive({
 })
 ```
 
-```{r,eval=TRUE}
+```{r,eval=FALSE}
 SpeciesProb_plot <- reactive({
   
   dat <- SpeciesProb_dat()
@@ -1439,9 +1439,17 @@ SpeciesProb_plot <- reactive({
 })
 ```
 
-```{r,eval=TRUE}
+```{r,eval=FALSE}
 renderPlot({SpeciesProb_plot()})
 ```
+
+
+```{r}
+DT::renderDataTable({SpeciesProb_dat()})
+```
+
+
+
 
 ```{r}
 column(3,
