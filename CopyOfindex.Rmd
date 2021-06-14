@@ -1372,14 +1372,57 @@ output$sensitivity_curve <-downloadHandler(
 tags$h3("Species Sensitivity Curves")
 ```
 
+
+```{r}
+column(12,
+       column(4,
+              renderUI({
+                tmpdf <- SpeciesProb %>%
+                  filter(ReportingNode == input$node) %>% 
+                  filter(season == input$sens_season)
+                selectInput("species.lifestage", 
+                            "Select a Species Lifestage",
+                            unique(tmpdf$species.lifestage)) 
+              })),
+       column(4,renderUI({
+         tmpdf <- SpeciesProb %>%
+           filter(ReportingNode == input$node) %>% 
+           filter(season == input$sens_season) %>% 
+           filter(species.lifestage == input$species.lifestage)
+         selectInput("species.lifestage.hyd", 
+                     "Depth/Velocity",
+                     unique(tmpdf$species.lifestage.hyd)) })        
+       ),
+       column(4,tags$h3(""),
+              downloadButton('species_curve', 'Download Species Curve'))
+)
+```
+
+
+
 ```{r}
 SpeciesProb_dat <- reactive({
   validate(need(input$node != ""," "))
   validate(need(input$sens_season != ""," "))
+  validate(need(input$species.lifestage != ""," "))
+  validate(need(input$species.lifestage.hyd != ""," "))
   
-  out <- SpeciesProb %>%
-    filter(ReportingNode == input$node) %>% 
-    filter(season == input$sens_season)
+  if(input$sens_season == "dry"){
+    out <- SpeciesProb %>%
+      filter(ReportingNode == input$node) %>% 
+      filter(season == input$sens_season) %>% 
+      filter(species.lifestage == input$species.lifestage) %>%
+      filter(species.lifestage.hyd == input$species.lifestage.hyd) %>% 
+      rename(seasonal.wrp.Q = dry_season)
+  }else{
+    out <- SpeciesProb %>%
+      filter(ReportingNode == input$node) %>% 
+      filter(season == input$sens_season) %>% 
+      filter(species.lifestage == input$species.lifestage) %>%
+      filter(species.lifestage.hyd == input$species.lifestage.hyd) %>% 
+      rename(seasonal.wrp.Q = wet_season)
+  }
+
   
   return(out)
 })
@@ -1387,7 +1430,7 @@ SpeciesProb_dat <- reactive({
 
 ```
 
-```{r,eval=FALSE}
+```{r, eval=TRUE}
 lower_curve <- reactive({
   
   lower.curve <- loess(p10 ~ seasonal.wrp.Q, data= SpeciesProb_dat()) 
@@ -1398,7 +1441,7 @@ lower_curve <- reactive({
 })
 ```
 
-```{r,eval=FALSE}
+```{r,eval=TRUE}
 upper_curve <- reactive({
   
   upper.curve <- loess(p90 ~ seasonal.wrp.Q, data= SpeciesProb_dat()) 
@@ -1409,20 +1452,20 @@ upper_curve <- reactive({
 })
 ```
 
-```{r,eval=FALSE}
+```{r,eval=TRUE}
 SpeciesProb_plot <- reactive({
-  
   dat <- SpeciesProb_dat()
   unique_node <- dat$ReportingNode
-  baseline <- dat %>% filter(Scenario==0) %>% pull(type_season)
+  #baseline <- dat %>% filter(Scenario==0) %>% pull(type_season)
   species_lifestage <- dat$species.lifestage.hyd
+  req(dat$seasonal.wrp.Q)
   
   ggplot(dat,
          aes(x=seasonal.wrp.Q, y = p50), color="blue") +
     geom_smooth(level=0) +
     geom_ribbon(aes(ymin=lower_curve()$fit, ymax=upper_curve()$fit), 
                 alpha=0.2, fill="#4575b4") +
-    geom_vline(xintercept=baseline, linetype="dashed", color = "black") +
+    #geom_vline(xintercept=baseline, linetype="dashed", color = "black") +
     labs(title = paste0("Species Sensitivity Curve: ",unique_node),
          subtitle=paste0(str_to_title(input$sens_season),"-Season Probability of Occurance: ",
                          species_lifestage),
@@ -1439,22 +1482,19 @@ SpeciesProb_plot <- reactive({
 })
 ```
 
-```{r,eval=FALSE}
+```{r,eval=TRUE}
 renderPlot({SpeciesProb_plot()})
 ```
 
 
-```{r}
+
+```{r,eval=FALSE}
 DT::renderDataTable({SpeciesProb_dat()})
 ```
 
 
 
 
-```{r}
-column(3,
-       downloadButton('species_curve', 'Download Species Curve'))
-```
 
 ```{r}
 output$species_curve <-downloadHandler(
