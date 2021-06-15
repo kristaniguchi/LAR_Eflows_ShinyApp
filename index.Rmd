@@ -13,8 +13,7 @@ library(leaflet)
 library(ggfittext)
 library(rgdal)
 
-knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE,
-                      fig.path = "www")
+knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 
 
 sensitivity_dat <- read_csv("raw/SynthesisCurves_SpeciesProb.csv") %>% 
@@ -90,6 +89,78 @@ For more information about this project, go to <https://www.sccwrp.org/about/res
 
 ------------------------------------------------------------------------
 
+
+<font size="5"> Reference Map </font>
+
+
+
+
+
+
+```{r}
+renderLeaflet({
+  leaflet(options = leafletOptions( 
+    minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
+    htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
+    setView(lng = -118.2437, lat =34.0522, zoom = 10)%>%
+    addTiles(options = providerTileOptions(opacity = 1)) %>%
+    addMarkers(lng=-118.247706, lat=34.108175,
+               popup=PopcontentLA11,
+               label="LA11",
+               labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
+    addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
+               label="LA20",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    
+    addMarkers(lng=-118.484394, lat=34.173175,
+               popup=PopcontentLA20_2,
+               label="LA20_2",
+               labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
+    addMarkers(lng=-118.173592, lat=33.948297,
+               popup=PopcontentF34D,
+               label="F34D",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addMarkers(lng=-118.228233, lat=34.085803,
+               popup=PopcontentF57C,
+               label="F57C",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addMarkers(lng=-118.275339, lat=34.136858,
+               popup=PopcontentGLEN,
+               label="GLEN",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addMarkers(lng=-118.196333, lat=33.8639,popup=PopcontentLA3,
+               label="LA3",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addMarkers(lng=-118.228603, lat=34.040528,
+               popup=PopcontentLA8,
+               label="LA8",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addMarkers(lng=-118.299758, lat=34.156839,popup=PopcontentLA14,
+               label="LA14",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addMarkers(lng=-118.205728, lat=33.817733,popup=PopcontentF319,
+               label="F319",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addMarkers(lng=-118.378453, lat=34.1411,popup=PopcontentF300,
+               label="F300",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
+               label="LA13",
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addPolylines(data=river,weight=4,col = 'blue')  
+  
+  
+})
+```
+
+
+
+
+
+------------------------------------------------------------------------
+
+
 <font size="5"> Flow Range Determination </font>
 
 Background on section and descriptions of use
@@ -115,6 +186,7 @@ Example sensitivity curve and description of plots [flow- and species-based]
 Background on section and descriptions of use
 
 ------------------------------------------------------------------------
+
 
 <font size="5">Flow Depth Visualizer</font>
 
@@ -714,10 +786,14 @@ fluidPage(tags$h3("Location and Season"),
                                         "F319","F300"))), 
                    column(3,
                           selectInput("sens_season", label = "Select Season:",
-                                      choices = c("Dry"="dry","Wet"="wet")))))
+                                      choices = c("Dry"="dry","Wet"="wet")))
+                   
+                   
+                   ))
 ```
 
 ------------------------------------------------------------------------
+
 
 ### Flow-Based Curve
 
@@ -1372,7 +1448,6 @@ output$sensitivity_curve <-downloadHandler(
 tags$h3("Species Sensitivity Curves")
 ```
 
-
 ```{r}
 column(12,
        column(4,
@@ -1384,21 +1459,21 @@ column(12,
                             "Select a Species Lifestage",
                             unique(tmpdf$species.lifestage)) 
               })),
-       column(4,renderUI({
-         tmpdf <- SpeciesProb %>%
-           filter(ReportingNode == input$node) %>% 
-           filter(season == input$sens_season) %>% 
-           filter(species.lifestage == input$species.lifestage)
-         selectInput("species.lifestage.hyd", 
-                     "Depth/Velocity",
-                     unique(tmpdf$species.lifestage.hyd)) })        
+       column(4,
+              renderUI({
+                req(input$species.lifestage)
+                tmpdf <- SpeciesProb %>%
+                  filter(ReportingNode == input$node) %>% 
+                  filter(season == input$sens_season) %>% 
+                  filter(species.lifestage == input$species.lifestage)
+                selectInput("species.lifestage.hyd", 
+                            "Depth/Velocity",
+                            unique(tmpdf$species.lifestage.hyd)) })        
        ),
        column(4,tags$h3(""),
               downloadButton('species_curve', 'Download Species Curve'))
 )
 ```
-
-
 
 ```{r}
 SpeciesProb_dat <- reactive({
@@ -1486,15 +1561,9 @@ SpeciesProb_plot <- reactive({
 renderPlot({SpeciesProb_plot()})
 ```
 
-
-
 ```{r,eval=FALSE}
 DT::renderDataTable({SpeciesProb_dat()})
 ```
-
-
-
-
 
 ```{r}
 output$species_curve <-downloadHandler(
@@ -2204,59 +2273,47 @@ output$heatmap <- downloadHandler(
 
 ```{r}
  PopcontentLA20 <- paste(sep = "<br/>",
-                          paste0("<img src='LA20_2.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about LA20</b>"),
                           paste0("Los Angeles River within Sepulveda Basin"))
   PopcontentLA11 <- paste(sep = "<br/>",
-                          paste0("<img src='LA11.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about LA11</b>"),
                           paste0("Los Angeles River at Glendale Narrows"))
   PopcontentLA20_2 <- paste(sep = "<br/>",
-                            paste0("<img src='LA20_2.PNG", "'style=width:300px;height:200px;/>"),
                             paste0("<b>Learn about LA20_2</b>"),
                             paste0("Los Angeles River above Sepulveda Basin"))
   
   PopcontentF34D <- paste(sep = "<br/>",
-                          paste0("<img src='F34D.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about F34D</b>"),
                           paste0("Los Angeles River above confluence with Rio Hondo"))
   
   PopcontentF57C <- paste(sep = "<br/>",
-                          paste0("<img src='F57C.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about F57C</b>"),
                           paste0("Los Angeles River above confluence with Arroyo Seco"))
   
   PopcontentF300 <- paste(sep = "<br/>",
-                          paste0("<img src='F300.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about F300</b>"),
                           paste0("Los Angeles River above confluence with Burbank Channel"))
   
   PopcontentF319 <- paste(sep = "<br/>",
-                          paste0("<img src='F319.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about F319</b>"),
                           paste0("Los Angeles River at Wardlow Gage"))
   
   PopcontentGLEN <- paste(sep = "<br/>",
-                          paste0("<img src='GLEN.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about GLEN</b>"),
                           paste0("Los Angeles River below Glendale WRP"))
   
   PopcontentLA3 <- paste(sep = "<br/>",
-                         paste0("<img src='LA3.jpg", "'style=width:300px;height:200px;/>"),
                          paste0("<b>Learn about LA3</b>"),
                          paste0("Los Angeles River below confluence with Rio Hondo"))
   
   PopcontentLA8 <- paste(sep = "<br/>",
-                         paste0("<img src='LA8.jpg", "'style=width:300px;height:200px;/>"),
                          paste0("<b>Learn about LA8</b>"),
                          paste0("Los Angeles River above confluence with Rio Hondo"))
   
   PopcontentLA13 <- paste(sep = "<br/>",
-                          paste0("<img src='LA13.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about LA13</b>"),
                           paste0("Los Angeles River above Glendale WRP"))
   PopcontentLA14 <- paste(sep = "<br/>",
-                          paste0("<img src='LA14.jpg", "'style=width:300px;height:200px;/>"),
                           paste0("<b>Learn about LA14</b>"),
                           paste0("Los Angeles River below confluence with Burbank Channel"))
  
@@ -2858,29 +2915,54 @@ la_map <- reactive({
     addTiles(options = providerTileOptions(opacity = 1)) %>%
     addCircleMarkers(lng=-118.247706, lat=34.108175, radius = 11,
                      opacity = 1, color = gCol, 
-                     popup=PopcontentLA11)%>% #MarkerHome
+                     popup=PopcontentLA11,
+                     label="LA11",
+    labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
     addCircleMarkers(lng=-118.514642, lat=34.184708, radius = 11, 
-                     color =  aCol, opacity = 1,popup=PopcontentLA20) %>%
+                     color =  aCol, opacity = 1,popup=PopcontentLA20,
+                     label="LA20",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    
     addCircleMarkers(lng=-118.484394, lat=34.173175, radius = 11, 
-                     color =  bCol,opacity = 1,popup=PopcontentLA20_2)%>%
+                     color =  bCol,opacity = 1,popup=PopcontentLA20_2,
+                     label="LA20_2",
+    labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
     addCircleMarkers(lng=-118.173592, lat=33.948297, radius = 11, 
-                     color =  jCol,opacity = 1,popup=PopcontentF34D) %>%
+                     color =  jCol,opacity = 1,popup=PopcontentF34D,
+                     label="F34D",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addCircleMarkers(lng=-118.228233, lat=34.085803, radius = 11, 
-                     color =  hCol,opacity = 1,popup=PopcontentF57C) %>%
+                     color =  hCol,opacity = 1,popup=PopcontentF57C,
+                     label="F57C",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addCircleMarkers(lng=-118.275339, lat=34.136858, radius = 11, 
-                     color =  fCol,opacity = 1,popup=PopcontentGLEN) %>%
+                     color =  fCol,opacity = 1,popup=PopcontentGLEN,
+                     label="GLEN",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addCircleMarkers(lng=-118.196333, lat=33.8639, radius = 11, 
-                     color =  kCol,opacity = 1,popup=PopcontentLA3) %>%
+                     color =  kCol,opacity = 1,popup=PopcontentLA3,
+                     label="LA3",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addCircleMarkers(lng=-118.228603, lat=34.040528, radius = 11, 
-                     color =  iCol,opacity = 1,popup=PopcontentLA8) %>%
+                     color =  iCol,opacity = 1,popup=PopcontentLA8,
+                     label="LA8",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addCircleMarkers(lng=-118.299758, lat=34.156839, radius = 11, 
-                     color =  dCol,opacity = 1,popup=PopcontentLA14) %>%
+                     color =  dCol,opacity = 1,popup=PopcontentLA14,
+                     label="LA14",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addCircleMarkers(lng=-118.205728, lat=33.817733, radius = 11, 
-                     color =  lCol,opacity = 1,popup=PopcontentF319) %>%
+                     color =  lCol,opacity = 1,popup=PopcontentF319,
+                     label="F319",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addCircleMarkers(lng=-118.378453, lat=34.1411, radius = 11, 
-                     color =  cCol,opacity = 1,popup=PopcontentF300) %>%
+                     color =  cCol,opacity = 1,popup=PopcontentF300,
+                     label="F300",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addCircleMarkers(lng=-118.278844, lat=34.150964, radius = 11, 
-                     color =  eCol,opacity = 1,popup=PopcontentLA13) %>%
+                     color =  eCol,opacity = 1,popup=PopcontentLA13,
+                     label="LA13",
+    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addPolylines(data=river,weight=4,col = 'blue')
   
   
@@ -3209,3 +3291,4 @@ graphPlan <- reactive({
   
 }) 
 ```
+
