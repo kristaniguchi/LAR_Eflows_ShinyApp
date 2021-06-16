@@ -232,6 +232,7 @@ for(i in 1:length(unique.nodes)){
   prob.sub.urban$wet_season[ind.WRP100] <- baselines$wet_season
   prob.sub.urban$spring[ind.WRP100] <- baselines$spring
   
+  #write.csv(wrp.sub,paste0("dat",i,".csv"))
   #loop to create sensitivity curves for each season
   for(j in 1:1){
     
@@ -366,7 +367,6 @@ for(i in 1:length(unique.nodes)){
       #Loop to plot smooth curve for each life stage hydraulics
       unique.lifestage.hyd <- unique(data.plot.species$species.lifestage.hyd)
       
-      
       for(n in 1:length(unique.lifestage.hyd)){
         ####################################
         #####SMOOTH SENSITIVITY CURVES:
@@ -429,7 +429,7 @@ for(i in 1:length(unique.nodes)){
         #save
         file.name2 <- paste0(out.dir.species.lifestage.limitingfactor, unique.nodes[i], "_", unique.lifestage.hyd[n], "_",seasons.to.plot[j], "_Species_Sensitivity_Curve.jpg")
         #ggsave(p2.life.stage, filename=file.name2, dpi=300, height=5, width=5)
-        write.csv(wrp.sub.metric.j.life.stage[j],paste0("SpeciesProb-Wet",i,".csv"))
+        #write.csv(wrp.sub.metric.j.life.stage[j],paste0("SpeciesProb-Wet",i,".csv"))
         
         #####################################################
         #JOSE: do not need to plot the urban baseflow removal scenarios, only WRP plot
