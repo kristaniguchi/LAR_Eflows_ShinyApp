@@ -105,7 +105,7 @@ renderLeaflet({
     minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
     htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
-    setView(lng = -118.2437, lat =34.0522, zoom = 10)%>%
+    setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
     addTiles(options = providerTileOptions(opacity = 1)) %>%
     addMarkers(lng=-118.247706, lat=34.108175,
                popup=PopcontentLA11,
@@ -1702,6 +1702,13 @@ fluidPage(
 )
 ```
 
+
+```{r}
+checkboxInput("showlabel", "Show Labels", FALSE)
+```
+
+
+
 ```{r}
 renderLeaflet({la_map()})
 ```
@@ -2929,63 +2936,96 @@ la_map <- reactive({
     lCol <- ifelse(F319KA == 0, "#006400", hex[11])
     lCol <- ifelse(F319KA == 150, "#E7F0F1", lCol)
   }
-  LosAngeles <- leaflet(options = leafletOptions( 
+  LosAngeles_nomarkers <- leaflet(options = leafletOptions( 
     minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
     htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
     setView(lng = -118.2437, lat =34.0522, zoom = 10)%>%
-    addTiles(options = providerTileOptions(opacity = 1)) %>%
-    addCircleMarkers(lng=-118.247706, lat=34.108175, radius = 11,
-                     opacity = 1, color = gCol, 
-                     popup=PopcontentLA11,
-                     label="LA11",
-    labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
-    addCircleMarkers(lng=-118.514642, lat=34.184708, radius = 11, 
-                     color =  aCol, opacity = 1,popup=PopcontentLA20,
-                     label="LA20",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+    addTiles(options = providerTileOptions(opacity = 1))
     
-    addCircleMarkers(lng=-118.484394, lat=34.173175, radius = 11, 
-                     color =  bCol,opacity = 1,popup=PopcontentLA20_2,
-                     label="LA20_2",
-    labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
-    addCircleMarkers(lng=-118.173592, lat=33.948297, radius = 11, 
-                     color =  jCol,opacity = 1,popup=PopcontentF34D,
-                     label="F34D",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addCircleMarkers(lng=-118.228233, lat=34.085803, radius = 11, 
-                     color =  hCol,opacity = 1,popup=PopcontentF57C,
-                     label="F57C",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addCircleMarkers(lng=-118.275339, lat=34.136858, radius = 11, 
-                     color =  fCol,opacity = 1,popup=PopcontentGLEN,
-                     label="GLEN",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addCircleMarkers(lng=-118.196333, lat=33.8639, radius = 11, 
-                     color =  kCol,opacity = 1,popup=PopcontentLA3,
-                     label="LA3",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addCircleMarkers(lng=-118.228603, lat=34.040528, radius = 11, 
-                     color =  iCol,opacity = 1,popup=PopcontentLA8,
-                     label="LA8",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addCircleMarkers(lng=-118.299758, lat=34.156839, radius = 11, 
-                     color =  dCol,opacity = 1,popup=PopcontentLA14,
-                     label="LA14",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addCircleMarkers(lng=-118.205728, lat=33.817733, radius = 11, 
-                     color =  lCol,opacity = 1,popup=PopcontentF319,
-                     label="F319",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addCircleMarkers(lng=-118.378453, lat=34.1411, radius = 11, 
-                     color =  cCol,opacity = 1,popup=PopcontentF300,
-                     label="F300",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addCircleMarkers(lng=-118.278844, lat=34.150964, radius = 11, 
-                     color =  eCol,opacity = 1,popup=PopcontentLA13,
-                     label="LA13",
-    labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addPolylines(data=river,weight=4,col = 'blue')
+  if(input$showlabel){
+    LosAngeles <- LosAngeles_nomarkers %>% 
+      addCircleMarkers(lng=-118.247706, lat=34.108175, radius = 11,
+                       opacity = 1, color = gCol, 
+                       popup=PopcontentLA11,
+                       label="LA11",
+                       labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
+      addCircleMarkers(lng=-118.514642, lat=34.184708, radius = 11, 
+                       color =  aCol, opacity = 1,popup=PopcontentLA20,
+                       label="LA20",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      
+      addCircleMarkers(lng=-118.484394, lat=34.173175, radius = 11, 
+                       color =  bCol,opacity = 1,popup=PopcontentLA20_2,
+                       label="LA20_2",
+                       labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
+      addCircleMarkers(lng=-118.173592, lat=33.948297, radius = 11, 
+                       color =  jCol,opacity = 1,popup=PopcontentF34D,
+                       label="F34D",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addCircleMarkers(lng=-118.228233, lat=34.085803, radius = 11, 
+                       color =  hCol,opacity = 1,popup=PopcontentF57C,
+                       label="F57C",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addCircleMarkers(lng=-118.275339, lat=34.136858, radius = 11, 
+                       color =  fCol,opacity = 1,popup=PopcontentGLEN,
+                       label="GLEN",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addCircleMarkers(lng=-118.196333, lat=33.8639, radius = 11, 
+                       color =  kCol,opacity = 1,popup=PopcontentLA3,
+                       label="LA3",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addCircleMarkers(lng=-118.228603, lat=34.040528, radius = 11, 
+                       color =  iCol,opacity = 1,popup=PopcontentLA8,
+                       label="LA8",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addCircleMarkers(lng=-118.299758, lat=34.156839, radius = 11, 
+                       color =  dCol,opacity = 1,popup=PopcontentLA14,
+                       label="LA14",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addCircleMarkers(lng=-118.205728, lat=33.817733, radius = 11, 
+                       color =  lCol,opacity = 1,popup=PopcontentF319,
+                       label="F319",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addCircleMarkers(lng=-118.378453, lat=34.1411, radius = 11, 
+                       color =  cCol,opacity = 1,popup=PopcontentF300,
+                       label="F300",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addCircleMarkers(lng=-118.278844, lat=34.150964, radius = 11, 
+                       color =  eCol,opacity = 1,popup=PopcontentLA13,
+                       label="LA13",
+                       labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+      addPolylines(data=river,weight=4,col = 'blue')
+  }
+  else{
+    LosAngeles <- LosAngeles_nomarkers %>% 
+      addCircleMarkers(lng=-118.247706, lat=34.108175, radius = 11,
+                       opacity = 1, color = gCol, 
+                       popup=PopcontentLA11)%>% 
+      addCircleMarkers(lng=-118.514642, lat=34.184708, radius = 11, 
+                       color =  aCol, opacity = 1,popup=PopcontentLA20) %>%
+      addCircleMarkers(lng=-118.484394, lat=34.173175, radius = 11, 
+                       color =  bCol,opacity = 1,popup=PopcontentLA20_2)%>%
+      addCircleMarkers(lng=-118.173592, lat=33.948297, radius = 11, 
+                       color =  jCol,opacity = 1,popup=PopcontentF34D) %>%
+      addCircleMarkers(lng=-118.228233, lat=34.085803, radius = 11, 
+                       color =  hCol,opacity = 1,popup=PopcontentF57C) %>%
+      addCircleMarkers(lng=-118.275339, lat=34.136858, radius = 11, 
+                       color =  fCol,opacity = 1,popup=PopcontentGLEN) %>%
+      addCircleMarkers(lng=-118.196333, lat=33.8639, radius = 11, 
+                       color =  kCol,opacity = 1,popup=PopcontentLA3) %>%
+      addCircleMarkers(lng=-118.228603, lat=34.040528, radius = 11, 
+                       color =  iCol,opacity = 1,popup=PopcontentLA8) %>%
+      addCircleMarkers(lng=-118.299758, lat=34.156839, radius = 11, 
+                       color =  dCol,opacity = 1,popup=PopcontentLA14) %>%
+      addCircleMarkers(lng=-118.205728, lat=33.817733, radius = 11, 
+                       color =  lCol,opacity = 1,popup=PopcontentF319) %>%
+      addCircleMarkers(lng=-118.378453, lat=34.1411, radius = 11, 
+                       color =  cCol,opacity = 1,popup=PopcontentF300) %>%
+      addCircleMarkers(lng=-118.278844, lat=34.150964, radius = 11, 
+                       color =  eCol,opacity = 1,popup=PopcontentLA13) %>%
+      addPolylines(data=river,weight=4,col = 'blue')    
+  }
   
   
   
