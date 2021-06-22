@@ -71,6 +71,8 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
 #  {.tabset .tabset-pills}
 
+![](www/LAR_watershedMap_node_reaches.png)
+
 ## Overview {.tabset}
 
 #### **Welcome to the Los Angeles (LA) River Environmental Flows Dashboard!**
@@ -773,7 +775,13 @@ flowranges <- read_csv("raw/Willow_Typha_Med_High_FishingKayaking_Flowranges.csv
 
 SpeciesProb <- read_csv("raw/SpeciesProb_dat.csv") %>%
   mutate(season = case_when(season == "Dry" ~ "dry",
-                            season == "Wet" ~ "wet"))
+                            season == "Wet" ~ "wet")) %>% 
+  filter(species.lifestage.hyd  %in% c("Typha Adult Depth","Typha Adult Velocity",
+                                       "Cladophora Adult Depth","Cladophora Adult Velocity",
+                                       "Sas Adult Velocity","Sas Adult Depth",
+                                       "Steelhead Prolonged Depth","Sas Juvenile Depth",
+                                       "Steelhead Burst Depth","Steelhead Smolts Depth",
+                                       "Steelhead Burst Velocity","Typha Seedling Depth"))
 
 ```
 
@@ -1448,18 +1456,34 @@ output$sensitivity_curve <-downloadHandler(
 tags$h3("Species Sensitivity Curves")
 ```
 
+
+```{r}
+limiting_factors <- read_csv("raw/limitingfactors.csv") %>% 
+  mutate(Season = case_when(Season=="Dry" ~ "dry",
+                            Season=="Wet"~ "wet")) %>% 
+  filter(!species.lifestage.hyd %in% c("Cladophora Adult Depth","Cladophora Adult Velocity"))
+```
+
+
+
 ```{r}
 column(12,
        column(4,
               renderUI({
-                tmpdf <- SpeciesProb %>%
+                tmpdf <- limiting_factors %>%
                   filter(ReportingNode == input$node) %>% 
-                  filter(season == input$sens_season)
+                  filter(Season == input$sens_season)
                 selectInput("species.lifestage", 
                             "Select a Species Lifestage",
-                            unique(tmpdf$species.lifestage)) 
+                            sort(unique(tmpdf$species.lifestage.hyd)) )
               })),
-       column(4,
+       column(4,tags$h3(""),
+              downloadButton('species_curve', 'Download Species Curve')))
+```
+
+
+```{r,eval=FALSE}
+column(4,
               renderUI({
                 req(input$species.lifestage)
                 tmpdf <- SpeciesProb %>%
@@ -1468,11 +1492,8 @@ column(12,
                   filter(species.lifestage == input$species.lifestage)
                 selectInput("species.lifestage.hyd", 
                             "Depth/Velocity",
-                            unique(tmpdf$species.lifestage.hyd)) })        
-       ),
-       column(4,tags$h3(""),
-              downloadButton('species_curve', 'Download Species Curve'))
-)
+                            sort(unique(tmpdf$species.lifestage.hyd))) })        
+       )
 ```
 
 ```{r}
@@ -1480,21 +1501,21 @@ SpeciesProb_dat <- reactive({
   validate(need(input$node != ""," "))
   validate(need(input$sens_season != ""," "))
   validate(need(input$species.lifestage != ""," "))
-  validate(need(input$species.lifestage.hyd != ""," "))
+  #validate(need(input$species.lifestage.hyd != ""," "))
   
   if(input$sens_season == "dry"){
     out <- SpeciesProb %>%
       filter(ReportingNode == input$node) %>% 
       filter(season == input$sens_season) %>% 
-      filter(species.lifestage == input$species.lifestage) %>%
-      filter(species.lifestage.hyd == input$species.lifestage.hyd) %>% 
+      filter(species.lifestage.hyd == input$species.lifestage) %>%
+      #filter(species.lifestage.hyd == input$species.lifestage.hyd) %>% 
       rename(seasonal.wrp.Q = dry_season)
   }else{
     out <- SpeciesProb %>%
       filter(ReportingNode == input$node) %>% 
       filter(season == input$sens_season) %>% 
-      filter(species.lifestage == input$species.lifestage) %>%
-      filter(species.lifestage.hyd == input$species.lifestage.hyd) %>% 
+      filter(species.lifestage.hyd == input$species.lifestage) %>%
+      #filter(species.lifestage.hyd == input$species.lifestage.hyd) %>% 
       rename(seasonal.wrp.Q = wet_season)
   }
 
@@ -1546,6 +1567,7 @@ SpeciesProb_plot <- reactive({
                          species_lifestage),
          y= paste0(str_to_title(input$sens_season),"-Season Probability of Occurance"),
          x= paste0("Average Annual",str_to_title(input$sens_season),"-Season WRP Discharge (cfs)"))+
+    ylim(c(0,1))+
     theme_bw() + 
     theme(panel.border = element_blank(), 
           panel.grid.major = element_blank(),
