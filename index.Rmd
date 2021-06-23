@@ -61,8 +61,8 @@ species_colors <- setNames(hex, levels(dat$Species_Label))
 
 
 WRP <- read.csv("data/iterations_labeled_seasonal.csv") 
-FMM <- read.csv("data/FFM_percentiles_wetdrybaseflowmag_02172021_baselineWRP.csv")
-FlowRanges <- read.csv("data/FlowRanges_Species_RecUses_Allnodes_03142021.csv")
+FMM <- read.csv("raw/FFM_percentiles_wetdrybaseflowmag_02172021_baselineWRP.csv")
+FlowRanges <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv")
 
 river <- readOGR("data/LAR_reporting_reaches.shp")
 river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
