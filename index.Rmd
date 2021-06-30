@@ -71,7 +71,7 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
 #  {.tabset .tabset-pills}
 
-![](www/LAR_watershedMap_node_reaches.png)
+![](www/river_logo.jpeg)
 
 ## Overview {.tabset}
 
@@ -233,6 +233,7 @@ location_choice <- reactive({
 })
 
 ```
+
 
 ------------------------------------------------------------------------
 
@@ -799,6 +800,8 @@ fluidPage(tags$h3("Location and Season"),
                    
                    ))
 ```
+
+
 
 ------------------------------------------------------------------------
 
@@ -1567,13 +1570,10 @@ SpeciesProb_plot <- reactive({
 renderPlot({SpeciesProb_plot()})
 ```
 
-$$
-\\[1in]
-$$
 
 
 
-```{r,eval=TRUE}
+```{r,eval=FALSE}
 DT::renderDataTable({SpeciesProb_dat()})
 ```
 
