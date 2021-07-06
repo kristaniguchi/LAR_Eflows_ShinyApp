@@ -71,7 +71,7 @@ river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
 #  {.tabset .tabset-pills}
 
-![](www/river_logo.jpeg)
+![](www/river_logo2.jpeg)
 
 ## Overview {.tabset}
 
@@ -194,7 +194,7 @@ Background on section and descriptions of use
 
 Background on section and descriptions of use
 
-## Flow Range Determination {.tabset}
+## Flow Range Determination {.tabset .tabset-pills}
 
 ```{r}
 fluidPage(tags$h3("Location and Season"),
@@ -233,6 +233,7 @@ location_choice <- reactive({
 })
 
 ```
+
 
 
 ------------------------------------------------------------------------
@@ -370,7 +371,7 @@ If Species Synthesis is Yes - synthesis ruleset applied to get overall flow reco
 
 Otherwise, flow recommendations by individual life stages
 
-------------------------------------------------------------------------
+
 
 ```{r}
 boxplot_dat <- reactive({
@@ -581,6 +582,10 @@ output$boxdat <- downloadHandler(
 
 ```
 
+
+### Boxplots
+
+
 ```{r}
 fluidPage(
 downloadButton('boxdat', 'Download Data'),
@@ -766,6 +771,20 @@ DT::renderDataTable({
     }}
 },options = list(dom = 't'))
 ```
+
+
+### Map
+
+```{r}
+renderImage({ 
+      list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, width =700)
+     })  
+```
+
+
+
+
+
 
 ## Sensitivity Curves {.tabset .tabset-pills}
 
@@ -1588,6 +1607,19 @@ output$species_curve <-downloadHandler(
   }
 )
 ```
+
+
+### Map
+
+```{r}
+renderImage({ 
+      list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, width =700)
+     })  
+```
+
+
+
+
 
 ## Flow Range Heat Map
 
@@ -3343,4 +3375,26 @@ graphPlan <- reactive({
   
 }) 
 ```
+
+```{r}
+checkboxInput("showmap","Show Map",FALSE)
+```
+
+
+
+
+```{r}
+renderImage({ 
+  if (input$showmap){
+      list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, 
+           width =700)}
+  else{
+    list(src = "", height = 1, 
+         width =1)
+  }
+     })  
+```
+
+
+
 
