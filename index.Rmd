@@ -67,6 +67,9 @@ FlowRanges <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv")
 river <- readOGR("data/LAR_reporting_reaches.shp")
 river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
+
+
+baseline_dat <- reshape2::melt(read_csv("raw/summary_seasonalWRP_node_baselineonly.csv"))
 ```
 
 #  {.tabset .tabset-pills}
@@ -778,7 +781,7 @@ DT::renderDataTable({
 ```{r}
 renderImage({ 
       list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, width =700)
-     })  
+     }, deleteFile =FALSE)  
 ```
 
 
@@ -802,6 +805,10 @@ SpeciesProb <- read_csv("raw/SpeciesProb_dat.csv") %>%
                                        "Steelhead Prolonged Depth","Sas Juvenile Depth",
                                        "Steelhead Burst Depth","Steelhead Smolts Depth",
                                        "Steelhead Burst Velocity","Typha Seedling Depth"))
+
+
+
+
 
 ```
 
@@ -873,6 +880,21 @@ filtered_flowranges <- reactive({
   
 })
 ```
+
+
+```{r}
+filtered_baseline <- reactive({
+  validate(need(input$node != ""," "))
+  validate(need(input$sens_season != ""," "))
+  
+  out <- baseline_dat %>% filter(
+    ReportingNode == input$node,
+    variable == input$sens_season)
+  
+  return(out)
+})
+```
+
 
 ```{r}
 sens_curve <- reactive({
@@ -1377,6 +1399,7 @@ sens_curve <- reactive({
     geom_ribbon(data =plotter_UBF100,
                 aes(x=x,xmin=0,xmax=100,ymin=p10_UBF100,ymax=p90_UBF100), 
                 fill = '#c3d0e6', alpha = .5)+
+    geom_vline(xintercept = filtered_baseline()$value,linetype='dashed')+
     labs(x = "Average Annual Season WRP Discharge (cfs)", 
          y = "Season Baseflow Magnitude (cfs)",title="10th - 90th Percentile")+
     theme_bw()+
@@ -1613,8 +1636,9 @@ output$species_curve <-downloadHandler(
 
 ```{r}
 renderImage({ 
-      list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, width =700)
-     })  
+      list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, 
+           width =700)
+     }, deleteFile =FALSE)  
 ```
 
 
@@ -3392,7 +3416,7 @@ renderImage({
     list(src = "", height = 1, 
          width =1)
   }
-     })  
+     }, deleteFile =FALSE)  
 ```
 
 
