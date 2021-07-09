@@ -94,13 +94,7 @@ For more information about this project, go to <https://www.sccwrp.org/about/res
 
 ------------------------------------------------------------------------
 
-
 <font size="5"> Reference Map </font>
-
-
-
-
-
 
 ```{r}
 LA_map <- reactive({leaflet(options = leafletOptions( 
@@ -156,48 +150,77 @@ LA_map <- reactive({leaflet(options = leafletOptions(
 })
 ```
 
-
 ```{r}
 renderLeaflet({LA_map() })
 ```
 
-
-
-
-
 ------------------------------------------------------------------------
-
 
 <font size="5"> Flow Range Determination </font>
 
-Background on section and descriptions of use
+Flow ranges associated with designated existing and potential uses and possible future beneficial uses were developed based on needs of the associated focal species (and life stages) and recreational uses for each relevant location (or node) along the river (Table 1). Relationships between focal species and beneficial uses were developed in consultation with the project's Technical Advisory Committee. Although cold freshwater habitat (COLD) is not currently a designated beneficial use in the mainstem of the LA River, one goal of this study is to evaluate whether proposed management actions could influence flow conditions that have the potential to support non-designated beneficial uses, such as COLD, in the future
+
+*Table 1. Focal species associated with beneficial uses.  Highlighted species do not currently occur in the mainstem of the LA River.  Cold freshwater habitat (COLD) is currently not a designated beneficial use for any LA River reach covered by this study*
+
+![](www/table1.PNG)
+
+*<font size="1">1WARM: Warm freshwater habitat</font>*<br />
+*<font size="1">2EST: Estuarine habitat</font>*<br />
+*<font size="1">3WILD: Wildlife habitat</font>*<br />
+*<font size="1">4RARE: Rare, threatened, or endangered species</font>*<br />
+*<font size="1">5MIGR: Migration of aquatic organisms</font>*<br />
+*<font size="1">6SPWN: Spawning, reproduction, and/or early development</font>*<br />
+*<font size="1">7COLD: Cold freshwater habitat</font>*
+
+
+Given the extensive set of flow ranges for multiple species and locations, a process was developed to synthesize flow ranges into more integrative flow management targets based on a series of decisions (Figure 1).  Click on the Flow Range Determination tab at the top to explore flow management targets based on user-defined selections.
+
+
 
 User decision flow chart
 
+
 ![](www/FigureX_flowrecommendationprocess.jpg)
+
+*Figure 1. Proposed process for synthesizing and interpreting flow ranges to develop overall flow management target. Medium probability is defined as 50% of the maximum probability of occurrence; high probability is defined as 75% of the maximum probability of occurrence.  Low probability was determined to not be a desirable management goal*
+
 
 ------------------------------------------------------------------------
 
 <font size="5">Sensitivity Curves</font>
 
-Background on section and descriptions of use
+Potential changes to wastewater discharge and dry weather stormdrain discharge were simulated using a “sensitivity curve” approach that relates discharge to instream flow conditions as measured by functional flow metrics. Instead of identifying a finite set of scenarios, sensitivity curves allow for consideration of a broad range of management options based on the amount of discharge to the river. Wastewater discharge scenarios were based on a Monte Carlo simulation  which evaluated the effects of 500 randomly selected scenarios ranging from 0-100% of current discharge, representing multiple combinations of potential WRP discharge reductions from each plant. 
+
+
+A suite of flow-based sensitivity curves was developed for 13 reporting nodes along the river, two seasonal functional flow components (wet-season baseflow and dry-season baseflow), and for multiple management scenarios (WRP discharge and dry weather stormdrain discharge scenarios). Sensitivity curves were only developed for the wet- and dry-season baseflow magnitude metrics because they were the most sensitive flow metrics to changes in WRP discharge and dry weather stormdrain reductions.  A process was developed to use the flow ranges associated with different scenarios with the sensitivity curves to evaluate how much and under which scenarios flows can be reduced and still meet flow ranges that support a majority of beneficial uses for a given location along the river 
 
 Example sensitivity curve and description of plots [flow- and species-based]
 
 ![](www/FigureX_SensitivityCurveProcess.jpg)
 
+*Figure 2. Proposed process to use optimal flow range of specific management targets with sensitivity curves to evaluate WRP and dry weather stormdrain scenarios. The optimal flow range can be derived from the process shown in Figure ES-3*
+
+
+An example application of sensitivity curves at Glendale Narrows (GLEN), shows the optimal flow range for Willow and Typha plotted with the flow-based sensitivity curves representing changes in both WRP and dry weather stormdrain discharge (Figure 3).
+
+![](www/figure3.png)
+
+*Figure 3. Flow-based sensitivity curves illustrating the combined effects of change in WRP discharge and 50% (yellow) and 100% reduction (red) in dry weather stormdrain discharge at GLEN reporting node. Solid and dashed lines represent median values; bounds of the gray and colored bands are the 10th and 90th percentile dry-season instream flows across the modeled period.  Optimal flow range in this example is based on a 50% (medium) probability of occurrence of Willow and Typha*
+
+
+To explore the flow-based and species-based sensitivity curves by location, season, and species, click on the Sensitivity Curves tab at the top of this page
+
 ------------------------------------------------------------------------
 
 <font size="5">Flow Range Heat Maps</font>
 
-Background on section and descriptions of use
+Reductions in WRP discharge could have cumulative impacts to various beneficial uses along the LA River. A heat map was developed to evaluate spatially how various WRP discharges may impact instream flow conditions needed to support various species and recreational uses. To explore the heat map under various WRP scenarios, click on the Flow Range Heat Map tab at the top of this page
 
 ------------------------------------------------------------------------
 
-
 <font size="5">Flow Depth Visualizer</font>
 
-Background on section and descriptions of use
+Changes in discharge will affect the hydraulic conditions (i.e., depth and wetted width) of a stream in different ways depending on the site-specific channel morphology. The Flow Depth Visualizer tab allows the user to visualize the flow depth and wetted width associated with various discharges for all reporting node locations.
 
 ## Flow Range Determination {.tabset .tabset-pills}
 
@@ -239,15 +262,9 @@ location_choice <- reactive({
 
 ```
 
-
-
-
 ```{r}
 renderLeaflet({LA_map() })
 ```
-
-
-
 
 ------------------------------------------------------------------------
 
@@ -383,8 +400,6 @@ fluidPage(tags$h3("Species"),
 If Species Synthesis is Yes - synthesis ruleset applied to get overall flow recommendations
 
 Otherwise, flow recommendations by individual life stages
-
-
 
 ```{r}
 boxplot_dat <- reactive({
@@ -595,9 +610,6 @@ output$boxdat <- downloadHandler(
 
 ```
 
-
-
-
 ```{r}
 fluidPage(
 downloadButton('boxdat', 'Download Data'),
@@ -784,10 +796,6 @@ DT::renderDataTable({
 },options = list(dom = 't'))
 ```
 
-
-
-
-
 ## Sensitivity Curves {.tabset .tabset-pills}
 
 ```{r}
@@ -826,19 +834,11 @@ fluidPage(tags$h3("Location and Season"),
                    ))
 ```
 
-
-
-
 ```{r}
 renderLeaflet({LA_map() })
 ```
 
-
-
-
-
 ------------------------------------------------------------------------
-
 
 ### Flow-Based Curve
 
@@ -889,7 +889,6 @@ filtered_flowranges <- reactive({
 })
 ```
 
-
 ```{r}
 filtered_baseline <- reactive({
   validate(need(input$node != ""," "))
@@ -902,7 +901,6 @@ filtered_baseline <- reactive({
   return(out)
 })
 ```
-
 
 ```{r}
 sens_curve <- reactive({
@@ -1509,15 +1507,12 @@ output$sensitivity_curve <-downloadHandler(
 tags$h3("Species Sensitivity Curves")
 ```
 
-
 ```{r}
 limiting_factors <- read_csv("raw/limitingfactors.csv") %>% 
   mutate(Season = case_when(Season=="Dry" ~ "dry",
                             Season=="Wet"~ "wet")) %>% 
   filter(!species.lifestage.hyd %in% c("Cladophora Adult Depth","Cladophora Adult Velocity"))
 ```
-
-
 
 ```{r}
 column(12,
@@ -1533,8 +1528,6 @@ column(12,
        column(4,tags$h3(""),
               downloadButton('species_curve', 'Download Species Curve')))
 ```
-
-
 
 ```{r}
 SpeciesProb_dat <- reactive({
@@ -1620,9 +1613,6 @@ SpeciesProb_plot <- reactive({
 renderPlot({SpeciesProb_plot()})
 ```
 
-
-
-
 ```{r,eval=FALSE}
 DT::renderDataTable({SpeciesProb_dat()})
 ```
@@ -1638,8 +1628,6 @@ output$species_curve <-downloadHandler(
   }
 )
 ```
-
-
 
 ## Flow Range Heat Map
 
@@ -1744,12 +1732,9 @@ fluidPage(
 )
 ```
 
-
 ```{r}
 checkboxInput("showlabel", "Show Labels", FALSE)
 ```
-
-
 
 ```{r}
 renderLeaflet({la_map()})
@@ -3396,9 +3381,6 @@ graphPlan <- reactive({
 }) 
 ```
 
-
 ```{r}
 renderLeaflet({LA_map() })
 ```
-
-
