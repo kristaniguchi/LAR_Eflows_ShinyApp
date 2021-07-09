@@ -103,60 +103,62 @@ For more information about this project, go to <https://www.sccwrp.org/about/res
 
 
 ```{r}
-renderLeaflet({
-  leaflet(options = leafletOptions( 
-    minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
-    htmlwidgets::onRender("function(el, x) {
+LA_map <- reactive({leaflet(options = leafletOptions( 
+  minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
+  htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
-    setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
-    addTiles(options = providerTileOptions(opacity = 1)) %>%
-    addMarkers(lng=-118.247706, lat=34.108175,
-               popup=PopcontentLA11,
-               label="LA11",
-               labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
-    addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
-               label="LA20",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    
-    addMarkers(lng=-118.484394, lat=34.173175,
-               popup=PopcontentLA20_2,
-               label="LA20_2",
-               labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
-    addMarkers(lng=-118.173592, lat=33.948297,
-               popup=PopcontentF34D,
-               label="F34D",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.228233, lat=34.085803,
-               popup=PopcontentF57C,
-               label="F57C",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.275339, lat=34.136858,
-               popup=PopcontentGLEN,
-               label="GLEN",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.196333, lat=33.8639,popup=PopcontentLA3,
-               label="LA3",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.228603, lat=34.040528,
-               popup=PopcontentLA8,
-               label="LA8",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.299758, lat=34.156839,popup=PopcontentLA14,
-               label="LA14",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.205728, lat=33.817733,popup=PopcontentF319,
-               label="F319",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.378453, lat=34.1411,popup=PopcontentF300,
-               label="F300",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
-               label="LA13",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addPolylines(data=river,weight=4,col = 'blue')  
+  setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
+  addTiles(options = providerTileOptions(opacity = 1)) %>%
+  addMarkers(lng=-118.247706, lat=34.108175,
+             popup=PopcontentLA11,
+             label="LA11",
+             labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
+  addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
+             label="LA20",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
   
-  
+  addMarkers(lng=-118.484394, lat=34.173175,
+             popup=PopcontentLA20_2,
+             label="LA20_2",
+             labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
+  addMarkers(lng=-118.173592, lat=33.948297,
+             popup=PopcontentF34D,
+             label="F34D",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.228233, lat=34.085803,
+             popup=PopcontentF57C,
+             label="F57C",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.275339, lat=34.136858,
+             popup=PopcontentGLEN,
+             label="GLEN",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.196333, lat=33.8639,popup=PopcontentLA3,
+             label="LA3",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.228603, lat=34.040528,
+             popup=PopcontentLA8,
+             label="LA8",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.299758, lat=34.156839,popup=PopcontentLA14,
+             label="LA14",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.205728, lat=33.817733,popup=PopcontentF319,
+             label="F319",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.378453, lat=34.1411,popup=PopcontentF300,
+             label="F300",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
+             label="LA13",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addPolylines(data=river,weight=4,col = 'blue')
 })
+```
+
+
+```{r}
+renderLeaflet({LA_map() })
 ```
 
 
@@ -236,6 +238,14 @@ location_choice <- reactive({
 })
 
 ```
+
+
+
+
+```{r}
+renderLeaflet({LA_map() })
+```
+
 
 
 
@@ -586,7 +596,6 @@ output$boxdat <- downloadHandler(
 ```
 
 
-### Boxplots
 
 
 ```{r}
@@ -776,16 +785,6 @@ DT::renderDataTable({
 ```
 
 
-### Map
-
-```{r}
-renderImage({ 
-      list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, width =700)
-     }, deleteFile =FALSE)  
-```
-
-
-
 
 
 
@@ -826,6 +825,15 @@ fluidPage(tags$h3("Location and Season"),
                    
                    ))
 ```
+
+
+
+
+```{r}
+renderLeaflet({LA_map() })
+```
+
+
 
 
 
@@ -1630,18 +1638,6 @@ output$species_curve <-downloadHandler(
   }
 )
 ```
-
-
-### Map
-
-```{r}
-renderImage({ 
-      list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, 
-           width =700)
-     }, deleteFile =FALSE)  
-```
-
-
 
 
 
@@ -3400,25 +3396,9 @@ graphPlan <- reactive({
 }) 
 ```
 
-```{r}
-checkboxInput("showmap","Show Map",FALSE)
-```
-
-
-
 
 ```{r}
-renderImage({ 
-  if (input$showmap){
-      list(src = "www/LAR_watershedMap_node_reaches.png", height = 625, 
-           width =700)}
-  else{
-    list(src = "", height = 1, 
-         width =1)
-  }
-     }, deleteFile =FALSE)  
+renderLeaflet({LA_map() })
 ```
-
-
 
 
