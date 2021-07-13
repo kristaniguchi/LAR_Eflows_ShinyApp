@@ -850,8 +850,8 @@ fluidPage(tags$h3("Species"),
                    column(3,selectInput("sens_prob",label="Select Probability Threshold",choices = c("Medium","High"))),
                    column(3,
                           selectInput("sens_UBF", label = "Select Additional UBF:",
-                                      choices = c("None","UBF0","UBF50",
-                                                  "UBF0 and UBF50"),
+                                      choices = c("None","50% Reduction","100% Reduction",
+                                                  "50% and 100% Reduction"),
                                       selected="None")),
                    column(3,tags$h3(""),
                           downloadButton('sensitivity_curve', 'Download Sensitivity Curve'))))
@@ -1406,7 +1406,8 @@ sens_curve <- reactive({
                 aes(x=x,xmin=0,xmax=100,ymin=p10_UBF100,ymax=p90_UBF100), 
                 fill = '#c3d0e6', alpha = .5)+
     geom_vline(xintercept = filtered_baseline()$value,linetype='dashed')+
-    labs(x = "Average Annual Season WRP Discharge (cfs)", 
+    labs(x = paste0("Average Annual ",
+                    str_to_title(input$sens_season),"-Season WRP Discharge (cfs)"), 
          y = "Season Baseflow Magnitude (cfs)",title="10th - 90th Percentile")+
     theme_bw()+
     theme(axis.text = element_text(size = 12),
@@ -1416,7 +1417,7 @@ sens_curve <- reactive({
   
   if(input$sens_UBF != "None"){
     
-    if(input$sens_UBF =="UBF50"){
+    if(input$sens_UBF =="50% Reduction"){
       g <- base_plot +
         geom_line(data=plotter_UBF50,aes(x=x,y = p50_UBF50),
                   size = 1, linetype = 2, color = "orange")+
@@ -1424,7 +1425,7 @@ sens_curve <- reactive({
                     aes(x=x,xmin=0,xmax=100,ymin=p10_UBF50,ymax=p90_UBF50), 
                     fill = '#f0c67d', alpha = .5)
     }
-    else if(input$sens_UBF == "UBF0"){
+    else if(input$sens_UBF == "100% Reduction"){
       g <- base_plot+ geom_line(data=plotter_UBF0,aes(x=x,y = p50_UBF0),
                                 size = 1, linetype = 3, color = "red")+
         geom_ribbon(data =plotter_UBF0,
@@ -1596,7 +1597,7 @@ SpeciesProb_plot <- reactive({
          subtitle=paste0(str_to_title(input$sens_season),"-Season Probability of Occurance: ",
                          species_lifestage),
          y= paste0(str_to_title(input$sens_season),"-Season Probability of Occurance"),
-         x= paste0("Average Annual",str_to_title(input$sens_season),"-Season WRP Discharge (cfs)"))+
+         x= paste0("Average Annual ",str_to_title(input$sens_season),"-Season WRP Discharge (cfs)"))+
     ylim(c(0,1))+
     theme_bw() + 
     theme(panel.border = element_blank(), 
