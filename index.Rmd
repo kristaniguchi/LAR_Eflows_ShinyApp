@@ -67,11 +67,16 @@ FlowRanges <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv")
 river <- readOGR("data/LAR_reporting_reaches.shp")
 river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
+river_reporting <- readOGR("data/reporting_reaches/LAR_mainstem.shp")
+river_reporting <- spTransform(river_reporting, CRS("+proj=longlat +datum=WGS84 +no_defs"))
+
+
+baseline_dat <- reshape2::melt(read_csv("raw/summary_seasonalWRP_node_baselineonly.csv"))
 ```
 
 #  {.tabset .tabset-pills}
 
-![](www/LAR_watershedMap_node_reaches.png)
+![](www/river_logo2.jpeg)
 
 ## Overview {.tabset}
 
@@ -91,16 +96,10 @@ For more information about this project, go to <https://www.sccwrp.org/about/res
 
 ------------------------------------------------------------------------
 
-
 <font size="5"> Reference Map </font>
 
-
-
-
-
-
 ```{r}
-renderLeaflet({
+LA_map <- reactive({
   leaflet(options = leafletOptions( 
     minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
     htmlwidgets::onRender("function(el, x) {
@@ -149,10 +148,68 @@ renderLeaflet({
                labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
     addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
                label="LA13",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addPolylines(data=river,weight=4,col = 'blue')  
+               labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
+    addPolylines(data=river,weight=4,col = 'blue')
+})
+```
+
+
+
+![](www/mapfig.jpg)
+
+
+
+```{r}
+LA_map2 <- reactive({leaflet(options = leafletOptions( 
+  minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
+  htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
+  setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
+  addTiles(options = providerTileOptions(opacity = 1)) %>%
+  addMarkers(lng=-118.247706, lat=34.108175,
+             popup=PopcontentLA11,
+             label="LA11",
+             labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
+  addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
+             label="LA20",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
   
-  
+  addMarkers(lng=-118.484394, lat=34.173175,
+             popup=PopcontentLA20_2,
+             label="LA20_2",
+             labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
+  addMarkers(lng=-118.173592, lat=33.948297,
+             popup=PopcontentF34D,
+             label="F34D",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.228233, lat=34.085803,
+             popup=PopcontentF57C,
+             label="F57C",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.275339, lat=34.136858,
+             popup=PopcontentGLEN,
+             label="GLEN",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.196333, lat=33.8639,popup=PopcontentLA3,
+             label="LA3",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.228603, lat=34.040528,
+             popup=PopcontentLA8,
+             label="LA8",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.299758, lat=34.156839,popup=PopcontentLA14,
+             label="LA14",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.205728, lat=33.817733,popup=PopcontentF319,
+             label="F319",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.378453, lat=34.1411,popup=PopcontentF300,
+             label="F300",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
+             label="LA13",
+             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
+  addPolylines(data=river_reporting,weight=4,col = 'blue')
 })
 ```
 
@@ -160,41 +217,78 @@ renderLeaflet({
 
 
 
-------------------------------------------------------------------------
 
+
+
+------------------------------------------------------------------------
 
 <font size="5"> Flow Range Determination </font>
 
-Background on section and descriptions of use
+Flow ranges associated with designated existing and potential uses and possible future beneficial uses were developed based on needs of the associated focal species (and life stages) and recreational uses for each relevant location (or node) along the river (Table 1). Relationships between focal species and beneficial uses were developed in consultation with the project's Technical Advisory Committee. Although cold freshwater habitat (COLD) is not currently a designated beneficial use in the mainstem of the LA River, one goal of this study is to evaluate whether proposed management actions could influence flow conditions that have the potential to support non-designated beneficial uses, such as COLD, in the future
+
+*Table 1. Focal species associated with beneficial uses.  Highlighted species do not currently occur in the mainstem of the LA River.  Cold freshwater habitat (COLD) is currently not a designated beneficial use for any LA River reach covered by this study*
+
+![](www/table1.PNG)
+
+*<font size="1">1WARM: Warm freshwater habitat</font>*<br />
+*<font size="1">2EST: Estuarine habitat</font>*<br />
+*<font size="1">3WILD: Wildlife habitat</font>*<br />
+*<font size="1">4RARE: Rare, threatened, or endangered species</font>*<br />
+*<font size="1">5MIGR: Migration of aquatic organisms</font>*<br />
+*<font size="1">6SPWN: Spawning, reproduction, and/or early development</font>*<br />
+*<font size="1">7COLD: Cold freshwater habitat</font>*
+
+
+Given the extensive set of flow ranges for multiple species and locations, a process was developed to synthesize flow ranges into more integrative flow management targets based on a series of decisions (Figure 1).  Click on the Flow Range Determination tab at the top to explore flow management targets based on user-defined selections.
+
+
 
 User decision flow chart
 
+
 ![](www/FigureX_flowrecommendationprocess.jpg)
+
+*Figure 1. Proposed process for synthesizing and interpreting flow ranges to develop overall flow management target. Medium probability is defined as 50% of the maximum probability of occurrence; high probability is defined as 75% of the maximum probability of occurrence.  Low probability was determined to not be a desirable management goal*
+
 
 ------------------------------------------------------------------------
 
 <font size="5">Sensitivity Curves</font>
 
-Background on section and descriptions of use
+Potential changes to wastewater discharge and dry weather stormdrain discharge were simulated using a “sensitivity curve” approach that relates discharge to instream flow conditions as measured by functional flow metrics. Instead of identifying a finite set of scenarios, sensitivity curves allow for consideration of a broad range of management options based on the amount of discharge to the river. Wastewater discharge scenarios were based on a Monte Carlo simulation  which evaluated the effects of 500 randomly selected scenarios ranging from 0-100% of current discharge, representing multiple combinations of potential WRP discharge reductions from each plant. 
+
+
+A suite of flow-based sensitivity curves was developed for 13 reporting nodes along the river, two seasonal functional flow components (wet-season baseflow and dry-season baseflow), and for multiple management scenarios (WRP discharge and dry weather stormdrain discharge scenarios). Sensitivity curves were only developed for the wet- and dry-season baseflow magnitude metrics because they were the most sensitive flow metrics to changes in WRP discharge and dry weather stormdrain reductions.  A process was developed to use the flow ranges associated with different scenarios with the sensitivity curves to evaluate how much and under which scenarios flows can be reduced and still meet flow ranges that support a majority of beneficial uses for a given location along the river 
 
 Example sensitivity curve and description of plots [flow- and species-based]
 
 ![](www/FigureX_SensitivityCurveProcess.jpg)
 
+*Figure 2. Proposed process to use optimal flow range of specific management targets with sensitivity curves to evaluate WRP and dry weather stormdrain scenarios. The optimal flow range can be derived from the process shown in Figure ES-3*
+
+
+An example application of sensitivity curves at Glendale Narrows (GLEN), shows the optimal flow range for Willow and Typha plotted with the flow-based sensitivity curves representing changes in both WRP and dry weather stormdrain discharge (Figure 3).
+
+![](www/figure3.png)
+
+*Figure 3. Flow-based sensitivity curves illustrating the combined effects of change in WRP discharge and 50% (yellow) and 100% reduction (red) in dry weather stormdrain discharge at GLEN reporting node. Solid and dashed lines represent median values; bounds of the gray and colored bands are the 10th and 90th percentile dry-season instream flows across the modeled period.  Optimal flow range in this example is based on a 50% (medium) probability of occurrence of Willow and Typha*
+
+
+To explore the flow-based and species-based sensitivity curves by location, season, and species, click on the Sensitivity Curves tab at the top of this page
+
 ------------------------------------------------------------------------
 
 <font size="5">Flow Range Heat Maps</font>
 
-Background on section and descriptions of use
+Reductions in WRP discharge could have cumulative impacts to various beneficial uses along the LA River. A heat map was developed to evaluate spatially how various WRP discharges may impact instream flow conditions needed to support various species and recreational uses. To explore the heat map under various WRP scenarios, click on the Flow Range Heat Map tab at the top of this page
 
 ------------------------------------------------------------------------
 
-
 <font size="5">Flow Depth Visualizer</font>
 
-Background on section and descriptions of use
+Changes in discharge will affect the hydraulic conditions (i.e., depth and wetted width) of a stream in different ways depending on the site-specific channel morphology. The Flow Depth Visualizer tab allows the user to visualize the flow depth and wetted width associated with various discharges for all reporting node locations.
 
-## Flow Range Determination {.tabset}
+## Flow Range Determination {.tabset .tabset-pills}
 
 ```{r}
 fluidPage(tags$h3("Location and Season"),
@@ -233,6 +327,18 @@ location_choice <- reactive({
 })
 
 ```
+
+```{r}
+renderLeaflet({
+  if(input$location == "Node"){
+    LA_map()
+  }
+  else{
+    LA_map2()
+  }
+})
+```
+
 
 ------------------------------------------------------------------------
 
@@ -368,8 +474,6 @@ fluidPage(tags$h3("Species"),
 If Species Synthesis is Yes - synthesis ruleset applied to get overall flow recommendations
 
 Otherwise, flow recommendations by individual life stages
-
-------------------------------------------------------------------------
 
 ```{r}
 boxplot_dat <- reactive({
@@ -783,6 +887,10 @@ SpeciesProb <- read_csv("raw/SpeciesProb_dat.csv") %>%
                                        "Steelhead Burst Depth","Steelhead Smolts Depth",
                                        "Steelhead Burst Velocity","Typha Seedling Depth"))
 
+
+
+
+
 ```
 
 ```{r}
@@ -800,8 +908,11 @@ fluidPage(tags$h3("Location and Season"),
                    ))
 ```
 
-------------------------------------------------------------------------
+```{r}
+renderLeaflet({LA_map() })
+```
 
+------------------------------------------------------------------------
 
 ### Flow-Based Curve
 
@@ -813,8 +924,8 @@ fluidPage(tags$h3("Species"),
                    column(3,selectInput("sens_prob",label="Select Probability Threshold",choices = c("Medium","High"))),
                    column(3,
                           selectInput("sens_UBF", label = "Select Additional UBF:",
-                                      choices = c("None","UBF0","UBF50",
-                                                  "UBF0 and UBF50"),
+                                      choices = c("None","50% Reduction","100% Reduction",
+                                                  "50% and 100% Reduction"),
                                       selected="None")),
                    column(3,tags$h3(""),
                           downloadButton('sensitivity_curve', 'Download Sensitivity Curve'))))
@@ -849,6 +960,19 @@ filtered_flowranges <- reactive({
   
   return(out)
   
+})
+```
+
+```{r}
+filtered_baseline <- reactive({
+  validate(need(input$node != ""," "))
+  validate(need(input$sens_season != ""," "))
+  
+  out <- baseline_dat %>% filter(
+    ReportingNode == input$node,
+    variable == input$sens_season)
+  
+  return(out)
 })
 ```
 
@@ -1355,7 +1479,9 @@ sens_curve <- reactive({
     geom_ribbon(data =plotter_UBF100,
                 aes(x=x,xmin=0,xmax=100,ymin=p10_UBF100,ymax=p90_UBF100), 
                 fill = '#c3d0e6', alpha = .5)+
-    labs(x = "Average Annual Season WRP Discharge (cfs)", 
+    geom_vline(xintercept = filtered_baseline()$value,linetype='dashed')+
+    labs(x = paste0("Average Annual ",
+                    str_to_title(input$sens_season),"-Season WRP Discharge (cfs)"), 
          y = "Season Baseflow Magnitude (cfs)",title="10th - 90th Percentile")+
     theme_bw()+
     theme(axis.text = element_text(size = 12),
@@ -1365,7 +1491,7 @@ sens_curve <- reactive({
   
   if(input$sens_UBF != "None"){
     
-    if(input$sens_UBF =="UBF50"){
+    if(input$sens_UBF =="50% Reduction"){
       g <- base_plot +
         geom_line(data=plotter_UBF50,aes(x=x,y = p50_UBF50),
                   size = 1, linetype = 2, color = "orange")+
@@ -1373,7 +1499,7 @@ sens_curve <- reactive({
                     aes(x=x,xmin=0,xmax=100,ymin=p10_UBF50,ymax=p90_UBF50), 
                     fill = '#f0c67d', alpha = .5)
     }
-    else if(input$sens_UBF == "UBF0"){
+    else if(input$sens_UBF == "100% Reduction"){
       g <- base_plot+ geom_line(data=plotter_UBF0,aes(x=x,y = p50_UBF0),
                                 size = 1, linetype = 3, color = "red")+
         geom_ribbon(data =plotter_UBF0,
@@ -1456,15 +1582,12 @@ output$sensitivity_curve <-downloadHandler(
 tags$h3("Species Sensitivity Curves")
 ```
 
-
 ```{r}
 limiting_factors <- read_csv("raw/limitingfactors.csv") %>% 
   mutate(Season = case_when(Season=="Dry" ~ "dry",
                             Season=="Wet"~ "wet")) %>% 
   filter(!species.lifestage.hyd %in% c("Cladophora Adult Depth","Cladophora Adult Velocity"))
 ```
-
-
 
 ```{r}
 column(12,
@@ -1475,25 +1598,10 @@ column(12,
                   filter(Season == input$sens_season)
                 selectInput("species.lifestage", 
                             "Select a Species Lifestage",
-                            sort(unique(tmpdf$species.lifestage.hyd)) )
+                            sort(unique(tmpdf$species.lifestage)) )
               })),
        column(4,tags$h3(""),
               downloadButton('species_curve', 'Download Species Curve')))
-```
-
-
-```{r,eval=FALSE}
-column(4,
-              renderUI({
-                req(input$species.lifestage)
-                tmpdf <- SpeciesProb %>%
-                  filter(ReportingNode == input$node) %>% 
-                  filter(season == input$sens_season) %>% 
-                  filter(species.lifestage == input$species.lifestage)
-                selectInput("species.lifestage.hyd", 
-                            "Depth/Velocity",
-                            sort(unique(tmpdf$species.lifestage.hyd))) })        
-       )
 ```
 
 ```{r}
@@ -1501,21 +1609,18 @@ SpeciesProb_dat <- reactive({
   validate(need(input$node != ""," "))
   validate(need(input$sens_season != ""," "))
   validate(need(input$species.lifestage != ""," "))
-  #validate(need(input$species.lifestage.hyd != ""," "))
   
   if(input$sens_season == "dry"){
     out <- SpeciesProb %>%
       filter(ReportingNode == input$node) %>% 
       filter(season == input$sens_season) %>% 
-      filter(species.lifestage.hyd == input$species.lifestage) %>%
-      #filter(species.lifestage.hyd == input$species.lifestage.hyd) %>% 
+      filter(species.lifestage == input$species.lifestage) %>%
       rename(seasonal.wrp.Q = dry_season)
   }else{
     out <- SpeciesProb %>%
       filter(ReportingNode == input$node) %>% 
       filter(season == input$sens_season) %>% 
       filter(species.lifestage.hyd == input$species.lifestage) %>%
-      #filter(species.lifestage.hyd == input$species.lifestage.hyd) %>% 
       rename(seasonal.wrp.Q = wet_season)
   }
 
@@ -1552,7 +1657,7 @@ upper_curve <- reactive({
 SpeciesProb_plot <- reactive({
   dat <- SpeciesProb_dat()
   unique_node <- dat$ReportingNode
-  #baseline <- dat %>% filter(Scenario==0) %>% pull(type_season)
+  baseline <- dat %>% filter(Scenario==0) %>% pull(seasonal.wrp.Q)
   species_lifestage <- dat$species.lifestage.hyd
   req(dat$seasonal.wrp.Q)
   
@@ -1561,12 +1666,12 @@ SpeciesProb_plot <- reactive({
     geom_smooth(level=0) +
     geom_ribbon(aes(ymin=lower_curve()$fit, ymax=upper_curve()$fit), 
                 alpha=0.2, fill="#4575b4") +
-    #geom_vline(xintercept=baseline, linetype="dashed", color = "black") +
+    geom_vline(xintercept=baseline, linetype="dashed", color = "black") +
     labs(title = paste0("Species Sensitivity Curve: ",unique_node),
          subtitle=paste0(str_to_title(input$sens_season),"-Season Probability of Occurance: ",
                          species_lifestage),
          y= paste0(str_to_title(input$sens_season),"-Season Probability of Occurance"),
-         x= paste0("Average Annual",str_to_title(input$sens_season),"-Season WRP Discharge (cfs)"))+
+         x= paste0("Average Annual ",str_to_title(input$sens_season),"-Season WRP Discharge (cfs)"))+
     ylim(c(0,1))+
     theme_bw() + 
     theme(panel.border = element_blank(), 
@@ -1637,7 +1742,7 @@ fluidPage(
     
     
     sidebarPanel( selectInput("hab", "Beneficial Use:",
-                              c("ALL","EST", "WILD","RARE", "MIGR", "SPWN", "COLD")),
+                              c("ALL", "WILD","RARE", "MIGR", "SPWN", "COLD")),
                   selectInput("season2", "Season Baseflow:",
                               c("Wet" = "wet", "Dry" = "dry")),
                   
@@ -1702,12 +1807,9 @@ fluidPage(
 )
 ```
 
-
 ```{r}
 checkboxInput("showlabel", "Show Labels", FALSE)
 ```
-
-
 
 ```{r}
 renderLeaflet({la_map()})
@@ -2147,21 +2249,6 @@ heatmap_plot <- reactive({
   
   Cladophora <- c(F319CA,LA3CA,F34DCA, LA8CA,F57CCA,
                   LA11CA, GLENCA,LA13CA, LA14CA, F300CA, LA20_2CA, LA20CA)
-  
-  if(input$hab == "EST"){
-    goodV <- data.frame(
-      node = c("F319","LA3","LA34D", "LA8","F57C",
-               "LA11", "GLEN","LA13", "LA14", "F300", "LA20_2", "LA20"),
-      Cladophora_Adult = c(F319CA,LA3CA,F34DCA,LA8CA,F57CCA,LA11CA, GLENCA, LA13CA,
-                           LA14CA,F300CA, LA20_2CA,LA20CA),
-      Steelhead_Migration_Burst = c(F319SB,LA3SB,F34DSB,LA8SB,F57CSB,LA11SB, GLENSB, LA13SB,
-                                    LA14SB,F300SB, LA20_2SB,LA20SB),
-      Steelhead_Migration_Prolonged = c(F319MP,LA3MP,F34DMP,LA8MP,F57CMP,LA11MP, GLENMP, LA13MP,
-                                        LA14MP,F300MP, LA20_2MP,LA20MP))
-    colnames(goodV)<- c('Node', 'Cladophora Adult', 'Steelhead Migration Burst',
-                        'Steelhead Migration Prolonged')
-    
-  }
   if(input$hab == "WILD"){
     goodV <- data.frame(
       node = c("F319","LA3","LA34D", "LA8","F57C",
@@ -3354,3 +3441,6 @@ graphPlan <- reactive({
 }) 
 ```
 
+```{r}
+renderLeaflet({LA_map() })
+```
