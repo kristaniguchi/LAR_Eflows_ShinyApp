@@ -153,9 +153,9 @@ LA_map <- reactive({
 })
 ```
 
-```{r}
-renderLeaflet({LA_map() })
-```
+
+
+![](www/mapfig.jpg)
 
 
 
@@ -1742,7 +1742,7 @@ fluidPage(
     
     
     sidebarPanel( selectInput("hab", "Beneficial Use:",
-                              c("ALL","EST", "WILD","RARE", "MIGR", "SPWN", "COLD")),
+                              c("ALL", "WILD","RARE", "MIGR", "SPWN", "COLD")),
                   selectInput("season2", "Season Baseflow:",
                               c("Wet" = "wet", "Dry" = "dry")),
                   
@@ -2249,21 +2249,6 @@ heatmap_plot <- reactive({
   
   Cladophora <- c(F319CA,LA3CA,F34DCA, LA8CA,F57CCA,
                   LA11CA, GLENCA,LA13CA, LA14CA, F300CA, LA20_2CA, LA20CA)
-  
-  if(input$hab == "EST"){
-    goodV <- data.frame(
-      node = c("F319","LA3","LA34D", "LA8","F57C",
-               "LA11", "GLEN","LA13", "LA14", "F300", "LA20_2", "LA20"),
-      Cladophora_Adult = c(F319CA,LA3CA,F34DCA,LA8CA,F57CCA,LA11CA, GLENCA, LA13CA,
-                           LA14CA,F300CA, LA20_2CA,LA20CA),
-      Steelhead_Migration_Burst = c(F319SB,LA3SB,F34DSB,LA8SB,F57CSB,LA11SB, GLENSB, LA13SB,
-                                    LA14SB,F300SB, LA20_2SB,LA20SB),
-      Steelhead_Migration_Prolonged = c(F319MP,LA3MP,F34DMP,LA8MP,F57CMP,LA11MP, GLENMP, LA13MP,
-                                        LA14MP,F300MP, LA20_2MP,LA20MP))
-    colnames(goodV)<- c('Node', 'Cladophora Adult', 'Steelhead Migration Burst',
-                        'Steelhead Migration Prolonged')
-    
-  }
   if(input$hab == "WILD"){
     goodV <- data.frame(
       node = c("F319","LA3","LA34D", "LA8","F57C",
