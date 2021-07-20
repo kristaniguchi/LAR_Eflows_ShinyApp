@@ -106,20 +106,20 @@ For more information about this project, go to <https://www.sccwrp.org/about/res
 
 
 ```{r}
-LA_dat <- cbind.data.frame(river@coords,'Reporting_Reach'=river@data[,'Reporting_'])
+LA_dat <- cbind.data.frame(river@coords,'Reporting_Reach'=river@data[,'Reporting_']) %>% 
+  mutate(Reporting_Reach = c("Compton Creek","Compton Creek",
+                             str_extract(Reporting_Reach[-c(1:2)],"^.*(?=( -))")))
 
-LA_map_reach <- reactive({
-  leaflet(options = leafletOptions( 
-    minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
-    htmlwidgets::onRender("function(el, x) {
+
+LA_map_reach <- leaflet(options = 
+                          leafletOptions(minZoom = 8,maxZoom = 16, zoomControl = FALSE )) %>%
+  htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
-    setView(lng = -118.2437, lat =34.0422, zoom = 12)%>%
-    addTiles(options = providerTileOptions(opacity = 1)) %>%
-    addMarkers(data = LA_dat,lng = ~ coords.x1, lat = ~ coords.x2, 
-               label = ~Reporting_Reach,labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
-    addPolylines(data=river2,weight=3,col='blue')
-  
-})
+  setView(lng = -118.2437, lat =34.0422, zoom = 12)%>%
+  addTiles(options = providerTileOptions(opacity = 1)) %>%
+  addMarkers(data = LA_dat,lng = ~ coords.x1, lat = ~ coords.x2, 
+             label = ~Reporting_Reach,labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
+  addPolylines(data=river2,weight=3,col='blue')
 ```
 
 
@@ -298,7 +298,7 @@ renderLeaflet({
     LA_map()
   }
   else{
-    LA_map_reach()
+    LA_map_reach
   }
 })
 ```
@@ -661,12 +661,6 @@ ranges_print <- function(x)
 {
   ranges = round(range(x),2)
   paste(ranges[1],"-",ranges[2])
-}
-
-
-is_integer0 <- function(x)
-{
-  is.integer(x) && length(x) == 0L
 }
 ```
 
