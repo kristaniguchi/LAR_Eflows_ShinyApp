@@ -40,7 +40,8 @@ dat <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv",
          Species_Label = str_replace_all(Species_Label, " ", "\n") %>% 
            factor(., sort(unique(.), decreasing = T), ordered = T) %>% fct_relevel(., levels(.)[13], after = 4)
          ) %>%
-  rename(Seasonal_Component= Seasonal.Component)
+  rename(Seasonal_Component= Seasonal.Component) %>% 
+  filter(!Node %in% c("LA1","LA2"))
 
 
 seasons = dat %>% select(Seasonal_Component) %>% unlist() %>% unique()
@@ -116,10 +117,23 @@ LA_map_reach <- leaflet(options =
   htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
   setView(lng = -118.2437, lat =34.0422, zoom = 12)%>%
-  addTiles(options = providerTileOptions(opacity = 1)) %>%
+  addTiles(options = providerTileOptions(opacity = 0.5)) %>%
   addMarkers(data = LA_dat,lng = ~ coords.x1, lat = ~ coords.x2, 
              label = ~Reporting_Reach,labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
-  addPolylines(data=river2,weight=3,col='blue')
+  addPolylines(data=river2@lines[[4]],weight=5,col='purple') %>% 
+  addPolylines(data=river2@lines[[7]],weight=5,col='brown') %>% 
+  addPolylines(data=river2@lines[[10]],weight=5,col='green') %>% 
+  addPolylines(data=river2@lines[[15]],weight=5,col='#5490d6') %>% 
+  addPolylines(data=river2@lines[[16]],weight=5,col='#5490d6') %>% 
+  addPolylines(data=river2@lines[[17]],weight=5,col='blue') %>% 
+  addPolylines(data=river2@lines[[18]],weight=5,col='purple') %>% 
+  addPolylines(data=river2@lines[[19]],weight=5,col='#ff7003') %>% 
+  addPolylines(data=river2@lines[[20]],weight=5,col='brown') %>% 
+  addPolylines(data=river2@lines[[21]],weight=5,col='#b55d19') %>% 
+  addPolylines(data=river2@lines[[22]],weight=5,col='#9041ab') %>% 
+  addPolylines(data=river2@lines[[23]],weight=5,col='green') %>%
+  addPolylines(data=river2@lines[[24]],weight=5,col='red') 
+
 ```
 
 
@@ -134,7 +148,7 @@ LA_map <- reactive({leaflet(options = leafletOptions(
   htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
   setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
-  addTiles(options = providerTileOptions(opacity = 1)) %>%
+  addTiles(options = providerTileOptions(opacity = 0.5)) %>%
   addMarkers(lng=-118.247706, lat=34.108175,
              popup=PopcontentLA11,
              label="LA11",
