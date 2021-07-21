@@ -63,15 +63,21 @@ species_colors <- setNames(hex, levels(dat$Species_Label))
 WRP <- read.csv("data/iterations_labeled_seasonal.csv") 
 FMM <- read.csv("raw/FFM_percentiles_wetdrybaseflowmag_02172021_baselineWRP.csv")
 FlowRanges <- read.csv("raw/FlowRanges_Species_RecUses_Allnodes_04132021.csv")
-
-river <- readOGR("data/LAR_reporting_reaches.shp")
-river <- spTransform(river, CRS("+proj=longlat +datum=WGS84 +no_defs"))
-
-river_reporting <- readOGR("data/reporting_reaches/LAR_mainstem.shp")
-river_reporting <- spTransform(river_reporting, CRS("+proj=longlat +datum=WGS84 +no_defs"))
-
-
 baseline_dat <- reshape2::melt(read_csv("raw/summary_seasonalWRP_node_baselineonly.csv"))
+```
+
+
+```{r, include=FALSE}
+river2 <- readOGR("data/LAR_reporting_reaches.shp")
+river2 <- spTransform(river2, CRS("+proj=longlat +datum=WGS84 +no_defs")) # used for blue lines
+
+
+river_obj <- readOGR("data/reporting_nodes/LAR_reporting_nodes_201002_reportingreaches.shp")
+river <- spTransform(river_obj, CRS("+proj=longlat +datum=WGS84 +no_defs")) # only obtain (lat,lng) for reporting nodes
+
+
+river_mainstem <- readOGR("data/reporting_reaches/LAR_mainstem.shp")
+river_mainstem <- spTransform(river_mainstem, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 ```
 
 #  {.tabset .tabset-pills}
@@ -98,59 +104,22 @@ For more information about this project, go to <https://www.sccwrp.org/about/res
 
 <font size="5"> Reference Map </font>
 
+
 ```{r}
-LA_map <- reactive({
-  leaflet(options = leafletOptions( 
-    minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
-    htmlwidgets::onRender("function(el, x) {
+LA_dat <- cbind.data.frame(river@coords,'Reporting_Reach'=river@data[,'Reporting_']) %>% 
+  mutate(Reporting_Reach = c("Compton Creek","Compton Creek",
+                             str_extract(Reporting_Reach[-c(1:2)],"^.*(?=( -))")))
+
+
+LA_map_reach <- leaflet(options = 
+                          leafletOptions(minZoom = 8,maxZoom = 16, zoomControl = FALSE )) %>%
+  htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
-    setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
-    addTiles(options = providerTileOptions(opacity = 1)) %>%
-    addMarkers(lng=-118.247706, lat=34.108175,
-               popup=PopcontentLA11,
-               label="LA11",
-               labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
-    addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
-               label="LA20",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    
-    addMarkers(lng=-118.484394, lat=34.173175,
-               popup=PopcontentLA20_2,
-               label="LA20_2",
-               labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
-    addMarkers(lng=-118.173592, lat=33.948297,
-               popup=PopcontentF34D,
-               label="F34D",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.228233, lat=34.085803,
-               popup=PopcontentF57C,
-               label="F57C",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.275339, lat=34.136858,
-               popup=PopcontentGLEN,
-               label="GLEN",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.196333, lat=33.8639,popup=PopcontentLA3,
-               label="LA3",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.228603, lat=34.040528,
-               popup=PopcontentLA8,
-               label="LA8",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.299758, lat=34.156839,popup=PopcontentLA14,
-               label="LA14",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.205728, lat=33.817733,popup=PopcontentF319,
-               label="F319",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.378453, lat=34.1411,popup=PopcontentF300,
-               label="F300",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-    addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
-               label="LA13",
-               labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
-    addPolylines(data=river,weight=4,col = 'blue')
-})
+  setView(lng = -118.2437, lat =34.0422, zoom = 12)%>%
+  addTiles(options = providerTileOptions(opacity = 1)) %>%
+  addMarkers(data = LA_dat,lng = ~ coords.x1, lat = ~ coords.x2, 
+             label = ~Reporting_Reach,labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
+  addPolylines(data=river2,weight=3,col='blue')
 ```
 
 
@@ -160,7 +129,7 @@ LA_map <- reactive({
 
 
 ```{r}
-LA_map2 <- reactive({leaflet(options = leafletOptions( 
+LA_map <- reactive({leaflet(options = leafletOptions( 
   minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
   htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
@@ -173,7 +142,6 @@ LA_map2 <- reactive({leaflet(options = leafletOptions(
   addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
              label="LA20",
              labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  
   addMarkers(lng=-118.484394, lat=34.173175,
              popup=PopcontentLA20_2,
              label="LA20_2",
@@ -209,7 +177,7 @@ LA_map2 <- reactive({leaflet(options = leafletOptions(
   addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
              label="LA13",
              labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addPolylines(data=river_reporting,weight=4,col = 'blue')
+  addPolylines(data=river_mainstem,weight=4,col = 'blue')
 })
 ```
 
@@ -243,9 +211,6 @@ Given the extensive set of flow ranges for multiple species and locations, a pro
 
 
 
-User decision flow chart
-
-
 ![](www/FigureX_flowrecommendationprocess.jpg)
 
 *Figure 1. Proposed process for synthesizing and interpreting flow ranges to develop overall flow management target. Medium probability is defined as 50% of the maximum probability of occurrence; high probability is defined as 75% of the maximum probability of occurrence.  Low probability was determined to not be a desirable management goal*
@@ -260,7 +225,6 @@ Potential changes to wastewater discharge and dry weather stormdrain discharge w
 
 A suite of flow-based sensitivity curves was developed for 13 reporting nodes along the river, two seasonal functional flow components (wet-season baseflow and dry-season baseflow), and for multiple management scenarios (WRP discharge and dry weather stormdrain discharge scenarios). Sensitivity curves were only developed for the wet- and dry-season baseflow magnitude metrics because they were the most sensitive flow metrics to changes in WRP discharge and dry weather stormdrain reductions.  A process was developed to use the flow ranges associated with different scenarios with the sensitivity curves to evaluate how much and under which scenarios flows can be reduced and still meet flow ranges that support a majority of beneficial uses for a given location along the river 
 
-Example sensitivity curve and description of plots [flow- and species-based]
 
 ![](www/FigureX_SensitivityCurveProcess.jpg)
 
@@ -334,7 +298,7 @@ renderLeaflet({
     LA_map()
   }
   else{
-    LA_map2()
+    LA_map_reach
   }
 })
 ```
@@ -698,12 +662,6 @@ ranges_print <- function(x)
   ranges = round(range(x),2)
   paste(ranges[1],"-",ranges[2])
 }
-
-
-is_integer0 <- function(x)
-{
-  is.integer(x) && length(x) == 0L
-}
 ```
 
 ```{r}
@@ -923,7 +881,7 @@ fluidPage(tags$h3("Species"),
                                                     "Willow") )),
                    column(3,selectInput("sens_prob",label="Select Probability Threshold",choices = c("Medium","High"))),
                    column(3,
-                          selectInput("sens_UBF", label = "Select Additional UBF:",
+                          selectInput("sens_UBF", label = "Select Stormdrain Reduction:",
                                       choices = c("None","50% Reduction","100% Reduction",
                                                   "50% and 100% Reduction"),
                                       selected="None")),
@@ -3082,7 +3040,7 @@ la_map <- reactive({
                        color =  eCol,opacity = 1,popup=PopcontentLA13,
                        label="LA13",
                        labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-      addPolylines(data=river,weight=4,col = 'blue')
+      addPolylines(data=river_mainstem,weight=4,col = 'blue')
   }
   else{
     LosAngeles <- LosAngeles_nomarkers %>% 
@@ -3111,7 +3069,7 @@ la_map <- reactive({
                        color =  cCol,opacity = 1,popup=PopcontentF300) %>%
       addCircleMarkers(lng=-118.278844, lat=34.150964, radius = 11, 
                        color =  eCol,opacity = 1,popup=PopcontentLA13) %>%
-      addPolylines(data=river,weight=4,col = 'blue')    
+      addPolylines(data=river_mainstem,weight=4,col = 'blue')    
   }
   
   
