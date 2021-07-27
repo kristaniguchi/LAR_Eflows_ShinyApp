@@ -79,6 +79,12 @@ river <- spTransform(river_obj, CRS("+proj=longlat +datum=WGS84 +no_defs")) # on
 
 river_mainstem <- readOGR("data/reporting_reaches/LAR_mainstem.shp")
 river_mainstem <- spTransform(river_mainstem, CRS("+proj=longlat +datum=WGS84 +no_defs"))
+
+
+WRP_shp <- tribble(~WRP,~Lat, ~Long,
+                   'Tillman', 34.18213, -118.4794,
+                   'Burbank', 34.18237, -118.3189,
+                   'Glendale', 34.13943, -118.2749)
 ```
 
 #  {.tabset .tabset-pills}
@@ -132,7 +138,7 @@ LA_map_reach <- leaflet(options =
   addPolylines(data=river2@lines[[21]],weight=5,col='#b55d19') %>% 
   addPolylines(data=river2@lines[[22]],weight=5,col='#9041ab') %>% 
   addPolylines(data=river2@lines[[23]],weight=5,col='green') %>%
-  addPolylines(data=river2@lines[[24]],weight=5,col='red') 
+  addPolylines(data=river2@lines[[24]],weight=5,col='red')
 
 ```
 
@@ -3094,74 +3100,74 @@ la_map <- reactive({
 ## Flow Depth Visualizer {.tabset}
 
 ```{r}
-LA20_2 <- read.csv("data/XC_LA20_2.csv")
+LA20_2 <- read.csv("data/XC/XC_LA20_2.csv")
 colnames(LA20_2) <- c("Station", "Elevation")
 
-LA11<- read.csv("data/XC_LA11.csv")
+LA11<- read.csv("data/XC/XC_LA11.csv")
 colnames(LA11) <- c("Station", "Elevation")
 
 
-LA11101<- read.csv("data/XC_11101250.csv")
+LA11101<- read.csv("data/XC/XC_11101250.csv")
 colnames(LA11101) <- c("Station", "Elevation") 
 
 
-LAF34D<- read.csv("data/XC_F34D.csv")
+LAF34D<- read.csv("data/XC/XC_F34D.csv")
 colnames(LAF34D) <- c("Station", "Elevation")
 
 
-LAF37B_High<- read.csv("data/XC_F37B_High.csv")
+LAF37B_High<- read.csv("data/XC/XC_F37B_High.csv")
 colnames(LAF37B_High) <- c("Station", "Elevation")
 
 
-LAF3_Low<- read.csv("data/XC_F37B_Low.csv")
+LAF3_Low<- read.csv("data/XC/XC_F37B_Low.csv")
 colnames(LAF3_Low) <- c("Station", "Elevation")
 
 
-LAF45B<- read.csv("data/XC_F45B.csv")
+LAF45B<- read.csv("data/XC/XC_F45B.csv")
 colnames(LAF45B) <- c("Station", "Elevation")
 
 
-LAF57C<- read.csv("data/XC_F57C.csv")
+LAF57C<- read.csv("data/XC/XC_F57C.csv")
 colnames(LAF57C) <- c("Station", "Elevation")
 
 
-LAF300<- read.csv("data/XC_F300.csv")
+LAF300<- read.csv("data/XC/XC_F300.csv")
 colnames(LAF300) <- c("Station", "Elevation")
 
 
-LAF319<- read.csv("data/XC_F319.csv")
+LAF319<- read.csv("data/XC/XC_F319.csv")
 colnames(LAF319) <- c("Station", "Elevation")
 
 
-GLEN<- read.csv("data/XC_GLEN.csv")
+GLEN<- read.csv("data/XC/XC_GLEN.csv")
 colnames(GLEN) <- c("Station", "Elevation")
 
 
-LA1<- read.csv("data/XC_LA1.csv")
+LA1<- read.csv("data/XC/XC_LA1.csv")
 colnames(LA1) <- c("Station", "Elevation")
 
 
-LA2<- read.csv("data/XC_LA2.csv")
+LA2<- read.csv("data/XC/XC_LA2.csv")
 colnames(LA2) <- c("Station", "Elevation")
 
 
-LA3<- read.csv("data/XC_LA3.csv")
+LA3<- read.csv("data/XC/XC_LA3.csv")
 colnames(LA3) <- c("Station", "Elevation")
 
 
-LA8<- read.csv("data/XC_LA8.csv")
+LA8<- read.csv("data/XC/XC_LA8.csv")
 colnames(LA8) <- c("Station", "Elevation")
 
 
-LA13<- read.csv("data/XC_LA13.csv")
+LA13<- read.csv("data/XC/XC_LA13.csv")
 colnames(LA13) <- c("Station", "Elevation")
 
 
-LA14<- read.csv("data/XC_LA14.csv")
+LA14<- read.csv("data/XC/XC_LA14.csv")
 colnames(LA14) <- c("Station", "Elevation")
 
 
-LA20<- read.csv("data/XC_LA20.csv")
+LA20<- read.csv("data/XC/XC_LA20.csv")
 colnames(LA20) <- c("Station", "Elevation")
 
 LA11Depth <- read.csv("data/equationBetter.csv")
