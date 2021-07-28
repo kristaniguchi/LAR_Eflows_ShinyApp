@@ -77,11 +77,11 @@ river_obj <- readOGR("data/reporting_nodes/LAR_reporting_nodes_201002_reportingr
 river <- spTransform(river_obj, CRS("+proj=longlat +datum=WGS84 +no_defs")) # only obtain (lat,lng) for reporting nodes
 
 
-river_mainstem <- readOGR("data/reporting_reaches/LAR_mainstem.shp")
+river_mainstem <- readOGR("data/mainstem/LAR_mainstem.shp")
 river_mainstem <- spTransform(river_mainstem, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
 
-WRP_shp <- tribble(~WRP,~Lat, ~Long,
+WRP_shp <- tribble(~wrp,~Lat, ~Long,
                    'Tillman', 34.18213, -118.4794,
                    'Burbank', 34.18237, -118.3189,
                    'Glendale', 34.13943, -118.2749)
@@ -126,6 +126,9 @@ LA_map_reach <- leaflet(options =
   addTiles(options = providerTileOptions(opacity = 0.5)) %>%
   addMarkers(data = LA_dat,lng = ~ coords.x1, lat = ~ coords.x2, 
              label = ~Reporting_Reach,labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
+  addCircleMarkers(data=WRP_shp,lng= ~ Long, lat = ~ Lat,color = 'navy', radius = 20,
+                   label = WRP_shp$wrp,stroke = FALSE, fillOpacity = 0.4,
+                   labelOptions = labelOptions(textsize="13px")) %>% 
   addPolylines(data=river2@lines[[4]],weight=5,col='purple') %>% 
   addPolylines(data=river2@lines[[7]],weight=5,col='brown') %>% 
   addPolylines(data=river2@lines[[10]],weight=5,col='green') %>% 
