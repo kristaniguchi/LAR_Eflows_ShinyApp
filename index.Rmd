@@ -81,6 +81,10 @@ river_mainstem <- readOGR("data/mainstem/LAR_mainstem.shp")
 river_mainstem <- spTransform(river_mainstem, CRS("+proj=longlat +datum=WGS84 +no_defs"))
 
 
+reporting_reaches <- readOGR("data/reporting_reach/LAR_reporting_reaches.shp")
+reporting_reaches <- spTransform(reporting_reaches, CRS("+proj=longlat +datum=WGS84 +no_defs"))
+
+
 WRP_shp <- tribble(~wrp,~Lat, ~Long,
                    'Tillman', 34.18213, -118.4794,
                    'Burbank', 34.18237, -118.3189,
@@ -123,12 +127,36 @@ LA_map_reach <- leaflet(options =
   htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
   setView(lng = -118.2437, lat =34.0422, zoom = 12)%>%
-  addTiles(options = providerTileOptions(opacity = 0.5)) %>%
+  addTiles(options = providerTileOptions(opacity = 0.3)) %>%
   addMarkers(data = LA_dat,lng = ~ coords.x1, lat = ~ coords.x2, 
              label = ~Reporting_Reach,labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
-  addCircleMarkers(data=WRP_shp,lng= ~ Long, lat = ~ Lat,color = 'navy', radius = 20,
+  addCircleMarkers(data=WRP_shp,lng= ~ Long, lat = ~ Lat,color = 'red', radius = 20,
                    label = WRP_shp$wrp,stroke = FALSE, fillOpacity = 0.4,
                    labelOptions = labelOptions(textsize="13px")) %>% 
+  addPolylines(data = reporting_reaches@lines[[1]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[2]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[3]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[4]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[5]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[6]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[7]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[8]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[9]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[10]],weight=4,color = "gray") %>%   
+  addPolylines(data = reporting_reaches@lines[[11]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[12]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[13]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[14]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[15]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[16]],weight=4,color = "gray") %>%     
+  addPolylines(data = reporting_reaches@lines[[17]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[18]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[19]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[20]],weight=4,color = "gray") %>%
+  addPolylines(data = reporting_reaches@lines[[21]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[22]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[23]],weight=4,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[24]],weight=4,color = "gray") %>% 
   addPolylines(data=river2@lines[[4]],weight=5,col='purple') %>% 
   addPolylines(data=river2@lines[[7]],weight=5,col='brown') %>% 
   addPolylines(data=river2@lines[[10]],weight=5,col='green') %>% 
@@ -142,7 +170,6 @@ LA_map_reach <- leaflet(options =
   addPolylines(data=river2@lines[[22]],weight=5,col='#9041ab') %>% 
   addPolylines(data=river2@lines[[23]],weight=5,col='green') %>%
   addPolylines(data=river2@lines[[24]],weight=5,col='red')
-
 ```
 
 
@@ -157,7 +184,7 @@ LA_map <- reactive({leaflet(options = leafletOptions(
   htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
   setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
-  addTiles(options = providerTileOptions(opacity = 0.5)) %>%
+  addTiles(options = providerTileOptions(opacity = 0.3)) %>%
   addMarkers(lng=-118.247706, lat=34.108175,
              popup=PopcontentLA11,
              label="LA11",
@@ -3009,8 +3036,8 @@ la_map <- reactive({
     htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
     setView(lng = -118.2437, lat =34.0522, zoom = 10)%>%
-    addTiles(options = providerTileOptions(opacity = 1))
-    
+      addTiles(options = providerTileOptions(opacity = 0.3))
+  
   if(input$showlabel){
     LosAngeles <- LosAngeles_nomarkers %>% 
       addCircleMarkers(lng=-118.247706, lat=34.108175, radius = 11,
