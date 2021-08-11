@@ -69,7 +69,7 @@ baseline_dat <- reshape2::melt(read_csv("raw/summary_seasonalWRP_node_baselineon
 
 
 ```{r shape files}
-load("data/shapefilesRdata.Rdata")
+load("data/shapefilesRdata.RData")
 ```
 
 #  {.tabset .tabset-pills}
