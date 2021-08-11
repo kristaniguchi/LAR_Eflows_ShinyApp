@@ -68,32 +68,8 @@ baseline_dat <- reshape2::melt(read_csv("raw/summary_seasonalWRP_node_baselineon
 ```
 
 
-```{r shape files, include=FALSE}
-river2 <- readOGR("data/LAR_reporting_reaches.shp")
-river2 <- spTransform(river2, CRS("+proj=longlat +datum=WGS84 +no_defs")) # used for blue lines
-
-
-river_obj <- readOGR("data/reporting_nodes/LAR_reporting_nodes_201002_reportingreaches.shp")
-river <- spTransform(river_obj, CRS("+proj=longlat +datum=WGS84 +no_defs")) # only obtain (lat,lng) for reporting nodes
-
-
-river_mainstem <- readOGR("data/mainstem/LAR_mainstem.shp")
-river_mainstem <- spTransform(river_mainstem, CRS("+proj=longlat +datum=WGS84 +no_defs"))
-
-
-reporting_reaches <- readOGR("data/reporting_reach/LAR_reporting_reaches.shp")
-reporting_reaches <- spTransform(reporting_reaches, CRS("+proj=longlat +datum=WGS84 +no_defs"))
-
-
-WRP_shp <- tribble(~wrp,~Lat, ~Long,
-                   'Tillman', 34.18213, -118.4794,
-                   'Burbank', 34.18237, -118.3189,
-                   'Glendale', 34.13943, -118.2749)
-
-
-ws_map <- readOGR("data/ws/LAR_ws.shp")
-ws_map <- spTransform(ws_map, CRS("+proj=longlat +datum=WGS84 +no_defs"))
-
+```{r shape files}
+load("data/shapefilesRdata.Rdata")
 ```
 
 #  {.tabset .tabset-pills}
@@ -139,30 +115,6 @@ LA_map_reach <- leaflet(options =
   addCircleMarkers(data=WRP_shp,lng= ~ Long, lat = ~ Lat,color = 'red', radius = 20,
                    label = WRP_shp$wrp,stroke = FALSE, fillOpacity = 0.4,
                    labelOptions = labelOptions(textsize="13px")) %>%
-  addPolylines(data = reporting_reaches@lines[[1]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[2]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[3]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[4]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[5]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[6]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[7]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[8]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[9]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[10]],weight=3,color = "gray") %>%   
-  addPolylines(data = reporting_reaches@lines[[11]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[12]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[13]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[14]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[15]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[16]],weight=3,color = "gray") %>%     
-  addPolylines(data = reporting_reaches@lines[[17]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[18]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[19]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[20]],weight=3,color = "gray") %>%
-  addPolylines(data = reporting_reaches@lines[[21]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[22]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[23]],weight=3,color = "gray") %>% 
-  addPolylines(data = reporting_reaches@lines[[24]],weight=3,color = "gray") %>% 
   addPolylines(data=river2@lines[[4]],weight=4,col='purple') %>% 
   addPolylines(data=river2@lines[[7]],weight=4,col='brown') %>% 
   addPolylines(data=river2@lines[[10]],weight=4,col='green') %>% 
@@ -176,7 +128,20 @@ LA_map_reach <- leaflet(options =
   addPolylines(data=river2@lines[[22]],weight=4,col='#9041ab') %>% 
   addPolylines(data=river2@lines[[23]],weight=4,col='green') %>%
   addPolylines(data=river2@lines[[24]],weight=4,col='red') %>% 
-  addPolylines(data=ws_map@polygons[[1]],weight=3,col='black')
+  addPolylines(data=ws_map@polygons[[1]],weight=3,col='black') %>% 
+  addPolylines(data = reporting_reaches@lines[[1]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[2]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[3]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[5]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[6]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[8]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[9]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[11]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[12]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[13]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[14]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[23]],weight=3,color = "gray") 
+
   
 ```
 
@@ -248,7 +213,13 @@ LA_map <- reactive({leaflet(options = leafletOptions(
                label="11101250",
                labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
     addPolylines(data=river_mainstem,weight=4,col = 'blue') %>% 
-    addPolylines(data=ws_map@polygons[[1]],weight=3,col='black')
+    addPolylines(data=ws_map@polygons[[1]],weight=3,col='black') %>% 
+    addPolylines(data = reporting_reaches@lines[[4]],weight=3,color = 'blue') %>% 
+    addPolylines(data = reporting_reaches@lines[[10]],weight=3,color = 'blue') %>% 
+    addPolylines(data = reporting_reaches@lines[[24]],weight=3,color = 'blue') 
+
+  
+
 })
 ```
 
