@@ -68,17 +68,8 @@ baseline_dat <- reshape2::melt(read_csv("raw/summary_seasonalWRP_node_baselineon
 ```
 
 
-```{r, include=FALSE}
-river2 <- readOGR("data/LAR_reporting_reaches.shp")
-river2 <- spTransform(river2, CRS("+proj=longlat +datum=WGS84 +no_defs")) # used for blue lines
-
-
-river_obj <- readOGR("data/reporting_nodes/LAR_reporting_nodes_201002_reportingreaches.shp")
-river <- spTransform(river_obj, CRS("+proj=longlat +datum=WGS84 +no_defs")) # only obtain (lat,lng) for reporting nodes
-
-
-river_mainstem <- readOGR("data/reporting_reaches/LAR_mainstem.shp")
-river_mainstem <- spTransform(river_mainstem, CRS("+proj=longlat +datum=WGS84 +no_defs"))
+```{r shape files}
+load("data/shapefilesRdata.RData")
 ```
 
 #  {.tabset .tabset-pills}
@@ -109,7 +100,8 @@ For more information about this project, go to <https://www.sccwrp.org/about/res
 ```{r}
 LA_dat <- cbind.data.frame(river@coords,'Reporting_Reach'=river@data[,'Reporting_']) %>% 
   mutate(Reporting_Reach = c("Compton Creek","Compton Creek",
-                             str_extract(Reporting_Reach[-c(1:2)],"^.*(?=( -))")))
+                             str_extract(Reporting_Reach[-c(1:2)],"^.*(?=( -))"))) %>% 
+  distinct(Reporting_Reach,.keep_all = TRUE)
 
 
 LA_map_reach <- leaflet(options = 
@@ -117,23 +109,40 @@ LA_map_reach <- leaflet(options =
   htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
   setView(lng = -118.2437, lat =34.0422, zoom = 12)%>%
-  addTiles(options = providerTileOptions(opacity = 0.5)) %>%
+  addTiles(options = providerTileOptions(opacity = 0.3)) %>%
   addMarkers(data = LA_dat,lng = ~ coords.x1, lat = ~ coords.x2, 
              label = ~Reporting_Reach,labelOptions = labelOptions(noHide = T,textsize="13px")) %>% 
-  addPolylines(data=river2@lines[[4]],weight=5,col='purple') %>% 
-  addPolylines(data=river2@lines[[7]],weight=5,col='brown') %>% 
-  addPolylines(data=river2@lines[[10]],weight=5,col='green') %>% 
-  addPolylines(data=river2@lines[[15]],weight=5,col='#5490d6') %>% 
-  addPolylines(data=river2@lines[[16]],weight=5,col='#5490d6') %>% 
-  addPolylines(data=river2@lines[[17]],weight=5,col='blue') %>% 
-  addPolylines(data=river2@lines[[18]],weight=5,col='purple') %>% 
-  addPolylines(data=river2@lines[[19]],weight=5,col='#ff7003') %>% 
-  addPolylines(data=river2@lines[[20]],weight=5,col='brown') %>% 
-  addPolylines(data=river2@lines[[21]],weight=5,col='#b55d19') %>% 
-  addPolylines(data=river2@lines[[22]],weight=5,col='#9041ab') %>% 
-  addPolylines(data=river2@lines[[23]],weight=5,col='green') %>%
-  addPolylines(data=river2@lines[[24]],weight=5,col='red') 
+  addCircleMarkers(data=WRP_shp,lng= ~ Long, lat = ~ Lat,color = 'red', radius = 20,
+                   label = WRP_shp$wrp,stroke = FALSE, fillOpacity = 0.4,
+                   labelOptions = labelOptions(textsize="13px")) %>%
+  addPolylines(data=river2@lines[[4]],weight=4,col='purple') %>% 
+  addPolylines(data=river2@lines[[7]],weight=4,col='brown') %>% 
+  addPolylines(data=river2@lines[[10]],weight=4,col='green') %>% 
+  addPolylines(data=river2@lines[[15]],weight=4,col='#5490d6') %>% 
+  addPolylines(data=river2@lines[[16]],weight=4,col='#5490d6') %>% 
+  addPolylines(data=river2@lines[[17]],weight=4,col='blue') %>% 
+  addPolylines(data=river2@lines[[18]],weight=4,col='purple') %>% 
+  addPolylines(data=river2@lines[[19]],weight=4,col='#ff7003') %>% 
+  addPolylines(data=river2@lines[[20]],weight=4,col='brown') %>% 
+  addPolylines(data=river2@lines[[21]],weight=4,col='#b55d19') %>% 
+  addPolylines(data=river2@lines[[22]],weight=4,col='#9041ab') %>% 
+  addPolylines(data=river2@lines[[23]],weight=4,col='green') %>%
+  addPolylines(data=river2@lines[[24]],weight=4,col='red') %>% 
+  addPolylines(data=ws_map@polygons[[1]],weight=3,col='black') %>% 
+  addPolylines(data = reporting_reaches@lines[[1]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[2]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[3]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[5]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[6]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[8]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[9]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[11]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[12]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[13]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[14]],weight=3,color = "gray") %>% 
+  addPolylines(data = reporting_reaches@lines[[23]],weight=3,color = "gray") 
 
+  
 ```
 
 
@@ -145,53 +154,72 @@ LA_map_reach <- leaflet(options =
 ```{r}
 LA_map <- reactive({leaflet(options = leafletOptions( 
   minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
-  htmlwidgets::onRender("function(el, x) {
+    htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
-  setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
-  addTiles(options = providerTileOptions(opacity = 0.5)) %>%
-  addMarkers(lng=-118.247706, lat=34.108175,
-             popup=PopcontentLA11,
-             label="LA11",
-             labelOptions = labelOptions(noHide = T,textsize="13px"))%>% #MarkerHome
-  addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
-             label="LA20",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.484394, lat=34.173175,
-             popup=PopcontentLA20_2,
-             label="LA20_2",
-             labelOptions = labelOptions(noHide = T,textsize="13px"))%>%
-  addMarkers(lng=-118.173592, lat=33.948297,
-             popup=PopcontentF34D,
-             label="F34D",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.228233, lat=34.085803,
-             popup=PopcontentF57C,
-             label="F57C",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.275339, lat=34.136858,
-             popup=PopcontentGLEN,
-             label="GLEN",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.196333, lat=33.8639,popup=PopcontentLA3,
-             label="LA3",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.228603, lat=34.040528,
-             popup=PopcontentLA8,
-             label="LA8",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.299758, lat=34.156839,popup=PopcontentLA14,
-             label="LA14",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.205728, lat=33.817733,popup=PopcontentF319,
-             label="F319",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.378453, lat=34.1411,popup=PopcontentF300,
-             label="F300",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
-             label="LA13",
-             labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-  addPolylines(data=river_mainstem,weight=4,col = 'blue')
+    setView(lng = -118.2437, lat =34.0522, zoom = 11)%>%
+    addTiles(options = providerTileOptions(opacity = 0.3)) %>%
+    addCircleMarkers(data=WRP_shp,lng= ~ Long, lat = ~ Lat,color = 'red', radius = 20,
+                     label = WRP_shp$wrp,stroke = FALSE, fillOpacity = 0.4,
+                     labelOptions = labelOptions(textsize="12px")) %>% 
+    addMarkers(lng=-118.247706, lat=34.108175,
+               popup=PopcontentLA11,
+               label="LA11",
+               labelOptions = labelOptions(noHide = T,textsize="12px"))%>% #MarkerHome
+    addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
+               label="LA20",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.484394, lat=34.173175,
+               popup=PopcontentLA20_2,
+               label="LA20_2",
+               labelOptions = labelOptions(noHide = T,textsize="12px"))%>%
+    addMarkers(lng=-118.173592, lat=33.948297,
+               popup=PopcontentF34D,
+               label="F34D",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.228233, lat=34.085803,
+               popup=PopcontentF57C,
+               label="F57C",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.275339, lat=34.136858,
+               popup=PopcontentGLEN,
+               label="GLEN",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.196333, lat=33.8639,popup=PopcontentLA3,
+               label="LA3",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.228603, lat=34.040528,
+               popup=PopcontentLA8,
+               label="LA8",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.299758, lat=34.156839,popup=PopcontentLA14,
+               label="LA14",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.205728, lat=33.817733,popup=PopcontentF319,
+               label="F319",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.378453, lat=34.1411,popup=PopcontentF300,
+               label="F300",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
+               label="LA13",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.211672, lat=33.851269,
+               label="F37B_Low",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>% 
+    addMarkers(lng=-118.222186, lat=33.878144,
+               label="F37B_High",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.072069, lat=34.049108,
+               label="11101250",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addPolylines(data=river_mainstem,weight=4,col = 'blue') %>% 
+    addPolylines(data=ws_map@polygons[[1]],weight=3,col='black') %>% 
+    addPolylines(data = reporting_reaches@lines[[4]],weight=3,color = 'blue') %>% 
+    addPolylines(data = reporting_reaches@lines[[10]],weight=3,color = 'blue') %>% 
+    addPolylines(data = reporting_reaches@lines[[24]],weight=3,color = 'blue') 
+
+  
+
 })
 ```
 
@@ -3000,8 +3028,8 @@ la_map <- reactive({
     htmlwidgets::onRender("function(el, x) {
         L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
     setView(lng = -118.2437, lat =34.0522, zoom = 10)%>%
-    addTiles(options = providerTileOptions(opacity = 1))
-    
+      addTiles(options = providerTileOptions(opacity = 0.3))
+  
   if(input$showlabel){
     LosAngeles <- LosAngeles_nomarkers %>% 
       addCircleMarkers(lng=-118.247706, lat=34.108175, radius = 11,
@@ -3054,7 +3082,8 @@ la_map <- reactive({
                        color =  eCol,opacity = 1,popup=PopcontentLA13,
                        label="LA13",
                        labelOptions = labelOptions(noHide = T,textsize="13px")) %>%
-      addPolylines(data=river_mainstem,weight=4,col = 'blue')
+      addPolylines(data=river_mainstem,weight=4,col = 'blue') %>% 
+      addPolylines(data=ws_map@polygons[[1]],weight=3,col='black')
   }
   else{
     LosAngeles <- LosAngeles_nomarkers %>% 
@@ -3083,7 +3112,8 @@ la_map <- reactive({
                        color =  cCol,opacity = 1,popup=PopcontentF300) %>%
       addCircleMarkers(lng=-118.278844, lat=34.150964, radius = 11, 
                        color =  eCol,opacity = 1,popup=PopcontentLA13) %>%
-      addPolylines(data=river_mainstem,weight=4,col = 'blue')    
+      addPolylines(data=river_mainstem,weight=4,col = 'blue') %>% 
+      addPolylines(data=ws_map@polygons[[1]],weight=3,col='black')
   }
   
   
@@ -3094,74 +3124,74 @@ la_map <- reactive({
 ## Flow Depth Visualizer {.tabset}
 
 ```{r}
-LA20_2 <- read.csv("data/XC_LA20_2.csv")
+LA20_2 <- read.csv("data/XC/XC_LA20_2.csv")
 colnames(LA20_2) <- c("Station", "Elevation")
 
-LA11<- read.csv("data/XC_LA11.csv")
+LA11<- read.csv("data/XC/XC_LA11.csv")
 colnames(LA11) <- c("Station", "Elevation")
 
 
-LA11101<- read.csv("data/XC_11101250.csv")
+LA11101<- read.csv("data/XC/XC_11101250.csv")
 colnames(LA11101) <- c("Station", "Elevation") 
 
 
-LAF34D<- read.csv("data/XC_F34D.csv")
+LAF34D<- read.csv("data/XC/XC_F34D.csv")
 colnames(LAF34D) <- c("Station", "Elevation")
 
 
-LAF37B_High<- read.csv("data/XC_F37B_High.csv")
+LAF37B_High<- read.csv("data/XC/XC_F37B_High.csv")
 colnames(LAF37B_High) <- c("Station", "Elevation")
 
 
-LAF3_Low<- read.csv("data/XC_F37B_Low.csv")
+LAF3_Low<- read.csv("data/XC/XC_F37B_Low.csv")
 colnames(LAF3_Low) <- c("Station", "Elevation")
 
 
-LAF45B<- read.csv("data/XC_F45B.csv")
+LAF45B<- read.csv("data/XC/XC_F45B.csv")
 colnames(LAF45B) <- c("Station", "Elevation")
 
 
-LAF57C<- read.csv("data/XC_F57C.csv")
+LAF57C<- read.csv("data/XC/XC_F57C.csv")
 colnames(LAF57C) <- c("Station", "Elevation")
 
 
-LAF300<- read.csv("data/XC_F300.csv")
+LAF300<- read.csv("data/XC/XC_F300.csv")
 colnames(LAF300) <- c("Station", "Elevation")
 
 
-LAF319<- read.csv("data/XC_F319.csv")
+LAF319<- read.csv("data/XC/XC_F319.csv")
 colnames(LAF319) <- c("Station", "Elevation")
 
 
-GLEN<- read.csv("data/XC_GLEN.csv")
+GLEN<- read.csv("data/XC/XC_GLEN.csv")
 colnames(GLEN) <- c("Station", "Elevation")
 
 
-LA1<- read.csv("data/XC_LA1.csv")
+LA1<- read.csv("data/XC/XC_LA1.csv")
 colnames(LA1) <- c("Station", "Elevation")
 
 
-LA2<- read.csv("data/XC_LA2.csv")
+LA2<- read.csv("data/XC/XC_LA2.csv")
 colnames(LA2) <- c("Station", "Elevation")
 
 
-LA3<- read.csv("data/XC_LA3.csv")
+LA3<- read.csv("data/XC/XC_LA3.csv")
 colnames(LA3) <- c("Station", "Elevation")
 
 
-LA8<- read.csv("data/XC_LA8.csv")
+LA8<- read.csv("data/XC/XC_LA8.csv")
 colnames(LA8) <- c("Station", "Elevation")
 
 
-LA13<- read.csv("data/XC_LA13.csv")
+LA13<- read.csv("data/XC/XC_LA13.csv")
 colnames(LA13) <- c("Station", "Elevation")
 
 
-LA14<- read.csv("data/XC_LA14.csv")
+LA14<- read.csv("data/XC/XC_LA14.csv")
 colnames(LA14) <- c("Station", "Elevation")
 
 
-LA20<- read.csv("data/XC_LA20.csv")
+LA20<- read.csv("data/XC/XC_LA20.csv")
 colnames(LA20) <- c("Station", "Elevation")
 
 LA11Depth <- read.csv("data/equationBetter.csv")
