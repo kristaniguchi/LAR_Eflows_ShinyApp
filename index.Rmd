@@ -82,13 +82,14 @@ load("data/shapefilesRdata.RData")
 
 ![](www/logos_all.png)
 
-This interactive web page will allow you to explore flow ranges associated with beneficial uses of the LA River (**Flow Range Determination**) and **Sensitivity Curves**, evaluate the relative effects of various WRP discharges on multiple locations of the river (**Flow Range Heat Map**), and visualize flow at multiple cross sections (**Flow Depth Visualizer**). Start by using the menu sections on the top.
+This interactive web page will allow you to explore flow ranges associated with beneficial uses of the LA River (**Flow Range Determination**)
+and **Sensitivity Curves**, evaluate the relative effects of various WRP discharges on multiple locations of the river (**Flow Range Heat Map**), and visualize flow at multiple cross sections (**Flow Depth Visualizer**). Start by using the menu sections on the top.
 
 ------------------------------------------------------------------------
 
 <font size="5">Project Background</font>
 
-SCCWRP is working with the State Water Resources Control Board and the Los Angeles Regional Water Quality Control Board, in cooperation with local municipalities (including City of LA Bureau of Sanitation, City of LA Department of Water and Power, LA County Department of Public Works, and LA County Sanitation Districts), to conduct the Los Angeles River Environmental Flows Project (Project). The goals of the project are to develop a process for establishing flow criteria, to apply the process to provide recommendations for flow criteria in the LA River, and to produce tools and approaches to evaluate management scenarios necessary to achieve recommended flow criteria. The project also serves as an important pilot application of the California Environmental Flows Framework (CEFF) by demonstrating how CEFF can be applied in a highly urbanized watershed where flow alteration is primarily caused by wastewater and stormwater discharges. The outcomes of this project may also serve as a model for assessing similar situations in other river systems.
+SCCWRP is working with the State Water Resources Control Board and the Los Angeles Regional Water Quality Control Board, in cooperation with local municipalities (including City of LA Bureau of Sanitation, City of LA Department of Water and Power, LA County Department of Public Works, and LA County Sanitation Districts), to conduct the Los Angeles River Environmental Flows Project (Project). The goals of the project are to develop a process for establishing flow criteria, to apply the process to provide recommendations for flow criteria in the LA River, and to produce tools and approaches to evaluate management scenarios necessary to achieve recommended flow criteria. The project also serves as an important pilot application of the <a href="https://ceff.ucdavis.edu/">California Environmental Flows Framework (CEFF)</a> by demonstrating how CEFF can be applied in a highly urbanized watershed where flow alteration is primarily caused by wastewater and stormwater discharges. The outcomes of this project may also serve as a model for assessing similar situations in other river systems.
 
 For more information about this project, go to <https://www.sccwrp.org/about/research-areas/ecohydrology/los-angeles-river-flows-project/>
 
@@ -270,7 +271,7 @@ A suite of flow-based sensitivity curves was developed for 13 reporting nodes al
 
 ![](www/FigureX_SensitivityCurveProcess.jpg)
 
-*Figure 2. Proposed process to use optimal flow range of specific management targets with sensitivity curves to evaluate WRP and dry weather stormdrain scenarios. The optimal flow range can be derived from the process shown in Figure ES-3*
+*Figure 2. Proposed process to use optimal flow range of specific management targets with sensitivity curves to evaluate WRP and dry weather stormdrain scenarios. The optimal flow range can be derived from the process shown in Figure 3*
 
 
 An example application of sensitivity curves at Glendale Narrows (GLEN), shows the optimal flow range for Willow and Typha plotted with the flow-based sensitivity curves representing changes in both WRP and dry weather stormdrain discharge (Figure 3).
@@ -869,6 +870,8 @@ DT::renderDataTable({
     }}
 },options = list(dom = 't'))
 ```
+<p>Species notes: SAS is Santa Ana Sucker;  Cladophora is green algae; Typha is cattail</p>
+Flow metric notes: wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season); wet season peak flow is the 99th percentile of daily flow for the water year.
 
 ## Sensitivity Curves {.tabset .tabset-pills}
 
@@ -1563,7 +1566,8 @@ sens_curve <- reactive({
 ```{r,eval=TRUE}
 renderPlot({sens_curve()})
 ```
-
+<p>Species notes: Typha is cattail </p>
+Flow metric notes: wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season)
 ```{r}
 output$sensitivity_curve <-downloadHandler(
   filename = function() {
@@ -1806,7 +1810,9 @@ fluidPage(
   )
 )
 ```
-
+<p>Species notes: SAS is Santa Ana Sucker;  Cladophora is green algae; Typha is cattail </p>
+Flow metric notes: wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season). Not applicable means that the focal species or recreational uses are not currently observed and will likely not be supported at the node.  Within range means that the current flows support the beneficial use. 
+        
 ```{r}
 checkboxInput("showlabel", "Show Labels", FALSE)
 ```
@@ -2389,48 +2395,48 @@ output$heatmap <- downloadHandler(
 
 ```{r}
  PopcontentLA20 <- paste(sep = "<br/>",
-                          paste0("<b>Learn about LA20</b>"),
+                          paste0("<b>LA20</b>"),
                           paste0("Los Angeles River within Sepulveda Basin"))
   PopcontentLA11 <- paste(sep = "<br/>",
-                          paste0("<b>Learn about LA11</b>"),
+                          paste0("<b>LA11</b>"),
                           paste0("Los Angeles River at Glendale Narrows"))
   PopcontentLA20_2 <- paste(sep = "<br/>",
-                            paste0("<b>Learn about LA20_2</b>"),
+                            paste0("<b>LA20_2</b>"),
                             paste0("Los Angeles River above Sepulveda Basin"))
   
   PopcontentF34D <- paste(sep = "<br/>",
-                          paste0("<b>Learn about F34D</b>"),
+                          paste0("<b>F34D</b>"),
                           paste0("Los Angeles River above confluence with Rio Hondo"))
   
   PopcontentF57C <- paste(sep = "<br/>",
-                          paste0("<b>Learn about F57C</b>"),
+                          paste0("<b>F57C</b>"),
                           paste0("Los Angeles River above confluence with Arroyo Seco"))
   
   PopcontentF300 <- paste(sep = "<br/>",
-                          paste0("<b>Learn about F300</b>"),
+                          paste0("<b>F300</b>"),
                           paste0("Los Angeles River above confluence with Burbank Channel"))
   
   PopcontentF319 <- paste(sep = "<br/>",
-                          paste0("<b>Learn about F319</b>"),
+                          paste0("<b>F319</b>"),
                           paste0("Los Angeles River at Wardlow Gage"))
   
   PopcontentGLEN <- paste(sep = "<br/>",
-                          paste0("<b>Learn about GLEN</b>"),
+                          paste0("<b>GLEN</b>"),
                           paste0("Los Angeles River below Glendale WRP"))
   
   PopcontentLA3 <- paste(sep = "<br/>",
-                         paste0("<b>Learn about LA3</b>"),
+                         paste0("<b>LA3</b>"),
                          paste0("Los Angeles River below confluence with Rio Hondo"))
   
   PopcontentLA8 <- paste(sep = "<br/>",
-                         paste0("<b>Learn about LA8</b>"),
+                         paste0("<b>LA8</b>"),
                          paste0("Los Angeles River above confluence with Rio Hondo"))
   
   PopcontentLA13 <- paste(sep = "<br/>",
-                          paste0("<b>Learn about LA13</b>"),
+                          paste0("<b>LA13</b>"),
                           paste0("Los Angeles River above Glendale WRP"))
   PopcontentLA14 <- paste(sep = "<br/>",
-                          paste0("<b>Learn about LA14</b>"),
+                          paste0("<b>LA14</b>"),
                           paste0("Los Angeles River below confluence with Burbank Channel"))
  
 ```
@@ -3314,13 +3320,14 @@ graphPlan <- reactive({
   better1 <- paste("plot", input$node_depth, sep = "")
   better2 <- paste("y", input$node_depth, sep = "")
   
-  
+  name <- NULL
   if(input$node_depth == "LA20_2"){
     fix <- LA20_2
     yx <- getDepth("LA20_2", input$cfs_depth)
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "LA20_2 - Los Angeles River above Sepulveda Basin"
   }
   if(input$node_depth == "LA11"){
     fix <- LA11
@@ -3328,6 +3335,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "LA11 - Los Angeles River at Glendale Narrows"
   }
   if(input$node_depth == "F34D"){
     fix <- LAF34D
@@ -3335,6 +3343,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "F34D - Los Angeles River above confluence with Rio Hondo"
   }
   if(input$node_depth == "F37B_High"){
     fix <- LAF37B_High
@@ -3342,6 +3351,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "F37B_High - Upper Compton Creek"
   }
   if(input$node_depth == "F37B_Low"){
     fix <- LAF3_Low
@@ -3349,6 +3359,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "F37B_Low - Lower Compton Creek"
   }
   if(input$node_depth == "F45B"){
     fix <- LAF45B
@@ -3356,6 +3367,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "F45B - Rio Hondo below spreading grounds"
   }
   if(input$node_depth == "F57C"){
     fix <- LAF57C
@@ -3363,6 +3375,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "F57C - Los Angeles River above confluence with Arroyo Seco"
   }
   if(input$node_depth == "F300"){
     fix <- LAF300
@@ -3370,6 +3383,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "F300 - Los Angeles River above confluence with Burbank Channel"
   }
   if(input$node_depth == "F319"){
     fix <- LAF319
@@ -3377,6 +3391,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "F319 - Los Angeles River at Wardlow Gage"
   }
   if(input$node_depth == "GLEN"){
     fix <- GLEN
@@ -3384,6 +3399,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "GLEN - Los Angeles River below Glendale WRP"
   }
   if(input$node_depth == "LA3"){
     fix <- LA3
@@ -3391,6 +3407,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "LA3 - Los Angeles River below confluence with Rio Hondo"
   }
   if(input$node_depth == "LA8"){
     fix <- LA8
@@ -3398,6 +3415,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "LA8 - Los Angeles River above confluence with Rio Hondo"
   }
   if(input$node_depth == "LA13"){
     fix <- LA13
@@ -3405,6 +3423,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "LA13 - Los Angeles River above Glendale WRP"
   }
   if(input$node_depth == "LA14"){
     fix <- LA14
@@ -3412,6 +3431,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "LA14 - Los Angeles River below confluence with Burbank Channel"
   }
   if(input$node_depth == "LA20"){
     fix <- LA20
@@ -3419,6 +3439,7 @@ graphPlan <- reactive({
     y <- fix$Elevation - min(fix$Elevation)
     n <- length(y)
     x <- fix$Station 
+    name <- "LA20 - Los Angeles River within Sepulveda Basin"
   }
   
   s = smooth.spline(x, y, spar=0.5)
@@ -3428,8 +3449,8 @@ graphPlan <- reactive({
   y.poly <- c(xy$y, 0, 0)   # .. and the corresponding y-coordinates
   
   plot(x, y, type='n', xlab="Station (ft)", ylab="Depth (ft)", 
-       main = input$node_depth, cex.main = 3, col.main = '#2E8B57',
-       cex.lab = 1.5, cex.sub = 3, col.lab = "#228B22", font.lab = 4, font.main = 4)
+       main = name, cex.main = 2, col.main = '#2E8B57',
+       cex.lab = 1.5, cex.sub = 3, col.lab = "#228B22", font.lab = 3, font.main = 3)
   polygon(c(min(x),min(x), max(x)-2, max(x)-2 ),c(0,yx, yx, 0), col = "#81b7d2")
   polygon(x.poly, y.poly, col= "#c4beb7", border="black") 
   
@@ -3442,7 +3463,7 @@ graphPlan <- reactive({
   
 }) 
 ```
-
+Note: cross-sections are approximate and were smoothed using a spline function. 
 ```{r}
 renderLeaflet({LA_map() })
 ```
