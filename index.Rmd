@@ -870,8 +870,8 @@ DT::renderDataTable({
     }}
 },options = list(dom = 't'))
 ```
-<p>Species notes: SAS is Santa Ana Sucker;  Cladophora is green algae; Typha is cattail</p>
-Flow metric notes: wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season); wet season peak flow is the 99th percentile of daily flow for the water year.
+<p><b>Species notes:</b> SAS is Santa Ana Sucker;  Cladophora is green algae; Typha is cattail</p>
+<b>Flow metric notes:</b> wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season); wet season peak flow is the 99th percentile of daily flow for the water year.
 
 ## Sensitivity Curves {.tabset .tabset-pills}
 
@@ -1566,8 +1566,8 @@ sens_curve <- reactive({
 ```{r,eval=TRUE}
 renderPlot({sens_curve()})
 ```
-<p>Species notes: Typha is cattail </p>
-Flow metric notes: wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season)
+<p><b>Species notes:</b> Typha is cattail </p>
+<b>Flow metric notes:</b> wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season)
 ```{r}
 output$sensitivity_curve <-downloadHandler(
   filename = function() {
@@ -1614,20 +1614,22 @@ SpeciesProb_dat <- reactive({
   validate(need(input$sens_season != ""," "))
   validate(need(input$species.lifestage != ""," "))
   
+
+  
   if(input$sens_season == "dry"){
     out <- SpeciesProb %>%
       filter(ReportingNode == input$node) %>% 
       filter(season == input$sens_season) %>% 
       filter(species.lifestage == input$species.lifestage) %>%
       rename(seasonal.wrp.Q = dry_season)
-  }else{
+  }
+  if(input$sens_season == "wet"){
     out <- SpeciesProb %>%
       filter(ReportingNode == input$node) %>% 
       filter(season == input$sens_season) %>% 
-      filter(species.lifestage.hyd == input$species.lifestage) %>%
+      filter(species.lifestage == input$species.lifestage) %>%
       rename(seasonal.wrp.Q = wet_season)
   }
-
   
   return(out)
 })
@@ -1750,7 +1752,26 @@ fluidPage(
                   selectInput("season2", "Season Baseflow:",
                               c("Wet" = "wet", "Dry" = "dry")),
                   
-                  renderUI({
+                 
+                  sliderInput("wrp", "WRP Discharge (cfs):",
+                              min = 1, max = 100, value = 1),
+                  
+                  downloadButton('heatmap', 'Download  Heat Map')),
+    
+    mainPanel(
+      renderPlot({heatmap_plot()},height = 650, width =700)
+    )
+    
+    
+  )
+)
+```
+<p><b>Species notes:</b> SAS is Santa Ana Sucker;  Cladophora is green algae; Typha is cattail </p>
+<b>Flow metric notes:</b> wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season). Not applicable means that the focal species or recreational uses are not currently observed and will likely not be supported at the node.  Within range means that the current flows support the beneficial use. 
+        
+```{r}
+checkboxInput("showlabel", "Show Labels", FALSE)
+renderUI({
                     validate(need(input$hab != ""," "))
                     if(input$hab == 'ALL'){
                       x <-  c( 
@@ -1796,25 +1817,7 @@ fluidPage(
                     selectInput("use", "Select Species:",
                                 x) 
                     
-                  }),
-                  sliderInput("wrp", "WRP Discharge (cfs):",
-                              min = 1, max = 100, value = 1),
-                  
-                  downloadButton('heatmap', 'Download  Heat Map')),
-    
-    mainPanel(
-      renderPlot({heatmap_plot()},height = 650, width =700)
-    )
-    
-    
-  )
-)
-```
-<p>Species notes: SAS is Santa Ana Sucker;  Cladophora is green algae; Typha is cattail </p>
-Flow metric notes: wet-season baseflow is the magnitude of wet season baseflow (10th percentile of daily flows, during the wet season, including peak flow events); dry-season baseflow is the dry season baseflow magnitude (the 50th percentile of daily flow, during the dry season). Not applicable means that the focal species or recreational uses are not currently observed and will likely not be supported at the node.  Within range means that the current flows support the beneficial use. 
-        
-```{r}
-checkboxInput("showlabel", "Show Labels", FALSE)
+                  })
 ```
 
 ```{r}
@@ -3227,7 +3230,7 @@ fixedRow(
          })
   ),
   column(3,tags$h1(""),
-         tags$h2(style="color:#2E8B57",    
+         tags$h2(style="font-size: 25px",     
          renderText({paste0("Depth (ft):"," ",round(getDepth(input$node_depth, input$cfs_depth),2))}))
   )
 )
@@ -3449,8 +3452,8 @@ graphPlan <- reactive({
   y.poly <- c(xy$y, 0, 0)   # .. and the corresponding y-coordinates
   
   plot(x, y, type='n', xlab="Station (ft)", ylab="Depth (ft)", 
-       main = name, cex.main = 2, col.main = '#2E8B57',
-       cex.lab = 1.5, cex.sub = 3, col.lab = "#228B22", font.lab = 3, font.main = 3)
+       main = name, cex.main = 2,
+       cex.lab = 1.5, cex.sub = 3,font.lab = 3, font.main = 3)
   polygon(c(min(x),min(x), max(x)-2, max(x)-2 ),c(0,yx, yx, 0), col = "#81b7d2")
   polygon(x.poly, y.poly, col= "#c4beb7", border="black") 
   
