@@ -7,11 +7,13 @@ runtime: shiny
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(shinyjs)
 library(ggthemes)
 library(glue)
 library(leaflet)
 library(ggfittext)
 library(rgdal)
+useShinyjs(rmd = TRUE)
 
 knitr::opts_chunk$set(echo = FALSE,warning = FALSE,comment = NA,message = FALSE)
 
@@ -1608,6 +1610,8 @@ column(12,
               downloadButton('species_curve', 'Download Species Curve')))
 ```
 
+
+
 ```{r}
 SpeciesProb_dat <- reactive({
   validate(need(input$node != ""," "))
@@ -1709,6 +1713,7 @@ output$species_curve <-downloadHandler(
   }
 )
 ```
+
 
 ## Flow Range Heat Map
 
@@ -3315,6 +3320,8 @@ draw.stick <- function(x,y,scale=1,arms="down",  #Francis Smart made this stick 
 ```
 
 ```{r}
+lat <- NULL
+long <- NULL
 graphPlan <- reactive({
   
   validate(need(input$node_depth !=""," "))
@@ -3331,6 +3338,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "LA20_2 - Los Angeles River above Sepulveda Basin"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "LA11"){
     fix <- LA11
@@ -3339,6 +3348,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "LA11 - Los Angeles River at Glendale Narrows"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "F34D"){
     fix <- LAF34D
@@ -3347,6 +3358,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "F34D - Los Angeles River above confluence with Rio Hondo"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "F37B_High"){
     fix <- LAF37B_High
@@ -3355,6 +3368,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "F37B_High - Upper Compton Creek"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "F37B_Low"){
     fix <- LAF3_Low
@@ -3363,6 +3378,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "F37B_Low - Lower Compton Creek"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "F45B"){
     fix <- LAF45B
@@ -3371,6 +3388,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "F45B - Rio Hondo below spreading grounds"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "F57C"){
     fix <- LAF57C
@@ -3379,6 +3398,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "F57C - Los Angeles River above confluence with Arroyo Seco"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "F300"){
     fix <- LAF300
@@ -3387,6 +3408,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "F300 - Los Angeles River above confluence with Burbank Channel"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "F319"){
     fix <- LAF319
@@ -3395,6 +3418,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "F319 - Los Angeles River at Wardlow Gage"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "GLEN"){
     fix <- GLEN
@@ -3403,6 +3428,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "GLEN - Los Angeles River below Glendale WRP"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "LA3"){
     fix <- LA3
@@ -3411,6 +3438,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "LA3 - Los Angeles River below confluence with Rio Hondo"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "LA8"){
     fix <- LA8
@@ -3419,6 +3448,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "LA8 - Los Angeles River above confluence with Rio Hondo"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "LA13"){
     fix <- LA13
@@ -3427,6 +3458,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "LA13 - Los Angeles River above Glendale WRP"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "LA14"){
     fix <- LA14
@@ -3435,6 +3468,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "LA14 - Los Angeles River below confluence with Burbank Channel"
+    lat <- 34.184708
+    long <- -118.514642
   }
   if(input$node_depth == "LA20"){
     fix <- LA20
@@ -3443,6 +3478,8 @@ graphPlan <- reactive({
     n <- length(y)
     x <- fix$Station 
     name <- "LA20 - Los Angeles River within Sepulveda Basin"
+    lat <- 34.184708
+    long <- -118.514642
   }
   
   s = smooth.spline(x, y, spar=0.5)
@@ -3468,5 +3505,139 @@ graphPlan <- reactive({
 ```
 Note: cross-sections are approximate and were smoothed using a spline function. 
 ```{r}
-renderLeaflet({LA_map() })
+lat <- 0 
+long <- 0 
+LA_mapNew <- reactive({
+  if(input$node_depth == "LA20_2"){
+    lat <- 34.173175
+    long <- -118.484394
+  }
+  if(input$node_depth == "LA11"){
+    lat <- 34.108175
+    long <- -118.247706
+  }
+  if(input$node_depth == "F34D"){
+    lat <- 33.948297
+    long <- -118.173592
+  }
+  if(input$node_depth == "F37B_High"){
+    lat <- 33.878144
+    long <- -118.222186
+  }
+  if(input$node_depth == "F37B_Low"){
+    lat <- 33.851269
+    long <- -118.211672
+  }
+  if(input$node_depth == "F45B"){ 
+    lat <- 34.049108
+    long <- -118.072069
+  }
+  if(input$node_depth == "F57C"){
+    lat <- 34.085803
+    long <- -118.228233
+  }
+  if(input$node_depth == "F300"){
+    lat <- 34.1411
+    long <- -118.378453
+  }
+  if(input$node_depth == "F319"){
+    lat <- 33.817733
+    long <- -118.205728
+  }
+  if(input$node_depth == "GLEN"){
+    lat <- 34.136858
+    long <- -118.275339
+  }
+  if(input$node_depth == "LA3"){
+    lat <- 33.8639
+    long <- -118.196333
+  }
+  if(input$node_depth == "LA8"){
+    lat <- 34.040528
+    long <- -118.228603
+  }
+  if(input$node_depth == "LA13"){
+    lat <- 34.150964
+    long <- -118.278844
+  }
+  if(input$node_depth == "LA14"){
+    lat <- 34.156839
+    long <- -118.299758
+  }
+  if(input$node_depth == "LA20"){
+    lat <- 34.184708
+    long <- -118.514642
+  }
+  
+  leaflet(options = leafletOptions( 
+  minZoom = 8,     maxZoom = 16, zoomControl = FALSE )) %>%
+    htmlwidgets::onRender("function(el, x) {
+        L.control.zoom({ position: 'topright' }).addTo(this)}") %>%
+    setView(lng = long, lat =lat, zoom = 14)%>%
+    addTiles(options = providerTileOptions(opacity = 0.3)) %>%
+    addCircleMarkers(data=WRP_shp,lng= ~ Long, lat = ~ Lat,color = 'red', radius = 20,
+                     label = WRP_shp$wrp,stroke = FALSE, fillOpacity = 0.4,
+                     labelOptions = labelOptions(textsize="12px")) %>% 
+    addMarkers(lng=-118.247706, lat=34.108175,
+               popup=PopcontentLA11,
+               label="LA11",
+               labelOptions = labelOptions(noHide = T,textsize="12px"))%>% #MarkerHome
+    addMarkers(lng=-118.514642, lat=34.184708,popup=PopcontentLA20,
+               label="LA20",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.484394, lat=34.173175,
+               popup=PopcontentLA20_2,
+               label="LA20_2",
+               labelOptions = labelOptions(noHide = T,textsize="12px"))%>%
+    addMarkers(lng=-118.173592, lat=33.948297,
+               popup=PopcontentF34D,
+               label="F34D",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.228233, lat=34.085803,
+               popup=PopcontentF57C,
+               label="F57C",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.275339, lat=34.136858,
+               popup=PopcontentGLEN,
+               label="GLEN",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.196333, lat=33.8639,popup=PopcontentLA3,
+               label="LA3",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.228603, lat=34.040528,
+               popup=PopcontentLA8,
+               label="LA8",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.299758, lat=34.156839,popup=PopcontentLA14,
+               label="LA14",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.205728, lat=33.817733,popup=PopcontentF319,
+               label="F319",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.378453, lat=34.1411,popup=PopcontentF300,
+               label="F300",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.278844, lat=34.150964,popup=PopcontentLA13,
+               label="LA13",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.211672, lat=33.851269,
+               label="F37B_Low",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>% 
+    addMarkers(lng=-118.222186, lat=33.878144,
+               label="F37B_High",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addMarkers(lng=-118.072069, lat=34.049108,
+               label="11101250",
+               labelOptions = labelOptions(noHide = T,textsize="12px")) %>%
+    addPolylines(data=river_mainstem,weight=4,col = 'blue') %>% 
+    addPolylines(data=ws_map@polygons[[1]],weight=3,col='black') %>% 
+    addPolylines(data = reporting_reaches@lines[[4]],weight=3,color = 'blue') %>% 
+    addPolylines(data = reporting_reaches@lines[[10]],weight=3,color = 'blue') %>% 
+    addPolylines(data = reporting_reaches@lines[[24]],weight=3,color = 'blue') 
+
+  
+
+})
+
+renderLeaflet({LA_mapNew() })
 ```
