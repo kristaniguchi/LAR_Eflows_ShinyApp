@@ -3634,9 +3634,6 @@ LA_mapNew <- reactive({
     addPolylines(data = reporting_reaches@lines[[4]],weight=3,color = 'blue') %>% 
     addPolylines(data = reporting_reaches@lines[[10]],weight=3,color = 'blue') %>% 
     addPolylines(data = reporting_reaches@lines[[24]],weight=3,color = 'blue') 
-
-  
-
 })
 
 renderLeaflet({LA_mapNew() })
